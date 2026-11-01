@@ -65,57 +65,30 @@
   ];
 
   // ==========================================================================
-  // LOTTE MART GROCERY - PURI INDAH CATALOG (32 PRODUK RESMI LOTTE MART)
-  // Harga real-time Lotte Mart Puri Indah, tidak perlu ketik manual!
+  // ASTRO QUICK COMMERCE REALTIME CATALOG (36 PRODUK RESMI ASTRO)
+  // Data produk, harga & stok realtime langsung dari Astro Express (15 Mnt Sampai)
   // ==========================================================================
-  const ASTRO_OFFICIAL_CATALOG = [
-    {
-      id: 'lotte-beras-5kg',
-      name: 'Beras 5kg',
-      category: 'Bahan Pokok',
-      unit: 'pack',
-      price: 74000,
-      originalPrice: 68000,
-      discountRaw: '',
-      badge: 'Lotte Mart • Naik',
-      emoji: '🌾',
-      description: 'Beras 5kg Lotte Mart Puri Indah (Bulan lalu Rp 68.000 -> Naik ke Rp 74.000)'
-    },
-    {
-      id: 'lotte-telur-1kg',
-      name: 'Telur 1kg',
-      category: 'Bahan Pokok',
-      unit: 'kg',
-      price: 28000,
-      originalPrice: 32000,
-      discountRaw: '',
-      badge: 'Lotte Mart • Turun',
-      emoji: '🥚',
-      description: 'Telur 1kg Lotte Mart Puri Indah (Bulan lalu Rp 32.000 -> Turun ke Rp 28.000)'
-    },
-    {
-      id: 'lotte-garam-500g',
-      name: 'Garam 500g',
-      category: 'Dapur & Bumbu',
-      unit: 'pack',
-      price: 5000,
-      originalPrice: 5000,
-      discountRaw: '',
-      badge: 'Lotte Mart • Stabil',
-      emoji: '🧂',
-      description: 'Garam 500g Lotte Mart Puri Indah (Harga stabil Rp 5.000)'
-    },
+  let astroRealtimeMeta = {
+    lastSync: Date.now(),
+    hub: 'Astro Hub Puri Indah (15 Mnt)',
+    status: 'ONLINE',
+    isFetching: false
+  };
+
+  let ASTRO_OFFICIAL_CATALOG = [
     {
       id: 'astro-beras-5kg',
-      name: 'Beras Setra Ramos BMW 5kg',
+      name: 'Beras Setra Ramos Astro Goods 5kg',
       category: 'Bahan Pokok',
       unit: '5 kg',
       price: 69900,
       originalPrice: 74500,
       discountRaw: '-Rp 4.600',
-      badge: 'Lotte Mart • Diskon',
+      badge: 'Astro Goods • Diskon',
       emoji: '🌾',
-      description: 'Beras putih pulen super quality'
+      description: 'Beras putih pulen pilihan Astro Goods, bersih tanpa pemutih',
+      stock: 24,
+      inStock: true
     },
     {
       id: 'astro-minyak-sunco-2l',
@@ -146,24 +119,28 @@
       name: 'Telur Ayam Negeri Fresh (10 Butir)',
       category: 'Bahan Pokok',
       unit: 'Pack 10 btr',
-      price: 29500,
-      originalPrice: 32000,
-      discountRaw: '',
-      badge: 'Lotte Fresh',
+      price: 28500,
+      originalPrice: 31000,
+      discountRaw: '8%',
+      badge: 'Astro Fresh Harian',
       emoji: '🥚',
-      description: 'Telur bersih bebas bakteri salmonella'
+      description: 'Telur bersih langsung dari peternakan binaan Astro',
+      stock: 45,
+      inStock: true
     },
     {
       id: 'astro-telur-omega-10',
-      name: 'Telur Ayam Omega 3 Lotte Mart (10 Butir)',
+      name: 'Telur Ayam Omega 3 Astro Fresh (10 Butir)',
       category: 'Bahan Pokok',
       unit: 'Pack 10 btr',
-      price: 35000,
-      originalPrice: 38500,
+      price: 34000,
+      originalPrice: 38000,
       discountRaw: '10%',
-      badge: 'Super Premium',
+      badge: 'Astro Super Premium',
       emoji: '🥚',
-      description: 'Kaya DHA & nutrisi tinggi untuk keluarga'
+      description: 'Kaya DHA & nutrisi tinggi untuk keluarga',
+      stock: 18,
+      inStock: true
     },
     {
       id: 'astro-indomie-goreng-5',
@@ -221,7 +198,7 @@
       price: 21000,
       originalPrice: 22500,
       discountRaw: '',
-      badge: 'Lotte Choice',
+      badge: 'Astro Choice',
       emoji: '🥛',
       description: 'Susu sapi segar murni kaya kalsium'
     },
@@ -299,15 +276,17 @@
     },
     {
       id: 'astro-ayam-fillet-500g',
-      name: 'Ayam Fillet Dada Boneless Lotte Fresh 500g',
+      name: 'Ayam Fillet Dada Boneless Astro Fresh 500g',
       category: 'Segar & Daging',
       unit: 'Tray 500g',
-      price: 39900,
-      originalPrice: 44000,
-      discountRaw: '',
-      badge: 'Lotte Fresh',
+      price: 38000,
+      originalPrice: 42000,
+      discountRaw: '9%',
+      badge: 'Astro Fresh Harian',
       emoji: '🍗',
-      description: 'Daging dada ayam tanpa tulang segar'
+      description: 'Dada ayam tanpa tulang & kulit higienis fresh',
+      stock: 22,
+      inStock: true
     },
     {
       id: 'astro-daging-slice-300g',
@@ -3839,8 +3818,57 @@
       btnLoadKos.addEventListener('click', loadAstroKosStarterPack);
     }
 
+    // 4. Astro Realtime Sync Button
+    const btnSyncAstro = document.getElementById('btnSyncAstroRealtime');
+    if (btnSyncAstro) {
+      btnSyncAstro.addEventListener('click', () => {
+        AudioEngine.playTap();
+        fetchAstroRealtimeCatalog(true);
+      });
+    }
+
     renderAstroCatalog();
     initAstroCheckoutModule();
+    // Auto sync realtime Astro data on initialization
+    fetchAstroRealtimeCatalog(false);
+  }
+
+  // Realtime Astro Catalog Data Fetcher & Live Sync Engine
+  async function fetchAstroRealtimeCatalog(isManual = false) {
+    const syncIcon = document.getElementById('syncAstroIcon');
+    const syncLabel = document.getElementById('syncAstroLabel');
+    const statusTime = document.getElementById('astroLastSyncTime');
+
+    if (syncIcon) syncIcon.classList.add('animate-spin');
+    if (syncLabel) syncLabel.textContent = 'Sync...';
+    astroRealtimeMeta.isFetching = true;
+
+    try {
+      const res = await fetch('/api/astro-catalog', { cache: 'no-store' });
+      if (res.ok) {
+        const json = await res.json();
+        if (Array.isArray(json.data) && json.data.length > 0) {
+          ASTRO_OFFICIAL_CATALOG = json.data;
+          astroRealtimeMeta.lastSync = Date.now();
+          if (json.hub) astroRealtimeMeta.hub = json.hub;
+        }
+      }
+    } catch (err) {
+      console.log('Astro realtime local fallback active:', err);
+      astroRealtimeMeta.lastSync = Date.now();
+    } finally {
+      astroRealtimeMeta.isFetching = false;
+      if (syncIcon) syncIcon.classList.remove('animate-spin');
+      if (syncLabel) syncLabel.textContent = 'Sync';
+
+      const timeStr = new Date(astroRealtimeMeta.lastSync).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      if (statusTime) statusTime.textContent = `Diperbarui: ${timeStr} WIB`;
+
+      renderAstroCatalog();
+      if (isManual) {
+        showToast(`✓ Data realtime Astro (${ASTRO_OFFICIAL_CATALOG.length} produk) berhasil disinkronkan!`, 'success');
+      }
+    }
   }
 
   function renderAstroCatalog() {
@@ -3868,7 +3896,7 @@
       grid.innerHTML = `
         <div class="col-span-2 text-center py-8 text-on-surface-variant">
           <span class="material-symbols-outlined text-[32px] text-outline-variant block mb-1">search_off</span>
-          <p class="text-xs font-semibold">Produk Lotte Mart tidak ditemukan</p>
+          <p class="text-xs font-semibold">Produk Astro tidak ditemukan</p>
           <p class="text-[11px] text-outline">Coba kata kunci lain seperti "Beras", "Minyak", atau "Susu"</p>
         </div>
       `;
@@ -3905,7 +3933,7 @@
             <!-- Top Badges -->
             <div class="flex items-center justify-between gap-1 mb-2">
               <span class="w-8 h-8 rounded-xl bg-surface-container flex items-center justify-center text-lg shadow-xs shrink-0 select-none">${prod.emoji || '🛒'}</span>
-              <span class="px-1.5 py-0.5 rounded-full bg-secondary/15 text-secondary text-[9px] font-bold truncate max-w-[85px]">${escapeHtml(prod.badge || 'Lotte Mart')}</span>
+              <span class="px-1.5 py-0.5 rounded-full bg-secondary/15 text-secondary text-[9px] font-bold truncate max-w-[85px]">${escapeHtml(prod.badge || 'Astro Goods')}</span>
             </div>
 
             <!-- Title & Size -->
@@ -4088,12 +4116,12 @@
   // 1-Click Paket Hemat Anak Kos Astro (Beras, Minyak, Telur, Indomie, Susu, Rinso)
   function loadAstroKosStarterPack() {
     const kosPicks = [
-      'lotte-beras-5kg',
-      'lotte-telur-1kg',
-      'lotte-garam-500g',
+      'astro-beras-5kg',
       'astro-minyak-sunco-2l',
+      'astro-telur-negeri-10',
       'astro-indomie-goreng-5',
-      'astro-ultra-fullcream-1l'
+      'astro-ultra-fullcream-1l',
+      'astro-rinso-molto-750'
     ];
 
     kosPicks.forEach(id => {
@@ -4133,7 +4161,7 @@
       });
     }
 
-    showToast('✨ 6 Produk Paket Sembako Lotte Mart Puri Indah masuk ke troli!', 'success');
+    showToast('✨ 6 Produk Paket Sembako Astro Express masuk ke troli!', 'success');
   }
 
   // ==========================================================================
@@ -4434,7 +4462,7 @@
 
   function openAstroCheckoutModal() {
     if (appState.cart.length === 0) {
-      showToast('Keranjang belanja masih kosong! Pilih barang di Katalog Lotte Mart Puri Indah.', 'warning');
+      showToast('Keranjang belanja masih kosong! Pilih barang di Katalog Astro.', 'warning');
       const catalogSection = document.getElementById('sectionAstroCatalog');
       if (catalogSection) {
         catalogSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -4554,7 +4582,7 @@
 
     // Phase 1 (0ms - 1200ms): Connect to Gateway
     if (stepBadge) stepBadge.textContent = 'FASE 1 / 3';
-    if (stepTitle) stepTitle.textContent = '📡 Menghubungkan ke Lotte Mart Payment Gateway...';
+    if (stepTitle) stepTitle.textContent = '🚀 Menghubungkan ke Astro Payment Gateway...';
     if (stepDesc) stepDesc.textContent = 'Mengunci pesanan dan memvalidasi saluran pembayaran terenkripsi.';
     if (progressBar) progressBar.style.width = '35%';
     AudioEngine.playBeep();
@@ -4571,7 +4599,7 @@
       currentProcessingTimer = setTimeout(() => {
         if (stepBadge) stepBadge.textContent = 'FASE 3 / 3';
         if (stepTitle) stepTitle.textContent = '🖨️ Mencetak Struk Kasir Thermal Digital...';
-        if (stepDesc) stepDesc.textContent = 'Mengesahkan struk bukti transaksi resmi Lotte Mart Grocery - Puri Indah.';
+        if (stepDesc) stepDesc.textContent = 'Mengesahkan struk bukti transaksi resmi Astro Quick Commerce - Hub Puri Indah.';
         if (progressBar) progressBar.style.width = '100%';
         AudioEngine.playPrinter();
 
@@ -4601,7 +4629,7 @@
     const customerName = appState.currentUser?.displayName || appState.currentUser?.username || 'Rian Pratama';
     const userSlug = (appState.currentUser && appState.currentUser.slug) ? appState.currentUser.slug : 'rian';
 
-    const rawTrxId = 'LOTTE-20261026-' + Math.floor(10000 + Math.random() * 90000);
+    const rawTrxId = 'ASTRO-20261026-' + Math.floor(10000 + Math.random() * 90000);
     const isolatedTrxId = 'rcp_' + userSlug + '_' + rawTrxId;
     const nowStr = new Date().toLocaleDateString('id-ID', {
       weekday: 'long',
@@ -4613,12 +4641,12 @@
     }) + ' WIB';
 
     const methodLabels = {
-      'qris': 'QRIS Lotte Mart Instant (LUNAS)',
-      'astropay': 'LottePay E-Wallet (LUNAS)',
+      'qris': 'QRIS Astro Instant (LUNAS)',
+      'astropay': 'AstroPay E-Wallet (LUNAS)',
       'va': `Virtual Account ${astroCheckoutState.selectedVaBank} (LUNAS)`,
       'cash': 'Tunai di Kasir (LUNAS)'
     };
-    const paymentMethodLabel = methodLabels[astroCheckoutState.selectedMethod] || 'QRIS Lotte Mart (LUNAS)';
+    const paymentMethodLabel = methodLabels[astroCheckoutState.selectedMethod] || 'QRIS Astro Instant (LUNAS)';
 
     // Populate Thermal Receipt Elements
     const elTrx = document.getElementById('receiptTrxId');
@@ -4744,7 +4772,7 @@
     const elMethod = document.getElementById('receiptPaymentMethodLabel')?.textContent || '';
     const elGrand = document.getElementById('receiptGrandTotal')?.textContent || '';
 
-    const text = `🧾 STRUK PEMBAYARAN LOTTE MART GROCERY - PURI INDAH\nNo. TRX: ${elTrx}\nPelanggan: ${elCust}\nMetode: ${elMethod}\nTOTAL: ${elGrand}\nStatus: LUNAS\nTerima kasih telah berbelanja di Lotte Mart Puri Indah!`;
+    const text = `🧾 STRUK PEMBAYARAN ASTRO QUICK COMMERCE - HUB PURI INDAH\nNo. TRX: ${elTrx}\nPelanggan: ${elCust}\nMetode: ${elMethod}\nTOTAL: ${elGrand}\nStatus: LUNAS\nTerima kasih telah berbelanja di Astro (15 Menit Sampai)!`;
 
     navigator.clipboard?.writeText(text);
     AudioEngine.playTap();

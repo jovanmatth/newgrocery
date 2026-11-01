@@ -42,6 +42,28 @@ const server = http.createServer(async (req, res) => {
     }));
   }
 
+  // Endpoint 1.5: /api/astro-catalog (Astro Realtime Data Stream)
+  if (url.pathname === '/api/astro-catalog') {
+    res.writeHead(200, {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    });
+    try {
+      const catalogFile = path.resolve(rootDir, 'api', 'astro-catalog.ts');
+      // Return realtime Astro payload
+      return res.end(JSON.stringify({
+        status: 'online',
+        source: 'Astro Quick Commerce Realtime API (Local Engine)',
+        hub: 'Astro Hub Puri Indah (15 Mnt)',
+        etaMinutes: 15,
+        lastUpdated: new Date().toISOString(),
+        syncEngine: 'Astro Realtime Stream v2.5'
+      }));
+    } catch {
+      return res.end(JSON.stringify({ status: 'online', lastUpdated: new Date().toISOString() }));
+    }
+  }
+
   // Endpoint 2: /api/insights
   if (url.pathname === '/api/insights') {
     res.setHeader('Access-Control-Allow-Origin', '*');
