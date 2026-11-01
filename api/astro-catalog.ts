@@ -526,3 +526,4 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     data: ASTRO_REALTIME_DATA
   });
 }
+

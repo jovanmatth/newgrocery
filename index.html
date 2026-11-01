@@ -1266,20 +1266,19 @@
         </div>
 
         <div>
-          <label class="font-label-sm text-label-sm text-slate-300 font-bold block mb-1">KUANTITAS
-            (QTY)</label>
-          <div class="flex items-center gap-3 bg-white/5 p-1.5 rounded-2xl max-w-[180px] border border-white/10">
+          <label class="font-label-sm text-label-sm text-slate-300 font-bold block mb-1.5 uppercase tracking-wider">KUANTITAS (QTY)</label>
+          <div class="inline-flex items-center justify-between w-44 bg-[#131b2e] p-1.5 rounded-2xl border border-white/15 shadow-inner">
             <button type="button"
-              class="w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500 hover:text-black flex items-center justify-center text-white transition-all active:scale-90 cursor-pointer"
-              id="btnModalQtyMinus">
-              <span class="material-symbols-outlined text-[16px]">remove</span>
+              class="w-10 h-10 rounded-xl bg-white/10 hover:bg-emerald-500 hover:text-black flex items-center justify-center text-white transition-all active:scale-90 cursor-pointer shrink-0 font-bold"
+              id="btnModalQtyMinus" title="Kurangi Kuantitas">
+              <span class="material-symbols-outlined text-[20px]">remove</span>
             </button>
             <input type="number" id="inputItemQty" value="1" min="1" inputmode="numeric" required
-              class="flex-1 text-center bg-transparent font-numeric-md text-numeric-md font-bold text-emerald-400 focus:outline-none">
+              class="w-16 min-w-0 text-center bg-transparent font-mono text-xl font-black text-emerald-400 focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
             <button type="button"
-              class="w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500 hover:text-black flex items-center justify-center text-white transition-all active:scale-90 cursor-pointer"
-              id="btnModalQtyPlus">
-              <span class="material-symbols-outlined text-[16px]">add</span>
+              class="w-10 h-10 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black flex items-center justify-center transition-all active:scale-90 cursor-pointer shrink-0 font-bold shadow-[0_0_12px_rgba(16,185,129,0.35)]"
+              id="btnModalQtyPlus" title="Tambah Kuantitas">
+              <span class="material-symbols-outlined text-[20px]">add</span>
             </button>
           </div>
         </div>

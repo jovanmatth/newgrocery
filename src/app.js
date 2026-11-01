@@ -2011,12 +2011,12 @@
 
           <!-- Bottom Row: Tactile POS Stepper & Chunky Subtotal -->
           <div class="flex items-center justify-between pt-2 border-t border-white/10 mt-1">
-            <div class="flex items-center gap-1.5 bg-white/5 p-1 rounded-xl border border-white/10 shadow-lg">
-              <button type="button" class="w-11 h-11 rounded-lg bg-[#131b2e] border border-white/15 text-white font-black flex items-center justify-center hover:bg-emerald-500 hover:text-black active:scale-95 cursor-pointer transition-all ${item.qty === 1 ? 'text-rose-400 hover:bg-rose-500 hover:text-white' : ''}" onclick="window.changeItemQty('${item.id}', -1)" title="${item.qty === 1 ? 'Hapus Barang' : 'Kurangi'}">
+            <div class="flex items-center gap-1.5 bg-[#131b2e] p-1 rounded-xl border border-white/15 shadow-inner">
+              <button type="button" class="w-10 h-10 rounded-lg bg-white/10 hover:bg-emerald-500 hover:text-black text-white font-black flex items-center justify-center active:scale-95 cursor-pointer transition-all shrink-0 ${item.qty === 1 ? 'text-rose-400 hover:bg-rose-500 hover:text-white' : ''}" onclick="window.changeItemQty('${item.id}', -1)" title="${item.qty === 1 ? 'Hapus Barang' : 'Kurangi'}">
                 <i data-lucide="${item.qty === 1 ? 'trash-2' : 'minus'}"></i>
               </button>
-              <input type="number" inputmode="numeric" min="1" class="w-12 text-center font-mono font-black text-sm text-emerald-400 bg-transparent border-0 focus:ring-1 focus:ring-emerald-400 rounded p-1" value="${item.qty}" onchange="window.setItemQty('${item.id}', this.value)" oninput="window.setItemQty('${item.id}', this.value)" title="Ketik kuantitas langsung" />
-              <button type="button" class="w-11 h-11 rounded-lg bg-[#131b2e] border border-white/15 text-white font-black flex items-center justify-center hover:bg-emerald-500 hover:text-black active:scale-95 cursor-pointer transition-all" onclick="window.changeItemQty('${item.id}', 1)" title="Tambah">
+              <input type="number" inputmode="numeric" min="1" class="w-12 min-w-0 text-center font-mono font-black text-sm text-emerald-400 bg-transparent border-0 focus:outline-none focus:ring-1 focus:ring-emerald-400 rounded p-1 shrink-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" value="${item.qty}" onchange="window.setItemQty('${item.id}', this.value)" oninput="window.setItemQty('${item.id}', this.value)" title="Ketik kuantitas langsung" />
+              <button type="button" class="w-10 h-10 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-black flex items-center justify-center active:scale-95 cursor-pointer transition-all shrink-0 shadow-[0_0_8px_rgba(16,185,129,0.3)]" onclick="window.changeItemQty('${item.id}', 1)" title="Tambah">
                 <i data-lucide="plus"></i>
               </button>
             </div>
