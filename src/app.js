@@ -1912,7 +1912,7 @@
 
     if (filteredItems.length === 0) {
       container.innerHTML = `
-        <div class="p-6 text-center bg-white rounded-2xl border-2 border-dashed border-stone-300 text-stone-500 font-mono text-xs">
+        <div class="p-6 text-center bg-white/5 rounded-2xl border border-white/10 text-slate-400 font-mono text-xs">
           TIDAK ADA ITEM DITEMUKAN PADA KATEGORI INI
         </div>
       `;
@@ -1932,13 +1932,13 @@
       html += `
         <div class="neo-ticket-card ticket-perforation-left ${isChecked ? 'is-checked' : 'is-pending'}" data-id="${item.id}">
           <!-- Top Row: Checkbox, LOT #, Category, Barcode Strip & Quick Actions -->
-          <div class="flex items-center justify-between border-b border-stone-200/80 pb-2">
+          <div class="flex items-center justify-between border-b border-white/10 pb-2">
             <div class="flex items-center gap-2">
               <button type="button" class="cart-check-btn ${isChecked ? 'checked' : ''}" onclick="window.toggleItemInCart('${item.id}')" title="Centang jika sudah di rak troli">
                 <i data-lucide="check"></i>
               </button>
               <div class="flex items-center gap-1.5">
-                <span class="font-mono text-[11px] font-black text-ink tracking-tight">LOT #${lotNumber}</span>
+                <span class="font-mono text-[11px] font-black text-white tracking-tight">LOT #${lotNumber}</span>
                 <span class="cat-mono-tag">${escapeHtml(item.category)}</span>
               </div>
               <span class="barcode-strip hidden sm:inline-block" title="Barcode Lot"></span>
@@ -1963,16 +1963,16 @@
           <!-- Middle Row: Title, Spec & Status Rencana -->
           <div class="flex items-start justify-between gap-2 pt-0.5">
             <div>
-              <h4 class="card-item-title text-[15px] font-extrabold text-ink leading-snug">${escapeHtml(item.name)}</h4>
+              <h4 class="card-item-title text-[15px] font-extrabold text-white leading-snug">${escapeHtml(item.name)}</h4>
               <div class="flex items-center gap-2 mt-1">
-                <span class="font-mono text-[11px] text-stone-500 font-semibold">Kemasan: ${escapeHtml(item.unit)}</span>
+                <span class="font-mono text-[11px] text-slate-400 font-semibold">Kemasan: ${escapeHtml(item.unit)}</span>
                 ${item.isPlanned !== false ? `
-                  <span class="inline-flex items-center gap-1 font-mono text-[9px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200">
+                  <span class="inline-flex items-center gap-1 font-mono text-[9px] font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
                     <i data-lucide="check-circle-2" class="w-2.5 h-2.5"></i>
                     <span>Rencana</span>
                   </span>
                 ` : `
-                  <span class="inline-flex items-center gap-1 font-mono text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-200" title="Di luar daftar rencana">
+                  <span class="inline-flex items-center gap-1 font-mono text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30" title="Di luar daftar rencana">
                     <i data-lucide="alert-circle" class="w-2.5 h-2.5"></i>
                     <span>Impulsif</span>
                   </span>
@@ -1982,10 +1982,10 @@
           </div>
 
           <!-- Pricing Flow & Badges Row -->
-          <div class="flex flex-wrap items-center gap-2 pt-1 border-t border-dashed border-stone-200">
+          <div class="flex flex-wrap items-center gap-2 pt-1 border-t border-dashed border-white/10">
             <span class="unit-rate-mono">
-              ${hasDiscount ? `<span class="strike text-stone-400">Rp ${formatNumber(item.price)}</span>` : ''}
-              <strong>Rp ${formatNumber(discount.finalUnitPrice)}</strong><span class="text-stone-500">/${escapeHtml(item.unit)}</span>
+              ${hasDiscount ? `<span class="strike text-slate-500">Rp ${formatNumber(item.price)}</span>` : ''}
+              <strong>Rp ${formatNumber(discount.finalUnitPrice)}</strong><span class="text-slate-400">/${escapeHtml(item.unit)}</span>
             </span>
 
             <!-- F-04: Comparison Badge -->
@@ -2002,7 +2002,7 @@
               </span>
             ` : ''}
             ${hasDiscount && discount.formulaText && discount.formulaText.includes('Lapis') ? `
-              <div class="w-full text-[10.5px] font-mono text-purple-900 bg-purple-50/90 px-2.5 py-1.5 rounded-xl border border-purple-200 mt-1 flex items-start gap-1">
+              <div class="w-full text-[10.5px] font-mono text-cyan-300 bg-cyan-950/40 px-2.5 py-1.5 rounded-xl border border-cyan-500/30 mt-1 flex items-start gap-1">
                 <span class="font-bold shrink-0">✨ Diskon Kompound:</span>
                 <span>${escapeHtml(discount.formulaText)}</span>
               </div>
@@ -2010,20 +2010,20 @@
           </div>
 
           <!-- Bottom Row: Tactile POS Stepper & Chunky Subtotal -->
-          <div class="flex items-center justify-between pt-2 border-t border-stone-200/80 mt-1">
-            <div class="flex items-center gap-1.5 bg-[#FAF8F5] p-1 rounded-xl border border-stone-300 shadow-pos-key">
-              <button type="button" class="w-11 h-11 rounded-lg bg-white border border-stone-400 text-ink font-black flex items-center justify-center hover:bg-stone-100 active:scale-95 cursor-pointer ${item.qty === 1 ? 'text-rose-600' : ''}" onclick="window.changeItemQty('${item.id}', -1)" title="${item.qty === 1 ? 'Hapus Barang' : 'Kurangi'}">
+          <div class="flex items-center justify-between pt-2 border-t border-white/10 mt-1">
+            <div class="flex items-center gap-1.5 bg-white/5 p-1 rounded-xl border border-white/10 shadow-lg">
+              <button type="button" class="w-11 h-11 rounded-lg bg-[#131b2e] border border-white/15 text-white font-black flex items-center justify-center hover:bg-emerald-500 hover:text-black active:scale-95 cursor-pointer transition-all ${item.qty === 1 ? 'text-rose-400 hover:bg-rose-500 hover:text-white' : ''}" onclick="window.changeItemQty('${item.id}', -1)" title="${item.qty === 1 ? 'Hapus Barang' : 'Kurangi'}">
                 <i data-lucide="${item.qty === 1 ? 'trash-2' : 'minus'}"></i>
               </button>
-              <input type="number" inputmode="numeric" min="1" class="w-12 text-center font-mono font-black text-sm text-ink bg-transparent border-0 focus:ring-1 focus:ring-stone-400 rounded p-1" value="${item.qty}" onchange="window.setItemQty('${item.id}', this.value)" oninput="window.setItemQty('${item.id}', this.value)" title="Ketik kuantitas langsung" />
-              <button type="button" class="w-11 h-11 rounded-lg bg-white border border-stone-400 text-ink font-black flex items-center justify-center hover:bg-stone-100 active:scale-95 cursor-pointer" onclick="window.changeItemQty('${item.id}', 1)" title="Tambah">
+              <input type="number" inputmode="numeric" min="1" class="w-12 text-center font-mono font-black text-sm text-emerald-400 bg-transparent border-0 focus:ring-1 focus:ring-emerald-400 rounded p-1" value="${item.qty}" onchange="window.setItemQty('${item.id}', this.value)" oninput="window.setItemQty('${item.id}', this.value)" title="Ketik kuantitas langsung" />
+              <button type="button" class="w-11 h-11 rounded-lg bg-[#131b2e] border border-white/15 text-white font-black flex items-center justify-center hover:bg-emerald-500 hover:text-black active:scale-95 cursor-pointer transition-all" onclick="window.changeItemQty('${item.id}', 1)" title="Tambah">
                 <i data-lucide="plus"></i>
               </button>
             </div>
 
             <div class="text-right">
-              <div class="font-mono text-[9px] text-stone-500 font-bold uppercase tracking-wider">SUBTOTAL (${item.qty} ${item.unit})</div>
-              <div class="font-headline-md text-[18px] font-black text-ink tracking-tight">Rp ${formatNumber(lineTotal)}</div>
+              <div class="font-mono text-[9px] text-slate-400 font-bold uppercase tracking-wider">SUBTOTAL (${item.qty} ${item.unit})</div>
+              <div class="font-headline-md text-[18px] font-black text-emerald-400 tracking-tight">Rp ${formatNumber(lineTotal)}</div>
             </div>
           </div>
         </div>
@@ -2256,7 +2256,7 @@
     const unit = selectItemUnit.value;
     const qty = parseInt(inputItemQty.value, 10) || 1;
     const price = parseFloat(inputItemPrice.value) || 0;
-    const lastMonthPrice = parseFloat(inputItemLastMonthPrice.value) || 0;
+    let lastMonthPrice = parseFloat(inputItemLastMonthPrice.value) || 0;
     const discountRaw = inputItemDiscount.value.trim();
 
     if (!name) {
@@ -3959,8 +3959,8 @@
             <button type="button"
               class="w-8 h-8 rounded-xl font-mono text-xs font-black transition-all flex items-center justify-center cursor-pointer select-none ${
                 isActive
-                  ? 'bg-ink text-citrus border-2 border-stone-900 shadow-pos-key scale-105'
-                  : 'bg-white text-stone-700 border border-stone-300 hover:bg-stone-100 hover:border-stone-400 active:scale-95'
+                  ? 'bg-emerald-500 text-black border border-emerald-400 shadow-lg shadow-emerald-500/20 scale-105'
+                  : 'bg-white/5 text-slate-300 border border-white/10 hover:bg-white/10 hover:text-white active:scale-95'
               }"
               onclick="window.changeAstroPage(${p})"
               title="Ke Halaman ${p}">
@@ -3975,24 +3975,24 @@
         paginationContainer.innerHTML = `
           <div class="flex flex-col gap-2 pt-1">
             <!-- Row 1: Item Range & Page Count Summary -->
-            <div class="flex items-center justify-between text-[11px] font-mono text-stone-600 px-0.5">
+            <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 px-0.5">
               <span class="flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-citrus animate-pulse"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                 <span>Produk <strong>${startIndex + 1}-${endIndex}</strong> dari <strong>${totalItems}</strong></span>
               </span>
-              <span class="px-2.5 py-0.5 rounded-full bg-stone-100 border border-stone-200 text-stone-700 font-bold text-[10px]">
+              <span class="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-emerald-400 font-bold text-[10px]">
                 Halaman <strong>${currentPage}</strong> / ${totalPages}
               </span>
             </div>
 
             <!-- Row 2: Tactile Pagination Bar with Prev, Numeric Buttons, Next -->
-            <div class="flex items-center justify-between gap-1.5 bg-[#F4EFEA] p-1.5 rounded-2xl border border-stone-300/80 shadow-2xs">
+            <div class="flex items-center justify-between gap-1.5 bg-white/5 p-1.5 rounded-2xl border border-white/10 shadow-lg">
               <!-- Prev Button -->
               <button type="button"
                 class="px-2.5 py-1.5 rounded-xl font-mono text-xs font-bold flex items-center gap-1 transition-all select-none ${
                   isFirst
-                    ? 'opacity-35 cursor-not-allowed bg-stone-200/50 text-stone-400 border border-transparent'
-                    : 'bg-white text-stone-800 border border-stone-300 shadow-xs hover:bg-stone-50 active:scale-95 cursor-pointer'
+                    ? 'opacity-35 cursor-not-allowed bg-transparent text-slate-600 border border-transparent'
+                    : 'bg-[#131b2e] text-slate-200 border border-white/10 hover:bg-emerald-500 hover:text-black active:scale-95 cursor-pointer'
                 }"
                 ${isFirst ? 'disabled' : `onclick="window.changeAstroPage(${currentPage - 1})"`}
                 title="Halaman Sebelumnya">
@@ -4009,8 +4009,8 @@
               <button type="button"
                 class="px-2.5 py-1.5 rounded-xl font-mono text-xs font-bold flex items-center gap-1 transition-all select-none ${
                   isLast
-                    ? 'opacity-35 cursor-not-allowed bg-stone-200/50 text-stone-400 border border-transparent'
-                    : 'bg-white text-stone-800 border border-stone-300 shadow-xs hover:bg-stone-50 active:scale-95 cursor-pointer'
+                    ? 'opacity-35 cursor-not-allowed bg-transparent text-slate-600 border border-transparent'
+                    : 'bg-[#131b2e] text-slate-200 border border-white/10 hover:bg-emerald-500 hover:text-black active:scale-95 cursor-pointer'
                 }"
                 ${isLast ? 'disabled' : `onclick="window.changeAstroPage(${currentPage + 1})"`}
                 title="Halaman Selanjutnya">
@@ -4772,10 +4772,10 @@
     if (visibleHistory.length === 0) {
       const activeName = appState.currentUser ? (appState.currentUser.displayName || appState.currentUser.username) : 'Rian';
       container.innerHTML = `
-        <div class="neo-empty-box p-6 text-center bg-white rounded-2xl border border-stone-200 shadow-sm">
-          <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mx-auto mb-2.5 text-2xl">🧾</div>
-          <h3 class="font-headline-sm text-sm font-bold text-ink mb-1">Belum Ada Struk untuk Akun ${escapeHtml(activeName)}</h3>
-          <p class="font-body-sm text-xs text-stone-500 max-w-xs mx-auto leading-relaxed">
+        <div class="neo-empty-box p-6 text-center bg-white/5 rounded-2xl border border-white/10 shadow-sm text-slate-400">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center mx-auto mb-2.5 text-2xl">🧾</div>
+          <h3 class="font-headline-sm text-sm font-bold text-white mb-1">Belum Ada Struk untuk Akun ${escapeHtml(activeName)}</h3>
+          <p class="font-body-sm text-xs text-slate-400 max-w-xs mx-auto leading-relaxed">
             Struk belanja tersimpan secara privat per akun. Setelah menyelesaikan belanja di kasir, struk digital milik kamu akan otomatis tercatat di sini.
           </p>
         </div>
@@ -4787,21 +4787,21 @@
     visibleHistory.forEach(rcp => {
       const displayTrx = rcp.rawTrxId || (rcp.id.startsWith('rcp_') ? rcp.id.split('_').slice(2).join('_') : rcp.id);
       html += `
-        <div class="neo-history-card bg-white p-4 rounded-2xl border border-stone-200 shadow-xs hover:border-stone-400 transition-all">
+        <div class="neo-history-card bg-[#0d1322] p-4 rounded-2xl border border-white/10 shadow-lg hover:border-emerald-500/40 transition-all text-white">
           <div class="flex items-center justify-between mb-2">
-            <span class="font-mono text-xs text-stone-500 flex items-center gap-1 font-semibold">
-              <span class="material-symbols-outlined text-[15px] text-stone-400">calendar_month</span>
+            <span class="font-mono text-xs text-slate-400 flex items-center gap-1 font-semibold">
+              <span class="material-symbols-outlined text-[15px] text-cyan-400">calendar_month</span>
               ${escapeHtml(rcp.date)}
             </span>
-            <span class="font-mono text-sm font-extrabold text-ink">Rp ${formatNumber(rcp.grandTotal)}</span>
+            <span class="font-mono text-sm font-extrabold text-emerald-400">Rp ${formatNumber(rcp.grandTotal)}</span>
           </div>
-          <div class="flex items-center justify-between text-xs text-stone-600 mb-3 pb-2 border-b border-stone-100 font-mono">
+          <div class="flex items-center justify-between text-xs text-slate-400 mb-3 pb-2 border-b border-white/10 font-mono">
             <span>${rcp.itemCount} Jenis Barang</span>
-            <span class="text-emerald-700 font-bold">Hemat: Rp ${formatNumber(rcp.totalSaved)}</span>
+            <span class="text-cyan-400 font-bold">Hemat: Rp ${formatNumber(rcp.totalSaved)}</span>
           </div>
           <div class="flex items-center justify-between gap-2">
-            <span class="font-mono text-[10px] text-stone-400 truncate">No: ${escapeHtml(displayTrx)}</span>
-            <button class="px-3 py-1.5 rounded-xl bg-ink text-citrus font-mono text-xs font-bold flex items-center gap-1 shadow-pos-key hover:bg-stone-800 active:scale-95 transition-all cursor-pointer" onclick="window.showReceiptModal('${rcp.id}')">
+            <span class="font-mono text-[10px] text-slate-500 truncate">No: ${escapeHtml(displayTrx)}</span>
+            <button class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-emerald-500 hover:text-black text-white font-mono text-xs font-bold flex items-center gap-1 border border-white/15 active:scale-95 transition-all cursor-pointer" onclick="window.showReceiptModal('${rcp.id}')">
               <span class="material-symbols-outlined text-[15px]">receipt_long</span>
               <span>Buka Struk</span>
             </button>
