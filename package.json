@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node api/server-local.js",
-    "typecheck": "tsc --noEmit",
-    "build": "tsc --noEmit"
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "grocery",
