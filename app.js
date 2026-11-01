@@ -3770,6 +3770,10 @@
   // ASTRO OFFICIAL CATALOG SHELF MODULE (WITH TACTILE PAGINATION)
   // ==========================================================================
   function initAstroCatalogModule() {
+    initAstroCheckoutModule();
+    const catalogSection = document.getElementById('sectionAstroCatalog');
+    if (!catalogSection) return;
+
     // 1. Astro Category Filter Chips
     const chips = document.querySelectorAll('.astro-cat-chip');
     chips.forEach(chip => {
@@ -4462,11 +4466,9 @@
 
   function openAstroCheckoutModal() {
     if (appState.cart.length === 0) {
-      showToast('Keranjang belanja masih kosong! Pilih barang di Katalog Astro.', 'warning');
-      const catalogSection = document.getElementById('sectionAstroCatalog');
-      if (catalogSection) {
-        catalogSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      showToast('Keranjang belanja masih kosong! Tambahkan barang terlebih dahulu.', 'warning');
+      const addBtn = document.getElementById('btnOpenAddModal');
+      if (addBtn) addBtn.focus();
       return;
     }
 
