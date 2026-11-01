@@ -770,8 +770,6 @@
       setupSoundToggle();
       window.__INIT_STEPS.push('shelf');
       initShelfAdderTray();
-      window.__INIT_STEPS.push('scanner');
-      initBarcodeScannerModule();
       window.__INIT_STEPS.push('store');
       initStoreSelectorModule();
       window.__INIT_STEPS.push('astro');
@@ -2365,20 +2363,6 @@
 
         AudioEngine.playTap();
 
-        // Screen 2 Stitch: Scan Barcode & Promo Calculator
-        if (paneId === 'tabScan') {
-          renderBarcodePresets();
-          startCameraScanner();
-          if (!currentScannedItem && BARCODE_CATALOG.length > 0) {
-            onBarcodeDetected(BARCODE_CATALOG[0].barcode, false);
-          } else if (currentScannedItem) {
-            runPythonScanAnalysis(currentScannedItem.barcode);
-          }
-        } else {
-          // Matikan kamera saat meninggalkan tab scan
-          stopCameraScanner();
-        }
-
         if (paneId === 'tabBudget') {
           renderShoppingPlannerSection();
         } else if (paneId === 'tabDompet') {
@@ -2690,31 +2674,7 @@
       showToast('Contoh kebutuhan belanja dimuat', 'success');
     });
 
-    // Header Utility Buttons
-    const btnCompareHeader = document.getElementById('btnQuickCompareHeader');
-    if (btnCompareHeader) {
-      btnCompareHeader.addEventListener('click', () => {
-        const navScan = document.getElementById('navBtnScan');
-        if (navScan) navScan.click();
-      });
-    }
-
-    const btnScanHeader = document.getElementById('btnOpenScannerHeader');
-    if (btnScanHeader) {
-      btnScanHeader.addEventListener('click', () => {
-        const navScan = document.getElementById('navBtnScan');
-        if (navScan) navScan.click();
-      });
-    }
-
-    const btnGoToScanTab = document.getElementById('btnGoToScanTab');
-    if (btnGoToScanTab) {
-      btnGoToScanTab.addEventListener('click', () => {
-        const navScan = document.getElementById('navBtnScan');
-        if (navScan) navScan.click();
-      });
-    }
-
+    // Sticky Checkout Button
     const btnCheckoutSticky = document.getElementById('btnCheckoutCashierSticky');
     if (btnCheckoutSticky) {
       btnCheckoutSticky.addEventListener('click', handleCheckout);
