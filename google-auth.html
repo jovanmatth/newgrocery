@@ -479,15 +479,21 @@
           }
         };
 
+        // Simpan selalu ke localStorage agar tetap terdeteksi meski postMessage terhalang browser
+        try {
+          localStorage.setItem('pending_google_login', JSON.stringify(payload.account));
+        } catch(e) {}
+
         if (window.opener && !window.opener.closed) {
-          window.opener.postMessage(payload, '*');
+          try {
+            window.opener.postMessage(payload, '*');
+          } catch(e) {}
           setTimeout(() => {
             window.close();
           }, 350);
         } else {
-          // Jika dibuka di tab mandiri, simpan ke localStorage dan redirect
+          // Jika dibuka di tab mandiri, redirect ke index.html
           try {
-            localStorage.setItem('pending_google_login', JSON.stringify(payload.account));
             window.location.href = 'index.html';
           } catch(e) {
             window.close();

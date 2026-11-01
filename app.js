@@ -755,25 +755,40 @@
   };
 
   // --- INITIALIZATION ---
-  document.addEventListener('DOMContentLoaded', () => {
-    initApp();
-  });
-
   function initApp() {
-    initAuthModule();
-    initSupabaseClient();
-    setupNavigation();
-    setupEventListeners();
-    setupSoundToggle();
-    initShelfAdderTray();
-    initBarcodeScannerModule();
-    initStoreSelectorModule();
-    initAstroCatalogModule();
-    renderAll();
-    initComparatorTool();
-    initDockAutoHide();
-    if (window.lucide) {
-      lucide.createIcons();
+    try {
+      window.__INIT_STEPS = [];
+      window.__INIT_STEPS.push('auth');
+      initAuthModule();
+      window.__INIT_STEPS.push('supabase');
+      initSupabaseClient();
+      window.__INIT_STEPS.push('nav');
+      setupNavigation();
+      window.__INIT_STEPS.push('listeners');
+      setupEventListeners();
+      window.__INIT_STEPS.push('sound');
+      setupSoundToggle();
+      window.__INIT_STEPS.push('shelf');
+      initShelfAdderTray();
+      window.__INIT_STEPS.push('scanner');
+      initBarcodeScannerModule();
+      window.__INIT_STEPS.push('store');
+      initStoreSelectorModule();
+      window.__INIT_STEPS.push('astro');
+      initAstroCatalogModule();
+      window.__INIT_STEPS.push('renderAll');
+      renderAll();
+      window.__INIT_STEPS.push('comparator');
+      initComparatorTool();
+      window.__INIT_STEPS.push('dock');
+      initDockAutoHide();
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+      window.__INIT_STEPS.push('complete');
+    } catch (err) {
+      console.error('initApp error:', err);
+      window.__INIT_FATAL_ERROR__ = (err && err.stack) || String(err);
     }
   }
 
@@ -6380,13 +6395,32 @@
       }
     });
 
-    // 4. Handle Official Supabase Google OAuth Flow (Popup Mengambang Tanpa Beralih Halaman)
+    // 4. Handle Official Supabase Google OAuth Flow & Interactive Google Chooser
     if (btnGoogle) {
       btnGoogle.addEventListener('click', async () => {
         AudioEngine.playTap();
         try {
           localStorage.removeItem('sg_explicit_logout');
         } catch (e) {}
+
+        function openGoogleChooserPopup() {
+          const width = 500;
+          const height = 650;
+          const left = Math.max(0, Math.round(window.screenX + (window.outerWidth - width) / 2));
+          const top = Math.max(0, Math.round(window.screenY + (window.outerHeight - height) / 2));
+          return window.open(
+            'google-auth.html',
+            'GoogleSignInPopup',
+            `width=${width},height=${height},left=${left},top=${top},status=0,toolbar=0,menubar=0,location=1`
+          );
+        }
+
+        // Protokol file:// tidak mendukung OAuth callback redirect dari Supabase,
+        // buka langsung pemilih akun Google interaktif resmi (google-auth.html)
+        if (window.location.protocol === 'file:') {
+          openGoogleChooserPopup();
+          return;
+        }
 
         if (!appState.supabaseClient) {
           initSupabaseClient();
@@ -6412,12 +6446,8 @@
 
             if (error) {
               console.warn('Supabase Google OAuth status:', error.message);
-              if (error.message.includes('not enabled') || error.message.includes('Unsupported provider')) {
-                showToast('Google Provider belum diaktifkan di Supabase!', 'danger');
-                showSupabaseGoogleGuide();
-                return;
-              }
-              showToast(error.message, 'danger');
+              // Buka langsung pemilih akun Google agar login tidak terhambat
+              openGoogleChooserPopup();
               return;
             }
 
@@ -6450,8 +6480,7 @@
                       localStorage.removeItem('sg_oauth_error');
                       clearInterval(checkInterval);
                       try { popup.close(); } catch (e) {}
-                      const errObj = JSON.parse(errRaw);
-                      showToast('Google Login: ' + (errObj.description || errObj.error), 'danger');
+                      openGoogleChooserPopup();
                       return;
                     }
 
@@ -6508,15 +6537,15 @@
                   } catch (e) {}
                 }, 300);
               } else {
-                showToast('Izinkan pop-up di browser Anda agar tidak beralih halaman.', 'warning');
+                openGoogleChooserPopup();
               }
             }
           } catch (err) {
             console.error('Supabase OAuth error:', err);
-            showToast('Gagal memproses Supabase OAuth: ' + err.message, 'danger');
+            openGoogleChooserPopup();
           }
         } else {
-          showToast('Koneksi Supabase belum siap', 'warning');
+          openGoogleChooserPopup();
         }
       });
     }
@@ -6955,6 +6984,15 @@
     renderBudgetBreakdown();
     renderHistoryList();
     renderMasterList();
+  }
+
+  // --- INITIALIZATION TRIGGER (Placed after all modules & functions are declared) ---
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      initApp();
+    });
+  } else {
+    initApp();
   }
 
 })();
