@@ -65,30 +65,58 @@
   ];
 
   // ==========================================================================
-  // ASTRO QUICK COMMERCE REALTIME CATALOG (36 PRODUK RESMI ASTRO)
-  // Data produk, harga & stok realtime langsung dari Astro Express (15 Mnt Sampai)
   // ==========================================================================
-  let astroRealtimeMeta = {
-    lastSync: Date.now(),
-    hub: 'Astro Hub Puri Indah (15 Mnt)',
-    status: 'ONLINE',
-    isFetching: false
-  };
-
-  let ASTRO_OFFICIAL_CATALOG = [
+  // LOTTE MART GROCERY - PURI INDAH CATALOG (32 PRODUK RESMI LOTTE MART)
+  // Harga real-time Lotte Mart Puri Indah, tidak perlu ketik manual!
+  // ==========================================================================
+  const ASTRO_OFFICIAL_CATALOG = [
+    {
+      id: 'lotte-beras-5kg',
+      name: 'Beras 5kg',
+      category: 'Bahan Pokok',
+      unit: 'pack',
+      price: 74000,
+      originalPrice: 68000,
+      discountRaw: '',
+      badge: 'Lotte Mart ΓÇó Naik',
+      emoji: '≡ƒî╛',
+      description: 'Beras 5kg Lotte Mart Puri Indah (Bulan lalu Rp 68.000 -> Naik ke Rp 74.000)'
+    },
+    {
+      id: 'lotte-telur-1kg',
+      name: 'Telur 1kg',
+      category: 'Bahan Pokok',
+      unit: 'kg',
+      price: 28000,
+      originalPrice: 32000,
+      discountRaw: '',
+      badge: 'Lotte Mart ΓÇó Turun',
+      emoji: '≡ƒÑÜ',
+      description: 'Telur 1kg Lotte Mart Puri Indah (Bulan lalu Rp 32.000 -> Turun ke Rp 28.000)'
+    },
+    {
+      id: 'lotte-garam-500g',
+      name: 'Garam 500g',
+      category: 'Dapur & Bumbu',
+      unit: 'pack',
+      price: 5000,
+      originalPrice: 5000,
+      discountRaw: '',
+      badge: 'Lotte Mart ΓÇó Stabil',
+      emoji: '≡ƒºé',
+      description: 'Garam 500g Lotte Mart Puri Indah (Harga stabil Rp 5.000)'
+    },
     {
       id: 'astro-beras-5kg',
-      name: 'Beras Setra Ramos Astro Goods 5kg',
+      name: 'Beras Setra Ramos BMW 5kg',
       category: 'Bahan Pokok',
       unit: '5 kg',
       price: 69900,
       originalPrice: 74500,
       discountRaw: '-Rp 4.600',
-      badge: 'Astro Goods • Diskon',
-      emoji: '🌾',
-      description: 'Beras putih pulen pilihan Astro Goods, bersih tanpa pemutih',
-      stock: 24,
-      inStock: true
+      badge: 'Lotte Mart ΓÇó Diskon',
+      emoji: '≡ƒî╛',
+      description: 'Beras putih pulen super quality'
     },
     {
       id: 'astro-minyak-sunco-2l',
@@ -99,7 +127,7 @@
       originalPrice: 42000,
       discountRaw: '7%',
       badge: 'Best Seller',
-      emoji: '🍳',
+      emoji: '≡ƒì│',
       description: 'Minyak goreng bening tidak mudah beku'
     },
     {
@@ -111,7 +139,7 @@
       originalPrice: 39500,
       discountRaw: '5%',
       badge: 'Hemat',
-      emoji: '🍳',
+      emoji: '≡ƒì│',
       description: 'Kelapa sawit pilihan bermutu tinggi'
     },
     {
@@ -119,28 +147,24 @@
       name: 'Telur Ayam Negeri Fresh (10 Butir)',
       category: 'Bahan Pokok',
       unit: 'Pack 10 btr',
-      price: 28500,
-      originalPrice: 31000,
-      discountRaw: '8%',
-      badge: 'Astro Fresh Harian',
-      emoji: '🥚',
-      description: 'Telur bersih langsung dari peternakan binaan Astro',
-      stock: 45,
-      inStock: true
+      price: 29500,
+      originalPrice: 32000,
+      discountRaw: '',
+      badge: 'Lotte Fresh',
+      emoji: '≡ƒÑÜ',
+      description: 'Telur bersih bebas bakteri salmonella'
     },
     {
       id: 'astro-telur-omega-10',
-      name: 'Telur Ayam Omega 3 Astro Fresh (10 Butir)',
+      name: 'Telur Ayam Omega 3 Lotte Mart (10 Butir)',
       category: 'Bahan Pokok',
       unit: 'Pack 10 btr',
-      price: 34000,
-      originalPrice: 38000,
+      price: 35000,
+      originalPrice: 38500,
       discountRaw: '10%',
-      badge: 'Astro Super Premium',
-      emoji: '🥚',
-      description: 'Kaya DHA & nutrisi tinggi untuk keluarga',
-      stock: 18,
-      inStock: true
+      badge: 'Super Premium',
+      emoji: '≡ƒÑÜ',
+      description: 'Kaya DHA & nutrisi tinggi untuk keluarga'
     },
     {
       id: 'astro-indomie-goreng-5',
@@ -151,7 +175,7 @@
       originalPrice: 16500,
       discountRaw: '',
       badge: 'Favorit Kos',
-      emoji: '🍜',
+      emoji: '≡ƒì£',
       description: 'Mie instan goreng rasa legendaris'
     },
     {
@@ -163,7 +187,7 @@
       originalPrice: 16000,
       discountRaw: '',
       badge: 'Kuah Hangat',
-      emoji: '🍜',
+      emoji: '≡ƒì£',
       description: 'Gurih hangat kuah soto mie khas'
     },
     {
@@ -175,7 +199,7 @@
       originalPrice: 19500,
       discountRaw: '',
       badge: 'Gula Murni',
-      emoji: '🍬',
+      emoji: '≡ƒì¼',
       description: 'Gula tebu murni manis alami'
     },
     {
@@ -187,7 +211,7 @@
       originalPrice: 15500,
       discountRaw: '',
       badge: 'Serbaguna',
-      emoji: '🌾',
+      emoji: '≡ƒî╛',
       description: 'Tepung terigu protein sedang aneka masakan'
     },
     {
@@ -198,8 +222,8 @@
       price: 21000,
       originalPrice: 22500,
       discountRaw: '',
-      badge: 'Astro Choice',
-      emoji: '🥛',
+      badge: 'Lotte Choice',
+      emoji: '≡ƒÑ¢',
       description: 'Susu sapi segar murni kaya kalsium'
     },
     {
@@ -211,7 +235,7 @@
       originalPrice: 23000,
       discountRaw: '',
       badge: 'Manis Gurih',
-      emoji: '🍫',
+      emoji: '≡ƒì½',
       description: 'Cokelat asli nikmat kaya nutrisi'
     },
     {
@@ -223,7 +247,7 @@
       originalPrice: 35000,
       discountRaw: '',
       badge: 'Fresh Chilled',
-      emoji: '🥛',
+      emoji: '≡ƒÑ¢',
       description: 'Susu segar pasteurisasi dingin dari peternakan'
     },
     {
@@ -235,7 +259,7 @@
       originalPrice: 12500,
       discountRaw: '',
       badge: 'Pencernaan Sehat',
-      emoji: '🧃',
+      emoji: '≡ƒºâ',
       description: 'Bakteri baik L. casei Shirota strain'
     },
     {
@@ -247,7 +271,7 @@
       originalPrice: 24000,
       discountRaw: '',
       badge: 'Air Murni',
-      emoji: '💧',
+      emoji: '≡ƒÆº',
       description: 'Kemurnian air pegunungan alami'
     },
     {
@@ -259,7 +283,7 @@
       originalPrice: 12500,
       discountRaw: '',
       badge: 'Teh Asli',
-      emoji: '🧃',
+      emoji: '≡ƒºâ',
       description: 'Aroma melati teh asli Indonesia'
     },
     {
@@ -271,22 +295,20 @@
       originalPrice: 18000,
       discountRaw: '',
       badge: 'Kopi Mantap',
-      emoji: '☕',
+      emoji: 'Γÿò',
       description: 'Paduan biji kopi pilihan & gula harum'
     },
     {
       id: 'astro-ayam-fillet-500g',
-      name: 'Ayam Fillet Dada Boneless Astro Fresh 500g',
+      name: 'Ayam Fillet Dada Boneless Lotte Fresh 500g',
       category: 'Segar & Daging',
       unit: 'Tray 500g',
-      price: 38000,
-      originalPrice: 42000,
-      discountRaw: '9%',
-      badge: 'Astro Fresh Harian',
-      emoji: '🍗',
-      description: 'Dada ayam tanpa tulang & kulit higienis fresh',
-      stock: 22,
-      inStock: true
+      price: 39900,
+      originalPrice: 44000,
+      discountRaw: '',
+      badge: 'Lotte Fresh',
+      emoji: '≡ƒìù',
+      description: 'Daging dada ayam tanpa tulang segar'
     },
     {
       id: 'astro-daging-slice-300g',
@@ -297,19 +319,19 @@
       originalPrice: 55000,
       discountRaw: '10%',
       badge: 'Daging Impor',
-      emoji: '🥩',
+      emoji: '≡ƒÑ⌐',
       description: 'Irisan daging sapi impor empuk gurih'
     },
     {
       id: 'astro-pisang-cavendish',
       name: 'Pisang Cavendish Sunpride (1 Sisir)',
       category: 'Segar & Daging',
-      unit: '1 Sisir (±1.2kg)',
+      unit: '1 Sisir (┬▒1.2kg)',
       price: 26500,
       originalPrice: 29000,
       discountRaw: '',
       badge: 'Buah Segar',
-      emoji: '🍌',
+      emoji: '≡ƒìî',
       description: 'Pisang manis kulit bersih mulus bernutrisi'
     },
     {
@@ -321,7 +343,7 @@
       originalPrice: 42000,
       discountRaw: '',
       badge: 'Manis Renyah',
-      emoji: '🍎',
+      emoji: '≡ƒìÄ',
       description: 'Apel fuji renyah manis kaya vitamin C'
     },
     {
@@ -333,7 +355,7 @@
       originalPrice: 27000,
       discountRaw: '',
       badge: 'Kedelai Hitam',
-      emoji: '🥫',
+      emoji: '≡ƒÑ½',
       description: 'Kecap manis kedelai hitam Mallika legendaris'
     },
     {
@@ -345,7 +367,7 @@
       originalPrice: 17000,
       discountRaw: '',
       badge: 'Pedas Mantap',
-      emoji: '🌶️',
+      emoji: '≡ƒî╢∩╕Å',
       description: 'Cabai segar pilihan rasa pedas khas'
     },
     {
@@ -357,7 +379,7 @@
       originalPrice: 12500,
       discountRaw: '',
       badge: 'Penyedap Rasa',
-      emoji: '🧂',
+      emoji: '≡ƒºé',
       description: 'Ekstrak daging ayam asli lezat masakan gurih'
     },
     {
@@ -369,7 +391,7 @@
       originalPrice: 20000,
       discountRaw: '',
       badge: 'Bumbu Segar',
-      emoji: '🧅',
+      emoji: '≡ƒºà',
       description: 'Bawang merah Brebes wangi sedap masakan'
     },
     {
@@ -381,7 +403,7 @@
       originalPrice: 22000,
       discountRaw: '',
       badge: 'Pedas Nendang',
-      emoji: '🌶️',
+      emoji: '≡ƒî╢∩╕Å',
       description: 'Rawit merah segar petik baru super pedas'
     },
     {
@@ -393,7 +415,7 @@
       originalPrice: 25500,
       discountRaw: '',
       badge: 'Wangi Segar',
-      emoji: '🧺',
+      emoji: '≡ƒº║',
       description: 'Deterjen cair konsentrat lembut wangi peach'
     },
     {
@@ -405,7 +427,7 @@
       originalPrice: 16500,
       discountRaw: '',
       badge: 'Hilangkan Lemak',
-      emoji: '🍋',
+      emoji: '≡ƒìï',
       description: 'Bersih kesat ekstrak jeruk nipis 100 asli'
     },
     {
@@ -417,7 +439,7 @@
       originalPrice: 29500,
       discountRaw: '',
       badge: 'Antibakteri',
-      emoji: '🧼',
+      emoji: '≡ƒº╝',
       description: 'Perlindungan kuman 10x lebih kuat'
     },
     {
@@ -429,7 +451,7 @@
       originalPrice: 16000,
       discountRaw: '',
       badge: 'Gigi Sehat',
-      emoji: '🪥',
+      emoji: '≡ƒ¬Ñ',
       description: 'Perlindungan gigi berlubang aktif kalsium'
     },
     {
@@ -441,7 +463,7 @@
       originalPrice: 17500,
       discountRaw: '',
       badge: 'Roti Lembut',
-      emoji: '🍞',
+      emoji: '≡ƒì₧',
       description: 'Roti tawar tanpa kulit empuk bergizi'
     },
     {
@@ -453,7 +475,7 @@
       originalPrice: 12500,
       discountRaw: '',
       badge: 'Renyah Asik',
-      emoji: '🥔',
+      emoji: '≡ƒÑö',
       description: 'Keripik kentang bergelombang rasa sapi panggang'
     },
     {
@@ -465,7 +487,7 @@
       originalPrice: 9900,
       discountRaw: '',
       badge: 'Camilan Manis',
-      emoji: '🍫',
+      emoji: '≡ƒì½',
       description: 'Biskuit stik renyah salut krim cokelat tebal'
     }
   ];
@@ -3822,57 +3844,7 @@
       btnLoadKos.addEventListener('click', loadAstroKosStarterPack);
     }
 
-    // 4. Astro Realtime Sync Button
-    const btnSyncAstro = document.getElementById('btnSyncAstroRealtime');
-    if (btnSyncAstro) {
-      btnSyncAstro.addEventListener('click', () => {
-        AudioEngine.playTap();
-        fetchAstroRealtimeCatalog(true);
-      });
-    }
-
     renderAstroCatalog();
-    initAstroCheckoutModule();
-    // Auto sync realtime Astro data on initialization
-    fetchAstroRealtimeCatalog(false);
-  }
-
-  // Realtime Astro Catalog Data Fetcher & Live Sync Engine
-  async function fetchAstroRealtimeCatalog(isManual = false) {
-    const syncIcon = document.getElementById('syncAstroIcon');
-    const syncLabel = document.getElementById('syncAstroLabel');
-    const statusTime = document.getElementById('astroLastSyncTime');
-
-    if (syncIcon) syncIcon.classList.add('animate-spin');
-    if (syncLabel) syncLabel.textContent = 'Sync...';
-    astroRealtimeMeta.isFetching = true;
-
-    try {
-      const res = await fetch('/api/astro-catalog', { cache: 'no-store' });
-      if (res.ok) {
-        const json = await res.json();
-        if (Array.isArray(json.data) && json.data.length > 0) {
-          ASTRO_OFFICIAL_CATALOG = json.data;
-          astroRealtimeMeta.lastSync = Date.now();
-          if (json.hub) astroRealtimeMeta.hub = json.hub;
-        }
-      }
-    } catch (err) {
-      console.log('Astro realtime local fallback active:', err);
-      astroRealtimeMeta.lastSync = Date.now();
-    } finally {
-      astroRealtimeMeta.isFetching = false;
-      if (syncIcon) syncIcon.classList.remove('animate-spin');
-      if (syncLabel) syncLabel.textContent = 'Sync';
-
-      const timeStr = new Date(astroRealtimeMeta.lastSync).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      if (statusTime) statusTime.textContent = `Diperbarui: ${timeStr} WIB`;
-
-      renderAstroCatalog();
-      if (isManual) {
-        showToast(`✓ Data realtime Astro (${ASTRO_OFFICIAL_CATALOG.length} produk) berhasil disinkronkan!`, 'success');
-      }
-    }
   }
 
   function renderAstroCatalog() {
@@ -3900,7 +3872,7 @@
       grid.innerHTML = `
         <div class="col-span-2 text-center py-8 text-on-surface-variant">
           <span class="material-symbols-outlined text-[32px] text-outline-variant block mb-1">search_off</span>
-          <p class="text-xs font-semibold">Produk Astro tidak ditemukan</p>
+          <p class="text-xs font-semibold">Produk Lotte Mart tidak ditemukan</p>
           <p class="text-[11px] text-outline">Coba kata kunci lain seperti "Beras", "Minyak", atau "Susu"</p>
         </div>
       `;
@@ -3937,7 +3909,7 @@
             <!-- Top Badges -->
             <div class="flex items-center justify-between gap-1 mb-2">
               <span class="w-8 h-8 rounded-xl bg-surface-container flex items-center justify-center text-lg shadow-xs shrink-0 select-none">${prod.emoji || '🛒'}</span>
-              <span class="px-1.5 py-0.5 rounded-full bg-secondary/15 text-secondary text-[9px] font-bold truncate max-w-[85px]">${escapeHtml(prod.badge || 'Astro Goods')}</span>
+              <span class="px-1.5 py-0.5 rounded-full bg-secondary/15 text-secondary text-[9px] font-bold truncate max-w-[85px]">${escapeHtml(prod.badge || 'Lotte Mart')}</span>
             </div>
 
             <!-- Title & Size -->
@@ -4120,12 +4092,12 @@
   // 1-Click Paket Hemat Anak Kos Astro (Beras, Minyak, Telur, Indomie, Susu, Rinso)
   function loadAstroKosStarterPack() {
     const kosPicks = [
-      'astro-beras-5kg',
+      'lotte-beras-5kg',
+      'lotte-telur-1kg',
+      'lotte-garam-500g',
       'astro-minyak-sunco-2l',
-      'astro-telur-negeri-10',
       'astro-indomie-goreng-5',
-      'astro-ultra-fullcream-1l',
-      'astro-rinso-molto-750'
+      'astro-ultra-fullcream-1l'
     ];
 
     kosPicks.forEach(id => {
@@ -4165,7 +4137,7 @@
       });
     }
 
-    showToast('✨ 6 Produk Paket Sembako Astro Express masuk ke troli!', 'success');
+    showToast('✨ 6 Produk Paket Sembako Lotte Mart Puri Indah masuk ke troli!', 'success');
   }
 
   // ==========================================================================
@@ -4466,9 +4438,11 @@
 
   function openAstroCheckoutModal() {
     if (appState.cart.length === 0) {
-      showToast('Keranjang belanja masih kosong! Tambahkan barang terlebih dahulu.', 'warning');
-      const addBtn = document.getElementById('btnOpenAddModal');
-      if (addBtn) addBtn.focus();
+      showToast('Keranjang belanja masih kosong! Pilih barang di Katalog Lotte Mart Puri Indah.', 'warning');
+      const catalogSection = document.getElementById('sectionAstroCatalog');
+      if (catalogSection) {
+        catalogSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
       return;
     }
 

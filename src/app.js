@@ -65,6 +65,7 @@
   ];
 
   // ==========================================================================
+  // ==========================================================================
   // LOTTE MART GROCERY - PURI INDAH CATALOG (32 PRODUK RESMI LOTTE MART)
   // Harga real-time Lotte Mart Puri Indah, tidak perlu ketik manual!
   // ==========================================================================
@@ -77,8 +78,8 @@
       price: 74000,
       originalPrice: 68000,
       discountRaw: '',
-      badge: 'Lotte Mart • Naik',
-      emoji: '🌾',
+      badge: 'Lotte Mart ΓÇó Naik',
+      emoji: '≡ƒî╛',
       description: 'Beras 5kg Lotte Mart Puri Indah (Bulan lalu Rp 68.000 -> Naik ke Rp 74.000)'
     },
     {
@@ -89,8 +90,8 @@
       price: 28000,
       originalPrice: 32000,
       discountRaw: '',
-      badge: 'Lotte Mart • Turun',
-      emoji: '🥚',
+      badge: 'Lotte Mart ΓÇó Turun',
+      emoji: '≡ƒÑÜ',
       description: 'Telur 1kg Lotte Mart Puri Indah (Bulan lalu Rp 32.000 -> Turun ke Rp 28.000)'
     },
     {
@@ -101,8 +102,8 @@
       price: 5000,
       originalPrice: 5000,
       discountRaw: '',
-      badge: 'Lotte Mart • Stabil',
-      emoji: '🧂',
+      badge: 'Lotte Mart ΓÇó Stabil',
+      emoji: '≡ƒºé',
       description: 'Garam 500g Lotte Mart Puri Indah (Harga stabil Rp 5.000)'
     },
     {
@@ -113,8 +114,8 @@
       price: 69900,
       originalPrice: 74500,
       discountRaw: '-Rp 4.600',
-      badge: 'Lotte Mart • Diskon',
-      emoji: '🌾',
+      badge: 'Lotte Mart ΓÇó Diskon',
+      emoji: '≡ƒî╛',
       description: 'Beras putih pulen super quality'
     },
     {
@@ -126,7 +127,7 @@
       originalPrice: 42000,
       discountRaw: '7%',
       badge: 'Best Seller',
-      emoji: '🍳',
+      emoji: '≡ƒì│',
       description: 'Minyak goreng bening tidak mudah beku'
     },
     {
@@ -138,7 +139,7 @@
       originalPrice: 39500,
       discountRaw: '5%',
       badge: 'Hemat',
-      emoji: '🍳',
+      emoji: '≡ƒì│',
       description: 'Kelapa sawit pilihan bermutu tinggi'
     },
     {
@@ -150,7 +151,7 @@
       originalPrice: 32000,
       discountRaw: '',
       badge: 'Lotte Fresh',
-      emoji: '🥚',
+      emoji: '≡ƒÑÜ',
       description: 'Telur bersih bebas bakteri salmonella'
     },
     {
@@ -162,7 +163,7 @@
       originalPrice: 38500,
       discountRaw: '10%',
       badge: 'Super Premium',
-      emoji: '🥚',
+      emoji: '≡ƒÑÜ',
       description: 'Kaya DHA & nutrisi tinggi untuk keluarga'
     },
     {
@@ -174,7 +175,7 @@
       originalPrice: 16500,
       discountRaw: '',
       badge: 'Favorit Kos',
-      emoji: '🍜',
+      emoji: '≡ƒì£',
       description: 'Mie instan goreng rasa legendaris'
     },
     {
@@ -186,7 +187,7 @@
       originalPrice: 16000,
       discountRaw: '',
       badge: 'Kuah Hangat',
-      emoji: '🍜',
+      emoji: '≡ƒì£',
       description: 'Gurih hangat kuah soto mie khas'
     },
     {
@@ -198,7 +199,7 @@
       originalPrice: 19500,
       discountRaw: '',
       badge: 'Gula Murni',
-      emoji: '🍬',
+      emoji: '≡ƒì¼',
       description: 'Gula tebu murni manis alami'
     },
     {
@@ -210,7 +211,7 @@
       originalPrice: 15500,
       discountRaw: '',
       badge: 'Serbaguna',
-      emoji: '🌾',
+      emoji: '≡ƒî╛',
       description: 'Tepung terigu protein sedang aneka masakan'
     },
     {
@@ -222,7 +223,7 @@
       originalPrice: 22500,
       discountRaw: '',
       badge: 'Lotte Choice',
-      emoji: '🥛',
+      emoji: '≡ƒÑ¢',
       description: 'Susu sapi segar murni kaya kalsium'
     },
     {
@@ -234,7 +235,7 @@
       originalPrice: 23000,
       discountRaw: '',
       badge: 'Manis Gurih',
-      emoji: '🍫',
+      emoji: '≡ƒì½',
       description: 'Cokelat asli nikmat kaya nutrisi'
     },
     {
@@ -246,7 +247,7 @@
       originalPrice: 35000,
       discountRaw: '',
       badge: 'Fresh Chilled',
-      emoji: '🥛',
+      emoji: '≡ƒÑ¢',
       description: 'Susu segar pasteurisasi dingin dari peternakan'
     },
     {
@@ -258,7 +259,7 @@
       originalPrice: 12500,
       discountRaw: '',
       badge: 'Pencernaan Sehat',
-      emoji: '🧃',
+      emoji: '≡ƒºâ',
       description: 'Bakteri baik L. casei Shirota strain'
     },
     {
@@ -270,7 +271,7 @@
       originalPrice: 24000,
       discountRaw: '',
       badge: 'Air Murni',
-      emoji: '💧',
+      emoji: '≡ƒÆº',
       description: 'Kemurnian air pegunungan alami'
     },
     {
@@ -282,7 +283,7 @@
       originalPrice: 12500,
       discountRaw: '',
       badge: 'Teh Asli',
-      emoji: '🧃',
+      emoji: '≡ƒºâ',
       description: 'Aroma melati teh asli Indonesia'
     },
     {
@@ -294,7 +295,7 @@
       originalPrice: 18000,
       discountRaw: '',
       badge: 'Kopi Mantap',
-      emoji: '☕',
+      emoji: 'Γÿò',
       description: 'Paduan biji kopi pilihan & gula harum'
     },
     {
@@ -306,7 +307,7 @@
       originalPrice: 44000,
       discountRaw: '',
       badge: 'Lotte Fresh',
-      emoji: '🍗',
+      emoji: '≡ƒìù',
       description: 'Daging dada ayam tanpa tulang segar'
     },
     {
@@ -318,19 +319,19 @@
       originalPrice: 55000,
       discountRaw: '10%',
       badge: 'Daging Impor',
-      emoji: '🥩',
+      emoji: '≡ƒÑ⌐',
       description: 'Irisan daging sapi impor empuk gurih'
     },
     {
       id: 'astro-pisang-cavendish',
       name: 'Pisang Cavendish Sunpride (1 Sisir)',
       category: 'Segar & Daging',
-      unit: '1 Sisir (±1.2kg)',
+      unit: '1 Sisir (┬▒1.2kg)',
       price: 26500,
       originalPrice: 29000,
       discountRaw: '',
       badge: 'Buah Segar',
-      emoji: '🍌',
+      emoji: '≡ƒìî',
       description: 'Pisang manis kulit bersih mulus bernutrisi'
     },
     {
@@ -342,7 +343,7 @@
       originalPrice: 42000,
       discountRaw: '',
       badge: 'Manis Renyah',
-      emoji: '🍎',
+      emoji: '≡ƒìÄ',
       description: 'Apel fuji renyah manis kaya vitamin C'
     },
     {
@@ -354,7 +355,7 @@
       originalPrice: 27000,
       discountRaw: '',
       badge: 'Kedelai Hitam',
-      emoji: '🥫',
+      emoji: '≡ƒÑ½',
       description: 'Kecap manis kedelai hitam Mallika legendaris'
     },
     {
@@ -366,7 +367,7 @@
       originalPrice: 17000,
       discountRaw: '',
       badge: 'Pedas Mantap',
-      emoji: '🌶️',
+      emoji: '≡ƒî╢∩╕Å',
       description: 'Cabai segar pilihan rasa pedas khas'
     },
     {
@@ -378,7 +379,7 @@
       originalPrice: 12500,
       discountRaw: '',
       badge: 'Penyedap Rasa',
-      emoji: '🧂',
+      emoji: '≡ƒºé',
       description: 'Ekstrak daging ayam asli lezat masakan gurih'
     },
     {
@@ -390,7 +391,7 @@
       originalPrice: 20000,
       discountRaw: '',
       badge: 'Bumbu Segar',
-      emoji: '🧅',
+      emoji: '≡ƒºà',
       description: 'Bawang merah Brebes wangi sedap masakan'
     },
     {
@@ -402,7 +403,7 @@
       originalPrice: 22000,
       discountRaw: '',
       badge: 'Pedas Nendang',
-      emoji: '🌶️',
+      emoji: '≡ƒî╢∩╕Å',
       description: 'Rawit merah segar petik baru super pedas'
     },
     {
@@ -414,7 +415,7 @@
       originalPrice: 25500,
       discountRaw: '',
       badge: 'Wangi Segar',
-      emoji: '🧺',
+      emoji: '≡ƒº║',
       description: 'Deterjen cair konsentrat lembut wangi peach'
     },
     {
@@ -426,7 +427,7 @@
       originalPrice: 16500,
       discountRaw: '',
       badge: 'Hilangkan Lemak',
-      emoji: '🍋',
+      emoji: '≡ƒìï',
       description: 'Bersih kesat ekstrak jeruk nipis 100 asli'
     },
     {
@@ -438,7 +439,7 @@
       originalPrice: 29500,
       discountRaw: '',
       badge: 'Antibakteri',
-      emoji: '🧼',
+      emoji: '≡ƒº╝',
       description: 'Perlindungan kuman 10x lebih kuat'
     },
     {
@@ -450,7 +451,7 @@
       originalPrice: 16000,
       discountRaw: '',
       badge: 'Gigi Sehat',
-      emoji: '🪥',
+      emoji: '≡ƒ¬Ñ',
       description: 'Perlindungan gigi berlubang aktif kalsium'
     },
     {
@@ -462,7 +463,7 @@
       originalPrice: 17500,
       discountRaw: '',
       badge: 'Roti Lembut',
-      emoji: '🍞',
+      emoji: '≡ƒì₧',
       description: 'Roti tawar tanpa kulit empuk bergizi'
     },
     {
@@ -474,7 +475,7 @@
       originalPrice: 12500,
       discountRaw: '',
       badge: 'Renyah Asik',
-      emoji: '🥔',
+      emoji: '≡ƒÑö',
       description: 'Keripik kentang bergelombang rasa sapi panggang'
     },
     {
@@ -486,7 +487,7 @@
       originalPrice: 9900,
       discountRaw: '',
       badge: 'Camilan Manis',
-      emoji: '🍫',
+      emoji: '≡ƒì½',
       description: 'Biskuit stik renyah salut krim cokelat tebal'
     }
   ];
@@ -3844,7 +3845,6 @@
     }
 
     renderAstroCatalog();
-    initAstroCheckoutModule();
   }
 
   function renderAstroCatalog() {
@@ -4438,9 +4438,11 @@
 
   function openAstroCheckoutModal() {
     if (appState.cart.length === 0) {
-      showToast('Keranjang belanja masih kosong! Tambahkan barang terlebih dahulu.', 'warning');
-      const addBtn = document.getElementById('btnOpenAddModal');
-      if (addBtn) addBtn.focus();
+      showToast('Keranjang belanja masih kosong! Pilih barang di Katalog Lotte Mart Puri Indah.', 'warning');
+      const catalogSection = document.getElementById('sectionAstroCatalog');
+      if (catalogSection) {
+        catalogSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
       return;
     }
 
@@ -4556,7 +4558,7 @@
 
     // Phase 1 (0ms - 1200ms): Connect to Gateway
     if (stepBadge) stepBadge.textContent = 'FASE 1 / 3';
-    if (stepTitle) stepTitle.textContent = '📡 Menghubungkan ke Lotte Mart Payment Gateway...';
+    if (stepTitle) stepTitle.textContent = '🚀 Menghubungkan ke Astro Payment Gateway...';
     if (stepDesc) stepDesc.textContent = 'Mengunci pesanan dan memvalidasi saluran pembayaran terenkripsi.';
     if (progressBar) progressBar.style.width = '35%';
     AudioEngine.playBeep();
@@ -4573,7 +4575,7 @@
       currentProcessingTimer = setTimeout(() => {
         if (stepBadge) stepBadge.textContent = 'FASE 3 / 3';
         if (stepTitle) stepTitle.textContent = '🖨️ Mencetak Struk Kasir Thermal Digital...';
-        if (stepDesc) stepDesc.textContent = 'Mengesahkan struk bukti transaksi resmi Lotte Mart Grocery - Puri Indah.';
+        if (stepDesc) stepDesc.textContent = 'Mengesahkan struk bukti transaksi resmi Astro Quick Commerce - Hub Puri Indah.';
         if (progressBar) progressBar.style.width = '100%';
         AudioEngine.playPrinter();
 
@@ -4603,7 +4605,7 @@
     const customerName = appState.currentUser?.displayName || appState.currentUser?.username || 'Rian Pratama';
     const userSlug = (appState.currentUser && appState.currentUser.slug) ? appState.currentUser.slug : 'rian';
 
-    const rawTrxId = 'LOTTE-20261026-' + Math.floor(10000 + Math.random() * 90000);
+    const rawTrxId = 'ASTRO-20261026-' + Math.floor(10000 + Math.random() * 90000);
     const isolatedTrxId = 'rcp_' + userSlug + '_' + rawTrxId;
     const nowStr = new Date().toLocaleDateString('id-ID', {
       weekday: 'long',
@@ -4615,12 +4617,12 @@
     }) + ' WIB';
 
     const methodLabels = {
-      'qris': 'QRIS Lotte Mart Instant (LUNAS)',
-      'astropay': 'LottePay E-Wallet (LUNAS)',
+      'qris': 'QRIS Astro Instant (LUNAS)',
+      'astropay': 'AstroPay E-Wallet (LUNAS)',
       'va': `Virtual Account ${astroCheckoutState.selectedVaBank} (LUNAS)`,
       'cash': 'Tunai di Kasir (LUNAS)'
     };
-    const paymentMethodLabel = methodLabels[astroCheckoutState.selectedMethod] || 'QRIS Lotte Mart (LUNAS)';
+    const paymentMethodLabel = methodLabels[astroCheckoutState.selectedMethod] || 'QRIS Astro Instant (LUNAS)';
 
     // Populate Thermal Receipt Elements
     const elTrx = document.getElementById('receiptTrxId');
@@ -4746,7 +4748,7 @@
     const elMethod = document.getElementById('receiptPaymentMethodLabel')?.textContent || '';
     const elGrand = document.getElementById('receiptGrandTotal')?.textContent || '';
 
-    const text = `🧾 STRUK PEMBAYARAN LOTTE MART GROCERY - PURI INDAH\nNo. TRX: ${elTrx}\nPelanggan: ${elCust}\nMetode: ${elMethod}\nTOTAL: ${elGrand}\nStatus: LUNAS\nTerima kasih telah berbelanja di Lotte Mart Puri Indah!`;
+    const text = `🧾 STRUK PEMBAYARAN ASTRO QUICK COMMERCE - HUB PURI INDAH\nNo. TRX: ${elTrx}\nPelanggan: ${elCust}\nMetode: ${elMethod}\nTOTAL: ${elGrand}\nStatus: LUNAS\nTerima kasih telah berbelanja di Astro (15 Menit Sampai)!`;
 
     navigator.clipboard?.writeText(text);
     AudioEngine.playTap();

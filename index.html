@@ -474,6 +474,111 @@
         </div>
       </section>
 
+      <!-- ======================================================================
+           BAGIAN UTAMA: KATALOG RESMI BELANJA LOTTE MART (HARGA RESMI)
+           Pengguna tinggal klik untuk masukkan ke keranjang tanpa repot ketik manual!
+           ====================================================================== -->
+      <section class="w-full mb-space-md" id="sectionAstroCatalog">
+        <div class="bg-[#0e1626]/85 backdrop-blur-xl rounded-[28px] p-space-md shadow-lg border border-white/10">
+
+          <!-- Lotte Mart Official Header -->
+          <div class="flex items-center justify-between gap-2.5 mb-3.5 pb-3 border-b border-white/10">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <div class="w-10 h-10 rounded-2xl bg-[#131b2e] text-emerald-400 flex items-center justify-center shadow-xs shrink-0 border border-emerald-500/30">
+                <span class="material-symbols-outlined text-[22px]">storefront</span>
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h2 class="font-headline-sm text-[15px] font-black text-white tracking-tight truncate">Katalog Lotte Mart</h2>
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-mono text-[10.5px] font-extrabold whitespace-nowrap shrink-0">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>Grosir &amp; Fresh</span>
+                  </span>
+                </div>
+                <p class="font-body-sm text-[11px] text-slate-400 truncate mt-0.5">Daftar rak Puri Indah • Klik <strong class="text-emerald-400">+ Keranjang</strong> untuk belanja langsung</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 1-Klik Paket Hemat Anak Kos Lotte Mart Banner -->
+          <div
+            class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-emerald-950 via-[#064e3b] to-emerald-950 p-3.5 mb-3.5 text-white shadow-lg border border-emerald-500/40">
+            <div
+              class="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-cyan-500/20 blur-xl pointer-events-none">
+            </div>
+            <div class="relative z-10 flex items-center justify-between gap-2">
+              <div class="flex-1 min-w-0">
+                <div
+                  class="flex items-center gap-1 text-emerald-400 text-[11px] font-bold uppercase tracking-wider mb-0.5">
+                  <span class="material-symbols-outlined text-[14px]">stars</span>
+                  <span>1-Klik Paket Hemat Kos</span>
+                </div>
+                <h4 class="font-bold text-sm text-white truncate">Paket Sembako Komplit Lotte Mart</h4>
+                <p class="text-[11px] text-slate-300 line-clamp-1">Beras 5kg + Minyak 2L + Telur 10 btr + Indomie 5 +
+                  Susu 1L + Rinso</p>
+                <div class="flex items-baseline gap-1.5 mt-1">
+                  <span class="text-xs text-slate-400 line-through">Rp 215.000</span>
+                  <span class="text-sm font-bold text-emerald-400 font-mono">Rp 197.700</span>
+                </div>
+              </div>
+              <button type="button" id="btnLoadAstroKosPack"
+                class="px-3 py-2 rounded-xl bg-emerald-400 text-black font-black text-xs hover:bg-emerald-300 active:scale-95 transition-all shadow-[0_0_12px_rgba(16,185,129,0.35)] shrink-0 flex items-center gap-1 cursor-pointer">
+                <span class="material-symbols-outlined text-[16px]">add_shopping_cart</span>
+                <span>+ Paket</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Lotte Mart Search Bar -->
+          <div class="relative mb-3">
+            <span
+              class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-[18px]">search</span>
+            <input type="text" id="inputAstroSearch" placeholder="Cari barang Lotte Mart (Beras, Minyak, Telur, Mie)..."
+              class="w-full pl-9 pr-8 py-2 rounded-xl bg-[#131b2e] text-white font-body-sm text-xs border border-white/10 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder:text-slate-500 transition-all">
+            <button type="button" id="btnClearAstroSearch"
+              class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white hidden">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+          <!-- Category Filter Chips -->
+          <div class="flex items-center gap-1.5 mb-3.5 overflow-x-auto no-scrollbar py-0.5" id="astroCategoryChips">
+            <button
+              class="astro-cat-chip px-3 py-1 rounded-full bg-emerald-500 text-black font-label-sm text-xs font-black shrink-0 active"
+              data-astro-cat="ALL">Semua (32)</button>
+            <button
+              class="astro-cat-chip px-3 py-1 rounded-full bg-[#131b2e] text-slate-300 font-label-sm text-xs shrink-0 hover:bg-[#1a253f]"
+              data-astro-cat="Bahan Pokok">🌾 Bahan Pokok</button>
+            <button
+              class="astro-cat-chip px-3 py-1 rounded-full bg-[#131b2e] text-slate-300 font-label-sm text-xs shrink-0 hover:bg-[#1a253f]"
+              data-astro-cat="Susu & Minuman">🥛 Susu & Minuman</button>
+            <button
+              class="astro-cat-chip px-3 py-1 rounded-full bg-[#131b2e] text-slate-300 font-label-sm text-xs shrink-0 hover:bg-[#1a253f]"
+              data-astro-cat="Segar & Daging">🥩 Segar & Daging</button>
+            <button
+              class="astro-cat-chip px-3 py-1 rounded-full bg-[#131b2e] text-slate-300 font-label-sm text-xs shrink-0 hover:bg-[#1a253f]"
+              data-astro-cat="Dapur & Bumbu">🍳 Dapur & Bumbu</button>
+            <button
+              class="astro-cat-chip px-3 py-1 rounded-full bg-[#131b2e] text-slate-300 font-label-sm text-xs shrink-0 hover:bg-[#1a253f]"
+              data-astro-cat="Kebersihan">🧺 Kebersihan</button>
+            <button
+              class="astro-cat-chip px-3 py-1 rounded-full bg-[#131b2e] text-slate-300 font-label-sm text-xs shrink-0 hover:bg-[#1a253f]"
+              data-astro-cat="Camilan & Roti">🍫 Camilan</button>
+          </div>
+
+          <!-- Products Grid (2 Columns on Mobile) -->
+          <div class="grid grid-cols-2 gap-2.5" id="astroCatalogGrid">
+            <!-- Dynamically populated by JS from ASTRO_OFFICIAL_CATALOG -->
+          </div>
+
+          <!-- Catalog Tactile Pagination (Halaman Prev / Next & Nomor Halaman) -->
+          <div id="astroCatalogPagination" class="mt-3.5 pt-2.5 border-t border-white/10">
+            <!-- Dynamically rendered by renderAstroCatalog() in app.js -->
+          </div>
+
+        </div>
+      </section>
+
 
 
       <!-- ======================================================================
