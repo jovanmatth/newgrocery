@@ -2531,25 +2531,25 @@
         if (testPingBtnText) testPingBtnText.textContent = 'Memeriksa...';
         const start = Date.now();
         try {
-          const res = await fetch(${appState.supabaseUrl}/rest/v1/master_products?select=id&limit=1, {
+          const res = await fetch(`${appState.supabaseUrl}/rest/v1/master_products?select=id&limit=1`, {
             headers: {
               'apikey': appState.supabaseKey,
-              'Authorization': Bearer 
+              'Authorization': `Bearer ${appState.supabaseKey}`
             }
           });
           const latency = Date.now() - start;
           if (res.ok) {
-            showToast(Supabase Terhubung! Respon: ms, 'success');
+            showToast(`Supabase Terhubung! Respon: ${latency}ms`, 'success');
             AudioEngine.playSuccess();
-            if (testPingBtnText) testPingBtnText.textContent = Ping: ms (OK);
+            if (testPingBtnText) testPingBtnText.textContent = `Ping: ${latency}ms (OK)`;
             updateCloudStatusUI(true);
           } else {
-            showToast(HTTP : Gagal otentikasi Supabase, 'danger');
+            showToast(`HTTP ${res.status}: Gagal otentikasi Supabase`, 'danger');
             AudioEngine.playAlert();
-            if (testPingBtnText) testPingBtnText.textContent = Error ();
+            if (testPingBtnText) testPingBtnText.textContent = `Error (${res.status})`;
           }
         } catch (err) {
-          showToast(Koneksi Gagal: , 'danger');
+          showToast(`Koneksi Gagal: ${err.message}`, 'danger');
           AudioEngine.playAlert();
           if (testPingBtnText) testPingBtnText.textContent = 'Gagal';
         }
