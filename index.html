@@ -130,11 +130,11 @@
   <link rel="stylesheet" href="styles.css?v=6.0.0">
 </head>
 
-<body class="bg-[#080c14] font-body-md text-on-surface antialiased flex flex-col min-h-screen selection:bg-primary selection:text-black">
+<body
+  class="bg-[#080c14] font-body-md text-on-surface antialiased flex flex-col min-h-screen selection:bg-primary selection:text-black">
 
   <!-- ================= AUTHENTICATION / LOGIN SCREEN ================= -->
-  <div id="loginScreen"
-    class="hidden fixed inset-0 z-[100] bg-[#080c14] flex flex-col justify-between overflow-y-auto">
+  <div id="loginScreen" class="hidden fixed inset-0 z-[100] bg-[#080c14] flex flex-col justify-between overflow-y-auto">
     <div
       class="w-full max-w-[440px] mx-auto min-h-screen flex flex-col justify-between p-6 bg-[#0a0e1a] border-x border-white/10 shadow-2xl">
 
@@ -142,7 +142,8 @@
       <div class="pt-12 text-center">
         <div
           class="w-16 h-16 rounded-2xl bg-[#0f172a] text-emerald-400 mx-auto flex items-center justify-center shadow-[0_0_24px_rgba(16,185,129,0.3)] mb-3.5 border border-emerald-500/40">
-          <span class="material-symbols-outlined text-[32px] text-emerald-400" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+          <span class="material-symbols-outlined text-[32px] text-emerald-400"
+            style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
         </div>
         <h1 class="font-headline-sm text-[24px] text-white font-black tracking-tight">KeranjangPintar</h1>
         <p class="font-body-sm text-[13px] text-slate-400 mt-1">Smart grocery &amp; budget companion</p>
@@ -152,11 +153,14 @@
       <div class="bg-[#0e1626]/95 backdrop-blur-xl rounded-[28px] p-6 shadow-2xl border border-white/10 my-auto">
 
         <!-- Tabs: Masuk / Daftar -->
-        <div class="grid grid-cols-2 p-1 bg-[#11192e] border border-white/10 rounded-xl mb-4 font-mono text-xs font-bold">
-          <button type="button" id="tabLoginBtn" class="py-2 rounded-lg bg-emerald-500 text-black font-black shadow-sm transition-all cursor-pointer">
+        <div
+          class="grid grid-cols-2 p-1 bg-[#11192e] border border-white/10 rounded-xl mb-4 font-mono text-xs font-bold">
+          <button type="button" id="tabLoginBtn"
+            class="py-2 rounded-lg bg-emerald-500 text-black font-black shadow-sm transition-all cursor-pointer">
             Masuk
           </button>
-          <button type="button" id="tabRegisterBtn" class="py-2 rounded-lg text-slate-400 hover:text-white transition-all cursor-pointer">
+          <button type="button" id="tabRegisterBtn"
+            class="py-2 rounded-lg text-slate-400 hover:text-white transition-all cursor-pointer">
             Daftar Akun
           </button>
         </div>
@@ -164,33 +168,43 @@
         <!-- Form Masuk (Login) -->
         <form id="formUsernameLogin" class="space-y-3">
           <!-- Inline Feedback Alert Banner -->
-          <div id="loginFeedbackAlert" style="display: none;" class="p-3.5 rounded-xl border border-rose-500/50 bg-rose-500/10 text-rose-300 font-body-md text-xs font-black flex items-start gap-2 shadow-sm animate-shake">
-            <span class="material-symbols-outlined text-[18px] shrink-0 text-rose-400" id="loginFeedbackIcon">error</span>
+          <div id="loginFeedbackAlert" style="display: none;"
+            class="p-3.5 rounded-xl border border-rose-500/50 bg-rose-500/10 text-rose-300 font-body-md text-xs font-black flex items-start gap-2 shadow-sm animate-shake">
+            <span class="material-symbols-outlined text-[18px] shrink-0 text-rose-400"
+              id="loginFeedbackIcon">error</span>
             <div class="flex-1" id="loginFeedbackText">Pesan pemberitahuan</div>
           </div>
 
           <div>
-            <label class="font-mono text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Username</label>
+            <label
+              class="font-mono text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Username</label>
             <div class="relative">
-              <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-[18px]">person</span>
-              <input type="text" id="inputLoginUsername" placeholder="Username atau email kamu" required autocomplete="username"
+              <span
+                class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-[18px]">person</span>
+              <input type="text" id="inputLoginUsername" placeholder="Username atau email kamu" required
+                autocomplete="username"
                 class="w-full pl-10 pr-4 py-3 rounded-xl bg-[#131b2e] text-white font-body-md text-sm font-bold border border-white/15 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 focus:outline-none transition-all placeholder:font-normal placeholder:text-slate-500">
             </div>
           </div>
 
           <div>
-            <label class="font-mono text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Password</label>
+            <label
+              class="font-mono text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Password</label>
             <div class="relative">
-              <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-[18px]">lock</span>
-              <input type="password" id="inputLoginPassword" placeholder="Masukkan password akun kamu" required autocomplete="current-password"
+              <span
+                class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-[18px]">lock</span>
+              <input type="password" id="inputLoginPassword" placeholder="Masukkan password akun kamu" required
+                autocomplete="current-password"
                 class="w-full pl-10 pr-10 py-3 rounded-xl bg-[#131b2e] text-white font-body-md text-sm font-bold border border-white/15 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 focus:outline-none transition-all placeholder:font-normal placeholder:text-slate-500">
-              <button type="button" id="btnToggleLoginPwd" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white cursor-pointer">
+              <button type="button" id="btnToggleLoginPwd"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white cursor-pointer">
                 <span class="material-symbols-outlined text-[18px]">visibility</span>
               </button>
             </div>
             <!-- Posisi Standar: Di bawah kolom input password rata kanan -->
             <div class="text-right mt-1.5">
-              <button type="button" id="btnForgotPasswordTrigger" class="font-mono text-[11px] font-bold text-slate-400 hover:text-emerald-400 hover:underline cursor-pointer transition-colors">
+              <button type="button" id="btnForgotPasswordTrigger"
+                class="font-mono text-[11px] font-bold text-slate-400 hover:text-emerald-400 hover:underline cursor-pointer transition-colors">
                 Lupa Password?
               </button>
             </div>
@@ -206,30 +220,39 @@
         <!-- Form Daftar (Sign Up / Register) -->
         <form id="formRegisterUser" class="space-y-3 hidden">
           <div>
-            <label class="font-mono text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Pilih Username</label>
+            <label class="font-mono text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Pilih
+              Username</label>
             <div class="relative">
-              <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-[18px]">badge</span>
-              <input type="text" id="inputRegUsername" placeholder="Contoh: Bambang atau Budi" required autocomplete="username"
+              <span
+                class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-[18px]">badge</span>
+              <input type="text" id="inputRegUsername" placeholder="Contoh: Bambang atau Budi" required
+                autocomplete="username"
                 class="w-full pl-10 pr-4 py-3 rounded-xl bg-[#131b2e] text-white font-body-md text-sm font-bold border border-white/15 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 focus:outline-none transition-all placeholder:font-normal placeholder:text-slate-500">
             </div>
           </div>
 
           <div>
-            <label class="font-mono text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Alamat Email</label>
+            <label class="font-mono text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Alamat
+              Email</label>
             <div class="relative">
-              <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-[18px]">mail</span>
+              <span
+                class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-[18px]">mail</span>
               <input type="email" id="inputRegEmail" placeholder="nama@email.com" required autocomplete="email"
                 class="w-full pl-10 pr-4 py-3 rounded-xl bg-[#131b2e] text-white font-body-md text-sm font-bold border border-white/15 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 focus:outline-none transition-all placeholder:font-normal placeholder:text-slate-500">
             </div>
           </div>
 
           <div>
-            <label class="font-mono text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Buat Password</label>
+            <label class="font-mono text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Buat
+              Password</label>
             <div class="relative">
-              <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-[18px]">lock</span>
-              <input type="password" id="inputRegPassword" placeholder="Minimal 4 karakter" required autocomplete="new-password"
+              <span
+                class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-[18px]">lock</span>
+              <input type="password" id="inputRegPassword" placeholder="Minimal 4 karakter" required
+                autocomplete="new-password"
                 class="w-full pl-10 pr-10 py-3 rounded-xl bg-[#131b2e] text-white font-body-md text-sm font-bold border border-white/15 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 focus:outline-none transition-all placeholder:font-normal placeholder:text-slate-500">
-              <button type="button" id="btnToggleRegPwd" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white cursor-pointer">
+              <button type="button" id="btnToggleRegPwd"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white cursor-pointer">
                 <span class="material-symbols-outlined text-[18px]">visibility</span>
               </button>
             </div>
@@ -245,7 +268,8 @@
         <!-- Divider -->
         <div class="flex items-center my-4 gap-3">
           <div class="h-px bg-white/10 flex-1"></div>
-          <span class="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider select-none shrink-0">atau</span>
+          <span
+            class="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider select-none shrink-0">atau</span>
           <div class="h-px bg-white/10 flex-1"></div>
         </div>
 
@@ -267,7 +291,8 @@
 
         <!-- Saved Accounts on this Device -->
         <div id="sectionSavedAccounts" class="mt-4 pt-3 border-t border-white/10 hidden">
-          <span class="text-[10px] font-mono font-bold text-slate-400 block mb-2 uppercase">Akun Tersimpan di Perangkat:</span>
+          <span class="text-[10px] font-mono font-bold text-slate-400 block mb-2 uppercase">Akun Tersimpan di
+            Perangkat:</span>
           <div class="flex flex-wrap gap-1.5" id="savedAccountsList">
             <!-- Rendered dynamically by JS from real user logins -->
           </div>
@@ -294,21 +319,27 @@
       <!-- Left: Big Squircle Bag Icon & Stacked 3-Line Info -->
       <div class="flex items-center gap-2 min-w-0 flex-1">
         <!-- Squircle Bag Icon -->
-        <div class="w-11 h-11 rounded-2xl bg-[#0f172a] flex items-center justify-center text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.25)] shrink-0 border border-emerald-500/40">
-          <span class="material-symbols-outlined text-[22px] text-emerald-400" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+        <div
+          class="w-11 h-11 rounded-2xl bg-[#0f172a] flex items-center justify-center text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.25)] shrink-0 border border-emerald-500/40">
+          <span class="material-symbols-outlined text-[22px] text-emerald-400"
+            style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
         </div>
 
         <!-- 2 Lines Stacked Info -->
         <div class="flex flex-col min-w-0">
           <!-- Line 1: Title & PRO Badge -->
           <div class="flex items-center gap-1.5 leading-none">
-            <span class="font-headline-sm text-[15px] font-black text-white tracking-tight whitespace-nowrap">KeranjangPintar</span>
-            <span class="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 font-mono text-[9px] font-black border border-emerald-500/30">PRO</span>
+            <span
+              class="font-headline-sm text-[15px] font-black text-white tracking-tight whitespace-nowrap">KeranjangPintar</span>
+            <span
+              class="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 font-mono text-[9px] font-black border border-emerald-500/30">PRO</span>
           </div>
 
           <!-- Line 2: Online Status Badge -->
           <div class="flex items-center gap-1 mt-0.5">
-            <button type="button" class="flex items-center gap-1 px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-mono text-[9px] font-black shrink-0 hover:bg-emerald-500/25 cursor-pointer active:scale-95 transition-all" id="cloudStatusTag" title="Klik untuk cek status atau atur koneksi Cloud Supabase">
+            <button type="button"
+              class="flex items-center gap-1 px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-mono text-[9px] font-black shrink-0 hover:bg-emerald-500/25 cursor-pointer active:scale-95 transition-all"
+              id="cloudStatusTag" title="Klik untuk cek status atau atur koneksi Cloud Supabase">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" id="cloudStatusDot"></span>
               <span>ONLINE</span>
             </button>
@@ -325,7 +356,8 @@
           id="btnEditBudgetTrigger" title="Ketuk untuk ubah limit dompet">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           <span class="material-symbols-outlined text-[14px] text-emerald-400">account_balance_wallet</span>
-          <span class="font-mono text-[11px] font-extrabold tracking-tight whitespace-nowrap text-white" id="hudBudgetLimit">Rp 350k</span>
+          <span class="font-mono text-[11px] font-extrabold tracking-tight whitespace-nowrap text-white"
+            id="hudBudgetLimit">Rp 350k</span>
         </button>
 
         <!-- User Profile Trigger -->
@@ -343,14 +375,13 @@
     <!-- Sesi Belanja Aktif (SRS F-01: Lokasi Toko Lotte Mart & Selector Tanggal) -->
     <div class="px-3 py-1.5 bg-[#0a0f1d]/95 border-t border-white/5 flex items-center justify-between gap-2">
       <!-- Store Selector Pill -->
-      <button
-        type="button"
-        id="btnStoreSelector"
+      <button type="button" id="btnStoreSelector"
         class="flex-1 flex items-center justify-between gap-1.5 px-2.5 py-1 rounded-xl bg-white/5 hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/30 text-white transition-all cursor-pointer min-w-0 active:scale-95 text-left"
         title="Pilih Lokasi Toko Belanja (SRS F-01)">
         <div class="flex items-center gap-1.5 min-w-0">
           <span class="material-symbols-outlined text-[15px] text-emerald-400 shrink-0">storefront</span>
-          <span class="font-body-md text-[11px] font-bold text-slate-200 truncate" id="activeStoreName">Lotte Mart Grocery - Puri Indah</span>
+          <span class="font-body-md text-[11px] font-bold text-slate-200 truncate" id="activeStoreName">Lotte Mart
+            Grocery - Puri Indah</span>
         </div>
         <span class="material-symbols-outlined text-[13px] text-slate-400 shrink-0">expand_more</span>
       </button>
@@ -360,10 +391,7 @@
         class="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-white/5 border border-white/10 hover:border-emerald-500/30 text-white transition-all shrink-0"
         title="Selector Tanggal Belanja Aktif (SRS F-01)">
         <span class="material-symbols-outlined text-[13px] text-emerald-400 shrink-0">calendar_month</span>
-        <input
-          type="date"
-          id="sessionDatePicker"
-          value="2026-10-26"
+        <input type="date" id="sessionDatePicker" value="2026-10-26"
           class="bg-transparent text-[11px] font-mono font-bold text-slate-200 cursor-pointer focus:outline-none" />
       </div>
     </div>
@@ -380,18 +408,18 @@
 
       <!-- Top Live Gauge Card (Cyber Segmented Radar Display) -->
       <section class="w-full mb-space-md" id="budgetHudCard">
-        <div class="relative overflow-hidden rounded-[26px] bg-[#0e1626]/90 backdrop-blur-xl border border-white/10 p-4 pt-4 pb-5 shadow-[0_8px_32px_rgba(0,0,0,0.6)] text-white">
+        <div
+          class="relative overflow-hidden rounded-[26px] bg-[#0e1626]/90 backdrop-blur-xl border border-white/10 p-4 pt-4 pb-5 shadow-[0_8px_32px_rgba(0,0,0,0.6)] text-white">
           <!-- Subtle Glow Gradients -->
-          <div
-            class="absolute -right-8 -top-8 w-40 h-40 rounded-full bg-emerald-500/20 blur-3xl pointer-events-none">
+          <div class="absolute -right-8 -top-8 w-40 h-40 rounded-full bg-emerald-500/20 blur-3xl pointer-events-none">
           </div>
-          <div
-            class="absolute -left-6 -bottom-6 w-32 h-32 rounded-full bg-cyan-500/15 blur-2xl pointer-events-none">
+          <div class="absolute -left-6 -bottom-6 w-32 h-32 rounded-full bg-cyan-500/15 blur-2xl pointer-events-none">
           </div>
 
           <!-- Top Row: Status Pill & Savings Rubber Stamp -->
           <div class="relative z-10 flex items-center justify-between mb-3 border-b border-white/10 pb-3">
-            <div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 font-mono text-[10px] font-extrabold uppercase tracking-widest"
+            <div
+              class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 font-mono text-[10px] font-extrabold uppercase tracking-widest"
               id="hudStatusBadge">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
               <span id="hudStatusText">RADAR-ACTIVE</span>
@@ -409,15 +437,19 @@
           <!-- Main Numbers Group -->
           <div class="relative z-10 flex flex-col mb-3">
             <div class="flex items-baseline justify-between">
-              <span class="font-mono text-[10px] tracking-wider text-slate-400 uppercase font-semibold">Total Belanja Berjalan</span>
-              <span class="font-mono text-[10px] text-emerald-400 font-bold bg-emerald-950/70 px-2 py-0.5 rounded border border-emerald-500/40 flex items-center gap-1" id="hudStatusIcon">
+              <span class="font-mono text-[10px] tracking-wider text-slate-400 uppercase font-semibold">Total Belanja
+                Berjalan</span>
+              <span
+                class="font-mono text-[10px] text-emerald-400 font-bold bg-emerald-950/70 px-2 py-0.5 rounded border border-emerald-500/40 flex items-center gap-1"
+                id="hudStatusIcon">
                 <span class="material-symbols-outlined text-[11px]">verified_user</span> STATUS: AMAN
               </span>
             </div>
             <div class="flex items-baseline justify-between gap-space-xs mt-1">
               <div class="flex items-baseline gap-1.5">
                 <span class="font-headline-md text-emerald-400 text-[24px] font-bold leading-none">Rp</span>
-                <span class="font-numeric-lg text-[38px] text-white tracking-tight font-extrabold leading-none drop-shadow-sm"
+                <span
+                  class="font-numeric-lg text-[38px] text-white tracking-tight font-extrabold leading-none drop-shadow-sm"
                   id="hudTotalSpending">0</span>
               </div>
               <div class="text-right">
@@ -512,18 +544,22 @@
           <!-- Lotte Mart Official Header -->
           <div class="flex items-center justify-between gap-2.5 mb-3.5 pb-3 border-b border-white/10">
             <div class="flex items-center gap-2.5 min-w-0">
-              <div class="w-10 h-10 rounded-2xl bg-[#131b2e] text-emerald-400 flex items-center justify-center shadow-xs shrink-0 border border-emerald-500/30">
+              <div
+                class="w-10 h-10 rounded-2xl bg-[#131b2e] text-emerald-400 flex items-center justify-center shadow-xs shrink-0 border border-emerald-500/30">
                 <span class="material-symbols-outlined text-[22px]">storefront</span>
               </div>
               <div class="min-w-0">
                 <div class="flex items-center gap-2 flex-wrap">
-                  <h2 class="font-headline-sm text-[15px] font-black text-white tracking-tight truncate">Katalog Lotte Mart</h2>
-                  <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-mono text-[10.5px] font-extrabold whitespace-nowrap shrink-0">
+                  <h2 class="font-headline-sm text-[15px] font-black text-white tracking-tight truncate">Katalog Lotte
+                    Mart</h2>
+                  <span
+                    class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-mono text-[10.5px] font-extrabold whitespace-nowrap shrink-0">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                     <span>Grosir &amp; Fresh</span>
                   </span>
                 </div>
-                <p class="font-body-sm text-[11px] text-slate-400 truncate mt-0.5">Daftar rak Puri Indah • Klik <strong class="text-emerald-400">+ Keranjang</strong> untuk belanja langsung</p>
+                <p class="font-body-sm text-[11px] text-slate-400 truncate mt-0.5">Daftar rak Puri Indah • Klik <strong
+                    class="text-emerald-400">+ Keranjang</strong> untuk belanja langsung</p>
               </div>
             </div>
           </div>
@@ -531,8 +567,7 @@
           <!-- 1-Klik Paket Hemat Anak Kos Lotte Mart Banner -->
           <div
             class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-emerald-950 via-[#064e3b] to-emerald-950 p-3.5 mb-3.5 text-white shadow-lg border border-emerald-500/40">
-            <div
-              class="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-cyan-500/20 blur-xl pointer-events-none">
+            <div class="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-cyan-500/20 blur-xl pointer-events-none">
             </div>
             <div class="relative z-10 flex items-center justify-between gap-2">
               <div class="flex-1 min-w-0">
@@ -616,17 +651,21 @@
         <div class="flex items-center justify-between gap-2.5 mb-2.5">
           <!-- Left: Title with icon and clean LOT badge -->
           <div class="flex items-center gap-2 min-w-0">
-            <div class="w-8 h-8 rounded-xl bg-[#131b2e] text-cyan-400 flex items-center justify-center shadow-xs shrink-0 border border-cyan-500/30">
+            <div
+              class="w-8 h-8 rounded-xl bg-[#131b2e] text-cyan-400 flex items-center justify-center shadow-xs shrink-0 border border-cyan-500/30">
               <span class="material-symbols-outlined text-[18px]">receipt_long</span>
             </div>
             <div class="min-w-0">
               <div class="flex items-center gap-1.5 flex-wrap">
-                <h3 class="font-headline-sm text-sm sm:text-base font-black text-white tracking-tight uppercase truncate">Daftar Barang Belanja</h3>
+                <h3
+                  class="font-headline-sm text-sm sm:text-base font-black text-white tracking-tight uppercase truncate">
+                  Daftar Barang Belanja</h3>
                 <span
                   class="px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-mono text-[10px] font-black tracking-tight whitespace-nowrap shrink-0"
                   id="cartHeaderPillCount">0 LOT</span>
               </div>
-              <p class="font-body-sm text-[10.5px] text-slate-400 truncate -mt-0.5">Tiket fisik barang &amp; simulasi harga</p>
+              <p class="font-body-sm text-[10.5px] text-slate-400 truncate -mt-0.5">Tiket fisik barang &amp; simulasi
+                harga</p>
             </div>
           </div>
 
@@ -640,7 +679,8 @@
         </div>
 
         <!-- Realtime Fiscal Note Bar (Stitch Screen 2) -->
-        <div class="flex items-center justify-between px-3 py-1.5 rounded-xl bg-[#11192e] border border-white/10 text-[10px] font-mono text-slate-300 shadow-xs">
+        <div
+          class="flex items-center justify-between px-3 py-1.5 rounded-xl bg-[#11192e] border border-white/10 text-[10px] font-mono text-slate-300 shadow-xs">
           <span class="flex items-center gap-1 font-extrabold text-emerald-400">
             <span class="material-symbols-outlined text-[13px] text-emerald-400">receipt</span>
             SEMUA HARGA INCLUDE PPN 11%
@@ -682,7 +722,8 @@
           <input
             class="w-full pl-9 pr-8 py-2 rounded-xl bg-[#11192e] text-white font-body-sm text-body-sm shadow-xs border border-white/10 focus:outline-none focus:ring-1 focus:ring-emerald-500 placeholder:text-slate-500"
             id="searchCartInput" placeholder="Cari barang di troli..." type="text" autocomplete="off" />
-          <button id="btnClearSearch" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white hidden">
+          <button id="btnClearSearch"
+            class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white hidden">
             <span class="material-symbols-outlined text-[16px]">close</span>
           </button>
         </div>
@@ -695,14 +736,16 @@
       </div>
 
       <!-- Over Budget Warning Banner -->
-      <div class="neo-alert-overbudget bg-rose-500/15 border border-rose-500/40 rounded-2xl p-space-sm mb-space-md hidden"
+      <div
+        class="neo-alert-overbudget bg-rose-500/15 border border-rose-500/40 rounded-2xl p-space-sm mb-space-md hidden"
         id="overBudgetBanner">
         <div class="flex items-center justify-between">
           <span class="text-rose-400 font-bold font-label-sm text-label-sm flex items-center gap-1">
             <span class="material-symbols-outlined text-[16px]">warning</span> DEFISIT: <span id="trimDeficitAmount">Rp
               0</span>
           </span>
-          <button id="btnSuggestTrim" class="text-rose-300 font-label-sm text-label-sm font-bold underline cursor-pointer hover:text-rose-200">
+          <button id="btnSuggestTrim"
+            class="text-rose-300 font-label-sm text-label-sm font-bold underline cursor-pointer hover:text-rose-200">
             Saran Pangkas
           </button>
         </div>
@@ -714,8 +757,7 @@
       </div>
 
       <!-- Empty Cart State -->
-      <div
-        class="bg-[#0e1626]/85 backdrop-blur-xl rounded-2xl p-8 text-center shadow-lg border border-white/10 hidden"
+      <div class="bg-[#0e1626]/85 backdrop-blur-xl rounded-2xl p-8 text-center shadow-lg border border-white/10 hidden"
         id="emptyCartState">
         <div
           class="w-16 h-16 rounded-full bg-emerald-500/10 mx-auto flex items-center justify-center text-emerald-400 mb-3 border border-emerald-500/20 shadow-[0_0_15px_rgba(16,185,129,0.15)]">
@@ -748,7 +790,9 @@
               <span class="font-mono text-[10px] text-slate-400 font-bold uppercase" id="summaryTotalItems">0
                 Jenis (0 Pcs)</span>
               <span class="w-1 h-1 rounded-full bg-slate-600"></span>
-              <span class="font-mono text-[10px] text-rose-300 font-extrabold bg-rose-500/20 px-1.5 py-0.5 rounded-full border border-rose-500/30" id="summaryTotalSaved">Hemat Rp
+              <span
+                class="font-mono text-[10px] text-rose-300 font-extrabold bg-rose-500/20 px-1.5 py-0.5 rounded-full border border-rose-500/30"
+                id="summaryTotalSaved">Hemat Rp
                 0</span>
             </div>
             <div class="flex items-baseline gap-1 mt-0.5">
@@ -764,7 +808,8 @@
               <span class="font-headline-md text-[13px] font-black uppercase tracking-wider text-black">Cek Kasir</span>
               <span class="font-mono text-[9px] text-black/70 font-bold">&amp; Cetak Struk</span>
             </div>
-            <span class="w-7 h-7 rounded-full bg-black text-emerald-400 flex items-center justify-center font-bold shrink-0">
+            <span
+              class="w-7 h-7 rounded-full bg-black text-emerald-400 flex items-center justify-center font-bold shrink-0">
               <span class="material-symbols-outlined text-[16px]">receipt_long</span>
             </span>
           </button>
@@ -787,7 +832,8 @@
           <h2 class="font-headline-sm text-headline-sm text-white font-bold">Shopping Planner</h2>
         </div>
         <p class="font-body-sm text-body-sm text-slate-400 leading-relaxed">
-          Catat barang kebutuhan yang akan dibeli dari rumah <strong class="text-emerald-400">sebelum pergi ke supermarket</strong>. Cukup
+          Catat barang kebutuhan yang akan dibeli dari rumah <strong class="text-emerald-400">sebelum pergi ke
+            supermarket</strong>. Cukup
           masukkan nama, kuantitas, dan satuan tanpa perlu tahu harganya terlebih dahulu.
         </p>
       </div>
@@ -847,7 +893,7 @@
               <label class="font-label-sm text-label-sm text-slate-400 font-bold block mb-1">JUMLAH
                 (QTY)</label>
               <input type="number" id="inputPlannerQty" value="1" min="1" required
-                class="w-full px-3 py-2 rounded-xl bg-[#131b2e] text-center font-numeric-md text-numeric-md font-bold text-white border border-white/10">
+                class="w-full px-3 py-2 rounded-xl bg-[#13s1b2e] text-center font-numeric-md text-numeric-md font-bold text-white border border-white/10">
             </div>
             <div class="flex-1 pt-5">
               <button type="submit"
@@ -877,9 +923,9 @@
           <!-- Rendered dynamically -->
         </div>
 
-        <div
-          class="flex items-center justify-between text-[11px] text-slate-400 pt-2 border-t border-white/10">
-          <span>💡 Saat di supermarket, buka tab <strong class="text-emerald-400">Troli</strong> untuk input harga di rak.</span>
+        <div class="flex items-center justify-between text-[11px] text-slate-400 pt-2 border-t border-white/10">
+          <span>💡 Saat di supermarket, buka tab <strong class="text-emerald-400">Troli</strong> untuk input harga di
+            rak.</span>
           <button class="text-rose-400 font-semibold hover:underline cursor-pointer"
             id="btnClearCompletedPlanner">Bersihkan yang selesai</button>
         </div>
@@ -961,25 +1007,32 @@
       <div class="bg-[#0e1626]/85 backdrop-blur-xl rounded-2xl p-space-md shadow-lg border border-white/10">
         <div class="flex items-center justify-between mb-2">
           <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center justify-center">
+            <div
+              class="w-8 h-8 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center justify-center">
               <span class="material-symbols-outlined text-[18px]">account_balance_wallet</span>
             </div>
             <div>
               <h2 class="font-headline-sm text-headline-sm text-white font-bold">Kendali Anggaran &amp; Dompet</h2>
-              <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-bold">Safety Cap SRS F-05 • Dompet Belanja</span>
+              <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-bold">Safety Cap SRS F-05
+                • Dompet Belanja</span>
             </div>
           </div>
-          <span class="font-label-sm text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-extrabold" id="budgetTabStatusPill">● AMAN</span>
+          <span
+            class="font-label-sm text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-extrabold"
+            id="budgetTabStatusPill">● AMAN</span>
         </div>
         <p class="font-body-sm text-body-sm text-slate-400 leading-relaxed">
-          Pantau batas maksimal pengeluaran belanja bulanan agar kantong tetap aman, terkendali, dan bebas defisit di supermarket.
+          Pantau batas maksimal pengeluaran belanja bulanan agar kantong tetap aman, terkendali, dan bebas defisit di
+          supermarket.
         </p>
       </div>
 
       <!-- Live Financial Radar Card (Macro Allocation & Meter) -->
-      <div class="w-full bg-gradient-to-br from-[#0c1220] via-[#11192e] to-[#0c1220] text-white rounded-2xl p-space-md shadow-2xl border border-cyan-500/30">
+      <div
+        class="w-full bg-gradient-to-br from-[#0c1220] via-[#11192e] to-[#0c1220] text-white rounded-2xl p-space-md shadow-2xl border border-cyan-500/30">
         <div class="flex items-center justify-between mb-3 border-b border-white/10 pb-2.5">
-          <span class="text-[11px] font-mono font-bold text-slate-400 tracking-wider uppercase flex items-center gap-1.5">
+          <span
+            class="text-[11px] font-mono font-bold text-slate-400 tracking-wider uppercase flex items-center gap-1.5">
             <span class="material-symbols-outlined text-cyan-400 text-[15px]">donut_large</span>
             <span>Ringkasan Saldo Belanja</span>
           </span>
@@ -989,7 +1042,8 @@
         <div class="grid grid-cols-3 gap-2 text-center mb-3.5">
           <div class="bg-white/5 rounded-xl p-2.5 border border-white/10">
             <span class="block text-[10px] font-mono text-slate-400 font-bold uppercase mb-0.5">Batas Pagu</span>
-            <strong class="font-mono text-xs sm:text-sm font-black text-white" id="hudDompetLimitDisplay">Rp 350.000</strong>
+            <strong class="font-mono text-xs sm:text-sm font-black text-white" id="hudDompetLimitDisplay">Rp
+              350.000</strong>
           </div>
           <div class="bg-white/5 rounded-xl p-2.5 border border-white/10">
             <span class="block text-[10px] font-mono text-slate-400 font-bold uppercase mb-0.5">Isi Troli</span>
@@ -997,7 +1051,8 @@
           </div>
           <div class="bg-white/5 rounded-xl p-2.5 border border-white/10">
             <span class="block text-[10px] font-mono text-slate-400 font-bold uppercase mb-0.5">Sisa Saldo</span>
-            <strong class="font-mono text-xs sm:text-sm font-black text-emerald-400" id="budgetRemainingAmount">Rp 350.000</strong>
+            <strong class="font-mono text-xs sm:text-sm font-black text-emerald-400" id="budgetRemainingAmount">Rp
+              350.000</strong>
           </div>
         </div>
 
@@ -1008,7 +1063,9 @@
             <span class="text-slate-300">Pagu Maksimal</span>
           </div>
           <div class="w-full h-3 bg-black/60 rounded-full overflow-hidden p-0.5 border border-white/10">
-            <div id="budgetHealthMeter" class="h-full bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full transition-all duration-300 shadow-[0_0_10px_rgba(16,185,129,0.6)]" style="width: 0%;"></div>
+            <div id="budgetHealthMeter"
+              class="h-full bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full transition-all duration-300 shadow-[0_0_10px_rgba(16,185,129,0.6)]"
+              style="width: 0%;"></div>
           </div>
           <div class="flex items-center justify-between text-[9px] font-mono text-slate-500 font-semibold">
             <span class="text-emerald-400">● Aman (&lt;90%)</span>
@@ -1069,7 +1126,9 @@
             <span class="material-symbols-outlined text-cyan-400 text-[20px]">pie_chart</span>
             <h3 class="font-headline-sm text-headline-sm text-white font-bold">Alokasi Kategori Belanja</h3>
           </div>
-          <span class="text-[11px] font-bold text-cyan-400 bg-cyan-500/15 border border-cyan-500/30 px-2 py-0.5 rounded-full">Pantauan Realtime</span>
+          <span
+            class="text-[11px] font-bold text-cyan-400 bg-cyan-500/15 border border-cyan-500/30 px-2 py-0.5 rounded-full">Pantauan
+            Realtime</span>
         </div>
         <p class="font-body-sm text-body-sm text-slate-400 mb-3">
           Sebaran pemakaian dompet saat ini per kelompok kebutuhan belanja:
@@ -1100,7 +1159,8 @@
             class="absolute -top-1 -right-2 min-w-[16px] h-[16px] px-1 bg-rose-500 text-white rounded-full font-mono text-[9px] flex items-center justify-center leading-none font-black shadow-sm"
             id="navCartBadge">0</span>
         </div>
-        <span class="font-label-sm text-[10px] mt-0.5 whitespace-nowrap uppercase tracking-wider font-extrabold">Troli</span>
+        <span
+          class="font-label-sm text-[10px] mt-0.5 whitespace-nowrap uppercase tracking-wider font-extrabold">Troli</span>
       </button>
 
       <!-- 2. Shopping Planner & Rencana -->
@@ -1113,7 +1173,8 @@
             class="hidden absolute -top-1 -right-1.5 min-w-[15px] h-[15px] px-1 bg-amber-500 text-black rounded-full font-mono text-[9px] flex items-center justify-center leading-none font-black"
             id="navPlannerBadge">0</span>
         </div>
-        <span class="font-label-sm text-[10px] mt-0.5 whitespace-nowrap uppercase tracking-wider font-extrabold">Rencana</span>
+        <span
+          class="font-label-sm text-[10px] mt-0.5 whitespace-nowrap uppercase tracking-wider font-extrabold">Rencana</span>
       </button>
 
       <!-- 3. Riwayat & Struk Kasir -->
@@ -1121,7 +1182,8 @@
         class="dock-tab relative flex-1 flex flex-col items-center justify-center py-2 px-1 rounded-2xl transition-all duration-200 text-slate-400 hover:text-white cursor-pointer"
         id="navBtnHistory" data-tab="tabHistory">
         <span class="material-symbols-outlined text-[22px]">receipt_long</span>
-        <span class="font-label-sm text-[10px] mt-0.5 whitespace-nowrap uppercase tracking-wider font-extrabold">Struk</span>
+        <span
+          class="font-label-sm text-[10px] mt-0.5 whitespace-nowrap uppercase tracking-wider font-extrabold">Struk</span>
       </button>
 
       <!-- 4. Dompet & Anggaran Safety Cap (SRS F-05) -->
@@ -1130,9 +1192,12 @@
         id="navBtnDompet" data-tab="tabDompet" title="Batas Dompet & Status Anggaran">
         <div class="relative flex items-center justify-center">
           <span class="material-symbols-outlined text-[22px]">account_balance_wallet</span>
-          <span class="w-2 h-2 rounded-full bg-emerald-400 absolute -top-0.5 -right-1 shadow-[0_0_8px_rgba(16,185,129,0.8)]" id="navBudgetDot"></span>
+          <span
+            class="w-2 h-2 rounded-full bg-emerald-400 absolute -top-0.5 -right-1 shadow-[0_0_8px_rgba(16,185,129,0.8)]"
+            id="navBudgetDot"></span>
         </div>
-        <span class="font-label-sm text-[10px] mt-0.5 whitespace-nowrap uppercase tracking-wider font-extrabold">Anggaran</span>
+        <span
+          class="font-label-sm text-[10px] mt-0.5 whitespace-nowrap uppercase tracking-wider font-extrabold">Anggaran</span>
       </button>
 
     </div>
@@ -1180,11 +1245,12 @@
         </div>
 
         <!-- Fluktuasi Harga Badge Seketika -->
-        <div id="shelfModalFluctuationBox" class="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
-          <span class="material-symbols-outlined text-[18px] text-cyan-400"
-            id="shelfFluctuationIcon">query_stats</span>
+        <div id="shelfModalFluctuationBox"
+          class="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px] text-cyan-400" id="shelfFluctuationIcon">query_stats</span>
           <div class="flex-1 min-w-0">
-            <span class="font-label-sm text-label-sm font-bold block text-white" id="shelfFluctuationText">Ketik harga rak untuk
+            <span class="font-label-sm text-label-sm font-bold block text-white" id="shelfFluctuationText">Ketik harga
+              rak untuk
               melihat fluktuasi</span>
             <span class="font-body-sm text-[11px] text-slate-400" id="shelfFluctuationSub">Dibandingkan dengan
               catatan belanja bulan lalu</span>
@@ -1257,8 +1323,7 @@
             </select>
           </div>
           <div>
-            <label
-              class="font-label-sm text-label-sm text-slate-300 font-bold block mb-1">KEMASAN/SATUAN</label>
+            <label class="font-label-sm text-label-sm text-slate-300 font-bold block mb-1">KEMASAN/SATUAN</label>
             <select id="selectItemUnit"
               class="w-full px-3 py-2.5 rounded-xl bg-[#131b2e] text-white font-body-sm text-body-sm border border-white/15 focus:outline-none focus:ring-2 focus:ring-emerald-500">
               <option value="karung/5kg" class="bg-[#0d1322] text-white">karung/5kg</option>
@@ -1276,8 +1341,11 @@
         </div>
 
         <div>
-          <label class="font-label-sm text-label-sm text-slate-300 font-bold block mb-1.5 uppercase tracking-wider">KUANTITAS (QTY)</label>
-          <div class="inline-flex items-center justify-between w-48 bg-[#131b2e] p-1.5 rounded-2xl border border-white/15 shadow-inner">
+          <label
+            class="font-label-sm text-label-sm text-slate-300 font-bold block mb-1.5 uppercase tracking-wider">KUANTITAS
+            (QTY)</label>
+          <div
+            class="inline-flex items-center justify-between w-48 bg-[#131b2e] p-1.5 rounded-2xl border border-white/15 shadow-inner">
             <button type="button"
               class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white/10 hover:bg-emerald-500 hover:text-black flex items-center justify-center text-white transition-all active:scale-90 cursor-pointer shrink-0 font-bold"
               id="btnModalQtyMinus" title="Kurangi Kuantitas">
@@ -1340,19 +1408,34 @@
 
           <!-- Tombol Pilihan Cepat Tambah Persen (+10%, +20%, +25%, dll) -->
           <div>
-            <span class="text-[10px] text-slate-400 font-bold block mb-1">PILIHAN PERSEN CEPAT (KLIK UNTUK BERTUMPUK):</span>
+            <span class="text-[10px] text-slate-400 font-bold block mb-1">PILIHAN PERSEN CEPAT (KLIK UNTUK
+              BERTUMPUK):</span>
             <div class="flex items-center gap-1.5 flex-wrap">
-              <button type="button" class="btn-add-discount-pill px-2.5 py-1 rounded-lg bg-white/5 border border-white/15 text-slate-200 font-bold text-xs hover:bg-emerald-500/20 hover:border-emerald-400 transition-all cursor-pointer shadow-xs" data-val="10%">+ 10%</button>
-              <button type="button" class="btn-add-discount-pill px-2.5 py-1 rounded-lg bg-white/5 border border-white/15 text-slate-200 font-bold text-xs hover:bg-emerald-500/20 hover:border-emerald-400 transition-all cursor-pointer shadow-xs" data-val="20%">+ 20%</button>
-              <button type="button" class="btn-add-discount-pill px-2.5 py-1 rounded-lg bg-white/5 border border-white/15 text-slate-200 font-bold text-xs hover:bg-emerald-500/20 hover:border-emerald-400 transition-all cursor-pointer shadow-xs" data-val="25%">+ 25%</button>
-              <button type="button" class="btn-add-discount-pill px-2.5 py-1 rounded-lg bg-white/5 border border-white/15 text-slate-200 font-bold text-xs hover:bg-emerald-500/20 hover:border-emerald-400 transition-all cursor-pointer shadow-xs" data-val="50%">+ 50%</button>
-              <button type="button" class="btn-add-discount-pill px-2.5 py-1 rounded-lg bg-white/5 border border-white/15 text-slate-200 font-bold text-xs hover:bg-emerald-500/20 hover:border-emerald-400 transition-all cursor-pointer shadow-xs" data-val="5%">+ 5%</button>
-              <button type="button" class="btn-add-discount-pill px-2.5 py-1 rounded-lg bg-white/5 border border-white/15 text-slate-200 font-bold text-xs hover:bg-emerald-500/20 hover:border-emerald-400 transition-all cursor-pointer shadow-xs" data-val="Rp 5000">Rp 5.000</button>
+              <button type="button"
+                class="btn-add-discount-pill px-2.5 py-1 rounded-lg bg-white/5 border border-white/15 text-slate-200 font-bold text-xs hover:bg-emerald-500/20 hover:border-emerald-400 transition-all cursor-pointer shadow-xs"
+                data-val="10%">+ 10%</button>
+              <button type="button"
+                class="btn-add-discount-pill px-2.5 py-1 rounded-lg bg-white/5 border border-white/15 text-slate-200 font-bold text-xs hover:bg-emerald-500/20 hover:border-emerald-400 transition-all cursor-pointer shadow-xs"
+                data-val="20%">+ 20%</button>
+              <button type="button"
+                class="btn-add-discount-pill px-2.5 py-1 rounded-lg bg-white/5 border border-white/15 text-slate-200 font-bold text-xs hover:bg-emerald-500/20 hover:border-emerald-400 transition-all cursor-pointer shadow-xs"
+                data-val="25%">+ 25%</button>
+              <button type="button"
+                class="btn-add-discount-pill px-2.5 py-1 rounded-lg bg-white/5 border border-white/15 text-slate-200 font-bold text-xs hover:bg-emerald-500/20 hover:border-emerald-400 transition-all cursor-pointer shadow-xs"
+                data-val="50%">+ 50%</button>
+              <button type="button"
+                class="btn-add-discount-pill px-2.5 py-1 rounded-lg bg-white/5 border border-white/15 text-slate-200 font-bold text-xs hover:bg-emerald-500/20 hover:border-emerald-400 transition-all cursor-pointer shadow-xs"
+                data-val="5%">+ 5%</button>
+              <button type="button"
+                class="btn-add-discount-pill px-2.5 py-1 rounded-lg bg-white/5 border border-white/15 text-slate-200 font-bold text-xs hover:bg-emerald-500/20 hover:border-emerald-400 transition-all cursor-pointer shadow-xs"
+                data-val="Rp 5000">Rp 5.000</button>
             </div>
           </div>
 
           <!-- Preview Realtime Perhitungan Diskon -->
-          <div class="mt-2 p-2.5 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs hidden space-y-1" id="modalDiscountPreview">
+          <div
+            class="mt-2 p-2.5 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs hidden space-y-1"
+            id="modalDiscountPreview">
             <div class="flex items-center justify-between font-bold">
               <span class="flex items-center gap-1 text-emerald-400">
                 <span class="material-symbols-outlined text-[15px]">price_check</span>
@@ -1361,7 +1444,9 @@
               <span class="text-sm font-mono text-emerald-300 font-extrabold" id="modalDiscountFinalPrice">Rp 0</span>
             </div>
             <div class="text-[11px] text-emerald-400/80 font-semibold" id="modalDiscountSavedText">Hemat Rp 0</div>
-            <div class="text-[10px] font-mono text-cyan-300 bg-cyan-950/40 p-1.5 rounded-lg border border-cyan-500/30 mt-1 hidden" id="modalDiscountBreakdown"></div>
+            <div
+              class="text-[10px] font-mono text-cyan-300 bg-cyan-950/40 p-1.5 rounded-lg border border-cyan-500/30 mt-1 hidden"
+              id="modalDiscountBreakdown"></div>
           </div>
         </div>
 
@@ -1461,7 +1546,8 @@
               <div class="flex items-center gap-1.5">
                 <h3 class="font-headline-sm text-base font-bold text-white">Kasir Pembayaran Astro Express</h3>
                 <span
-                  class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">15 Mnt</span>
+                  class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">15
+                  Mnt</span>
               </div>
               <p class="text-xs text-slate-400">Rincian Belanja &amp; Checkout Astro</p>
             </div>
@@ -1476,8 +1562,7 @@
         <div class="p-4 overflow-y-auto space-y-4 flex-1">
 
           <!-- User & Store Info -->
-          <div
-            class="p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
+          <div class="p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
             <div class="flex items-center gap-2">
               <div
                 class="w-8 h-8 rounded-full bg-emerald-500 text-black text-xs font-bold flex items-center justify-center"
@@ -1487,7 +1572,8 @@
                 <span class="text-[11px] text-slate-400 font-semibold">Astro Hub Puri Indah (15 Mnt)</span>
               </div>
             </div>
-            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold">Ready
+            <span
+              class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold">Ready
               Kasir</span>
           </div>
 
@@ -1510,7 +1596,8 @@
                 <span class="material-symbols-outlined text-[16px] text-amber-400">confirmation_number</span>
                 <span>VOUCHER PROMO ASTRO</span>
               </div>
-              <span class="text-[10px] font-bold text-amber-300 bg-amber-500/20 border border-amber-500/30 px-2 py-0.5 rounded-full">Hemat
+              <span
+                class="text-[10px] font-bold text-amber-300 bg-amber-500/20 border border-amber-500/30 px-2 py-0.5 rounded-full">Hemat
                 Ekstra</span>
             </div>
             <div class="grid grid-cols-2 gap-1.5" id="checkoutVoucherList">
@@ -1615,18 +1702,19 @@
 
             <!-- Dynamic Detail per Method -->
             <!-- Method 1: QRIS Panel -->
-            <div id="methodPanelQris"
-              class="p-4 rounded-2xl bg-white/5 border border-white/10 text-center space-y-2.5">
+            <div id="methodPanelQris" class="p-4 rounded-2xl bg-white/5 border border-white/10 text-center space-y-2.5">
               <div class="flex items-center justify-between text-xs text-slate-400">
                 <span class="font-bold text-white">SCAN DENGAN APLIKASI APA SAJA</span>
-                <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400 font-mono font-bold text-[11px] border border-rose-500/30"
+                <span
+                  class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400 font-mono font-bold text-[11px] border border-rose-500/30"
                   id="qrisCountdownTimer">14:59</span>
               </div>
 
               <!-- QR Code Mock Graphic -->
               <div
                 class="w-44 h-44 mx-auto bg-white p-3 rounded-2xl shadow-inner border border-white/20 flex flex-col items-center justify-center relative">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=ASTRO-HUB-PURI-INDAH-QRIS-20261026"
+                <img
+                  src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=ASTRO-HUB-PURI-INDAH-QRIS-20261026"
                   alt="QRIS Astro Code" class="w-full h-full object-contain">
                 <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
                   <div
@@ -1643,14 +1731,14 @@
             </div>
 
             <!-- Method 2: AstroPay Panel -->
-            <div id="methodPanelAstroPay"
-              class="hidden p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+            <div id="methodPanelAstroPay" class="hidden p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3">
               <div class="flex items-center justify-between">
                 <div>
                   <span class="text-xs text-slate-400 block">Saldo Dompet AstroPay</span>
                   <strong class="text-base text-emerald-400 font-bold">Rp 350.000</strong>
                 </div>
-                <span class="px-2 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">Saldo
+                <span
+                  class="px-2 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">Saldo
                   Cukup</span>
               </div>
               <div class="p-3 bg-[#131b2e] rounded-xl border border-white/10">
@@ -1668,8 +1756,7 @@
             </div>
 
             <!-- Method 3: Virtual Account Panel -->
-            <div id="methodPanelVa"
-              class="hidden p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+            <div id="methodPanelVa" class="hidden p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3">
               <div class="flex gap-2">
                 <button type="button"
                   class="btn-select-va-bank flex-1 py-1.5 rounded-xl border text-xs font-bold active border-emerald-500 bg-emerald-500/20 text-emerald-300"
@@ -1700,8 +1787,7 @@
             </div>
 
             <!-- Method 4: Cashier Cash Panel -->
-            <div id="methodPanelCash"
-              class="hidden p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+            <div id="methodPanelCash" class="hidden p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3">
               <div>
                 <label class="text-[11px] font-bold text-slate-400 block mb-1.5">PILIH NOMINAL UANG TUNAI
                   DIBAYARKAN:</label>
@@ -1775,7 +1861,8 @@
           <span
             class="px-3 py-1 rounded-full bg-secondary/30 text-secondary-fixed text-xs font-mono font-bold tracking-wider uppercase mb-2 inline-block"
             id="posStepBadge">FASE 1 / 3</span>
-          <h3 class="font-headline-sm text-xl font-bold text-white mb-1.5" id="posStepTitle">Menghubungkan ke Kasir Astro...</h3>
+          <h3 class="font-headline-sm text-xl font-bold text-white mb-1.5" id="posStepTitle">Menghubungkan ke Kasir
+            Astro...</h3>
           <p class="text-xs text-gray-300 max-w-xs mx-auto leading-relaxed" id="posStepDesc">Memverifikasi transaksi dan
             mengunci harga resmi barang belanjaan.</p>
         </div>
@@ -1881,7 +1968,8 @@
             <div class="text-center pt-2 border-t border-dashed border-gray-300 space-y-2">
               <div class="font-mono text-[9px] tracking-[6px] text-gray-400 select-all font-bold">||| |||| || ||||| ||||
                 || |||</div>
-              <p class="text-[10px] text-gray-500 leading-tight">Terima kasih telah berbelanja di Astro! Pesanan diantar dalam 15 menit.
+              <p class="text-[10px] text-gray-500 leading-tight">Terima kasih telah berbelanja di Astro! Pesanan diantar
+                dalam 15 menit.
                 Simpan struk digital ini sebagai bukti transaksi resmi.</p>
             </div>
 
@@ -2012,9 +2100,13 @@
   </div>
 
   <!-- ================= MODAL: KONFIRMASI KOSONGKAN KERANJANG (Skenario 8) ================= -->
-  <div class="modal-backdrop hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4" id="modalConfirmClearCart">
-    <div class="w-full max-w-sm bg-[#0d1322] border border-white/10 rounded-3xl p-6 shadow-2xl text-white animate-scale-up">
-      <div class="w-12 h-12 rounded-2xl bg-rose-500/20 text-rose-400 flex items-center justify-center mx-auto mb-4 border border-rose-500/30">
+  <div
+    class="modal-backdrop hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4"
+    id="modalConfirmClearCart">
+    <div
+      class="w-full max-w-sm bg-[#0d1322] border border-white/10 rounded-3xl p-6 shadow-2xl text-white animate-scale-up">
+      <div
+        class="w-12 h-12 rounded-2xl bg-rose-500/20 text-rose-400 flex items-center justify-center mx-auto mb-4 border border-rose-500/30">
         <span class="material-symbols-outlined text-[28px]">delete_forever</span>
       </div>
       <h3 class="font-headline-sm text-lg font-black text-white text-center mb-1">Kosongkan Seluruh Troli?</h3>
@@ -2022,10 +2114,12 @@
         Semua barang belanjaan di dalam troli akan dihapus permanen. Tindakan ini tidak dapat dibatalkan.
       </p>
       <div class="flex gap-2">
-        <button type="button" id="btnCancelClearCart" class="flex-1 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-slate-300 font-headline-sm text-sm font-bold transition-all cursor-pointer">
+        <button type="button" id="btnCancelClearCart"
+          class="flex-1 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-slate-300 font-headline-sm text-sm font-bold transition-all cursor-pointer">
           Batal
         </button>
-        <button type="button" id="btnConfirmClearCart" class="flex-1 py-3 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-headline-sm text-sm font-bold shadow-lg shadow-rose-500/20 transition-all cursor-pointer">
+        <button type="button" id="btnConfirmClearCart"
+          class="flex-1 py-3 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-headline-sm text-sm font-bold shadow-lg shadow-rose-500/20 transition-all cursor-pointer">
           Ya, Kosongkan
         </button>
       </div>
@@ -2033,26 +2127,31 @@
   </div>
 
   <!-- ================= MODAL: STATUS & KONFIGURASI SUPABASE CLOUD ================= -->
-  <div class="modal-backdrop hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4"
+  <div
+    class="modal-backdrop hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4"
     id="modalSupabaseConfig">
-    <div class="w-full max-w-md bg-[#0d1322] border border-white/10 rounded-t-[32px] sm:rounded-[32px] p-6 shadow-2xl text-white">
+    <div
+      class="w-full max-w-md bg-[#0d1322] border border-white/10 rounded-t-[32px] sm:rounded-[32px] p-6 shadow-2xl text-white">
       <div class="w-12 h-1 bg-white/20 rounded-full mx-auto mb-4"></div>
-      
+
       <!-- Header -->
       <div class="flex items-center justify-between mb-4">
         <div class="flex items-center gap-2.5">
-          <div class="w-10 h-10 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.25)]">
+          <div
+            class="w-10 h-10 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.25)]">
             <span class="material-symbols-outlined text-[22px]">cloud_sync</span>
           </div>
           <div>
             <h3 class="font-headline-sm text-base font-bold text-white">Koneksi Supabase Cloud</h3>
-            <span class="font-mono text-[10.5px] text-emerald-400 font-bold flex items-center gap-1" id="supabaseLiveStatusText">
+            <span class="font-mono text-[10.5px] text-emerald-400 font-bold flex items-center gap-1"
+              id="supabaseLiveStatusText">
               <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
               TERHUBUNG &amp; AKTIF
             </span>
           </div>
         </div>
-        <button type="button" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white cursor-pointer transition-all"
+        <button type="button"
+          class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white cursor-pointer transition-all"
           id="btnCloseSupabaseModal">
           <span class="material-symbols-outlined text-[18px]">close</span>
         </button>
@@ -2062,11 +2161,13 @@
       <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-2 mb-4 text-xs">
         <div class="flex items-center justify-between">
           <span class="text-slate-400 font-mono text-[10px] uppercase">Realtime Engine:</span>
-          <span class="font-mono font-bold text-emerald-400" id="supabaseRealtimeStatus">WebSocket Subscribed (Active)</span>
+          <span class="font-mono font-bold text-emerald-400" id="supabaseRealtimeStatus">WebSocket Subscribed
+            (Active)</span>
         </div>
         <div class="flex items-center justify-between">
           <span class="text-slate-400 font-mono text-[10px] uppercase">Project URL:</span>
-          <span class="font-mono font-semibold text-slate-200 truncate max-w-[200px]" id="displaySupabaseUrl">https://fwhwfssghdadyiustxnk.supabase.co</span>
+          <span class="font-mono font-semibold text-slate-200 truncate max-w-[200px]"
+            id="displaySupabaseUrl">https://fwhwfssghdadyiustxnk.supabase.co</span>
         </div>
         <div class="flex items-center justify-between">
           <span class="text-slate-400 font-mono text-[10px] uppercase">Tabel Sinkron:</span>
@@ -2077,7 +2178,8 @@
       <!-- Custom Project Input -->
       <div class="space-y-3 mb-4">
         <div>
-          <label class="font-mono text-[10.5px] font-bold text-slate-300 uppercase block mb-1">Project URL Supabase Anda</label>
+          <label class="font-mono text-[10.5px] font-bold text-slate-300 uppercase block mb-1">Project URL Supabase
+            Anda</label>
           <input type="url" id="inputCustomSupabaseUrl" placeholder="https://xyzcompany.supabase.co"
             class="w-full px-3 py-2.5 rounded-xl bg-[#131b2e] text-white font-mono text-xs border border-white/15 focus:outline-none focus:ring-1 focus:ring-emerald-400" />
         </div>
@@ -2129,8 +2231,7 @@
       </div>
 
       <!-- User Card Info -->
-      <div
-        class="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center gap-3.5 mb-4">
+      <div class="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center gap-3.5 mb-4">
         <div
           class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 text-black text-xl font-bold flex items-center justify-center shadow-lg shadow-emerald-500/20 shrink-0"
           id="profileModalAvatar">
@@ -2140,7 +2241,8 @@
           <div class="flex items-center gap-1.5">
             <h4 class="font-headline-sm text-[16px] text-white font-bold truncate" id="profileModalDisplayName">Rian
               Kos</h4>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+            <span
+              class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
               id="profileModalProviderBadge">Username</span>
           </div>
           <p class="font-body-sm text-[12px] text-slate-400 truncate" id="profileModalSubtitle">@rian • Ruang
@@ -2211,7 +2313,8 @@
 
       <!-- Icon & Header -->
       <div class="text-center mb-5">
-        <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto mb-3 shadow-lg shadow-amber-500/10">
+        <div
+          class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto mb-3 shadow-lg shadow-amber-500/10">
           <span class="material-symbols-outlined text-[32px]">lock_reset</span>
         </div>
         <h3 class="font-headline-sm text-lg text-white font-black tracking-tight">Atur Ulang Password</h3>
@@ -2223,9 +2326,11 @@
       <!-- Step 1: Input Email Terdaftar -->
       <form id="formForgotStep1Email" class="space-y-4">
         <div>
-          <label class="font-mono text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Email Akun Kamu</label>
+          <label class="font-mono text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Email Akun
+            Kamu</label>
           <div class="relative">
-            <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-[18px]">mail</span>
+            <span
+              class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-[18px]">mail</span>
             <input type="email" id="inputForgotEmail" placeholder="nama@email.com" required autocomplete="email"
               class="w-full pl-10 pr-4 py-3 rounded-xl bg-[#131b2e] text-white font-body-md text-sm font-bold border border-white/15 focus:border-emerald-500 focus:outline-none transition-all placeholder:font-normal placeholder:text-slate-600">
           </div>
@@ -2241,7 +2346,8 @@
       <!-- Step 2: Input Kode OTP & Password Baru -->
       <form id="formForgotStep2Reset" class="space-y-3.5 hidden">
         <!-- Target Email Banner -->
-        <div class="p-3 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs flex items-center justify-between gap-2">
+        <div
+          class="p-3 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs flex items-center justify-between gap-2">
           <div class="truncate">
             <span class="text-[10px] uppercase font-mono font-bold text-amber-400 block">Kode dikirim ke:</span>
             <span class="font-bold text-xs truncate text-white" id="forgotTargetEmailDisplay">user@email.com</span>
@@ -2253,18 +2359,24 @@
         </div>
 
         <div>
-          <label class="font-mono text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1 text-center">Kode Verifikasi (6 Angka)</label>
+          <label
+            class="font-mono text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1 text-center">Kode
+            Verifikasi (6 Angka)</label>
           <input type="text" id="inputForgotOtp" maxlength="6" placeholder="000000" inputmode="numeric" required
             class="w-full py-3 text-center font-mono text-xl font-black tracking-[0.3em] rounded-xl bg-[#131b2e] text-emerald-400 border border-white/15 focus:border-emerald-500 focus:outline-none transition-all placeholder:text-slate-600">
         </div>
 
         <div>
-          <label class="font-mono text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Password Baru</label>
+          <label class="font-mono text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Password
+            Baru</label>
           <div class="relative">
-            <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-[18px]">lock</span>
-            <input type="password" id="inputForgotNewPassword" placeholder="Minimal 4 karakter" required autocomplete="new-password"
+            <span
+              class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-[18px]">lock</span>
+            <input type="password" id="inputForgotNewPassword" placeholder="Minimal 4 karakter" required
+              autocomplete="new-password"
               class="w-full pl-10 pr-10 py-3 rounded-xl bg-[#131b2e] text-white font-body-md text-sm font-bold border border-white/15 focus:border-emerald-500 focus:outline-none transition-all placeholder:font-normal placeholder:text-slate-600">
-            <button type="button" id="btnToggleForgotPwd" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white cursor-pointer">
+            <button type="button" id="btnToggleForgotPwd"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white cursor-pointer">
               <span class="material-symbols-outlined text-[18px]">visibility</span>
             </button>
           </div>
@@ -2279,7 +2391,8 @@
 
       <!-- Back / Cancel Button -->
       <div class="mt-4 pt-3 border-t border-white/10 text-center">
-        <button type="button" id="btnCancelForgotModal" class="text-xs font-mono font-bold text-slate-400 hover:text-white transition-colors cursor-pointer py-1">
+        <button type="button" id="btnCancelForgotModal"
+          class="text-xs font-mono font-bold text-slate-400 hover:text-white transition-colors cursor-pointer py-1">
           Batal &amp; Kembali ke Login
         </button>
       </div>
@@ -2379,7 +2492,7 @@
           try {
             const raw = localStorage.getItem('smart_grocery_user_credentials');
             if (raw) creds = JSON.parse(raw);
-          } catch(err){}
+          } catch (err) { }
 
           const slug = u.toLowerCase().replace(/[^a-z0-9]/g, '_').slice(0, 32) || 'user';
 
