@@ -1134,3 +1134,14 @@ input[type="number"] {
 .animate-shake {
   animation: shake 0.4s ease-in-out;
 }
+
+/* Dark mode calendar picker indicator */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.85);
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
