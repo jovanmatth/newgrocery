@@ -308,10 +308,10 @@
 
           <!-- Line 2: Online Status Badge -->
           <div class="flex items-center gap-1 mt-0.5">
-            <span class="flex items-center gap-1 px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-mono text-[9px] font-black shrink-0" id="cloudStatusTag" title="Koneksi Cloud Supabase Realtime Aktif">
+            <button type="button" class="flex items-center gap-1 px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-mono text-[9px] font-black shrink-0 hover:bg-emerald-500/25 cursor-pointer active:scale-95 transition-all" id="cloudStatusTag" title="Klik untuk cek status atau atur koneksi Cloud Supabase">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" id="cloudStatusDot"></span>
               <span>ONLINE</span>
-            </span>
+            </button>
           </div>
         </div>
       </div>
@@ -2028,6 +2028,86 @@
         <button type="button" id="btnConfirmClearCart" class="flex-1 py-3 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-headline-sm text-sm font-bold shadow-lg shadow-rose-500/20 transition-all cursor-pointer">
           Ya, Kosongkan
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: STATUS & KONFIGURASI SUPABASE CLOUD ================= -->
+  <div class="modal-backdrop hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4"
+    id="modalSupabaseConfig">
+    <div class="w-full max-w-md bg-[#0d1322] border border-white/10 rounded-t-[32px] sm:rounded-[32px] p-6 shadow-2xl text-white">
+      <div class="w-12 h-1 bg-white/20 rounded-full mx-auto mb-4"></div>
+      
+      <!-- Header -->
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.25)]">
+            <span class="material-symbols-outlined text-[22px]">cloud_sync</span>
+          </div>
+          <div>
+            <h3 class="font-headline-sm text-base font-bold text-white">Koneksi Supabase Cloud</h3>
+            <span class="font-mono text-[10.5px] text-emerald-400 font-bold flex items-center gap-1" id="supabaseLiveStatusText">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              TERHUBUNG &amp; AKTIF
+            </span>
+          </div>
+        </div>
+        <button type="button" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white cursor-pointer transition-all"
+          id="btnCloseSupabaseModal">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      </div>
+
+      <!-- Live Connection Card -->
+      <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-2 mb-4 text-xs">
+        <div class="flex items-center justify-between">
+          <span class="text-slate-400 font-mono text-[10px] uppercase">Realtime Engine:</span>
+          <span class="font-mono font-bold text-emerald-400" id="supabaseRealtimeStatus">WebSocket Subscribed (Active)</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-slate-400 font-mono text-[10px] uppercase">Project URL:</span>
+          <span class="font-mono font-semibold text-slate-200 truncate max-w-[200px]" id="displaySupabaseUrl">https://szhtgpjvudguknevurfh.supabase.co</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-slate-400 font-mono text-[10px] uppercase">Tabel Sinkron:</span>
+          <span class="font-mono text-cyan-300">master_products, receipts, user_settings</span>
+        </div>
+      </div>
+
+      <!-- Custom Project Input -->
+      <div class="space-y-3 mb-4">
+        <div>
+          <label class="font-mono text-[10.5px] font-bold text-slate-300 uppercase block mb-1">Project URL Supabase Anda</label>
+          <input type="url" id="inputCustomSupabaseUrl" placeholder="https://xyzcompany.supabase.co"
+            class="w-full px-3 py-2.5 rounded-xl bg-[#131b2e] text-white font-mono text-xs border border-white/15 focus:outline-none focus:ring-1 focus:ring-emerald-400" />
+        </div>
+        <div>
+          <label class="font-mono text-[10.5px] font-bold text-slate-300 uppercase block mb-1">Anon Public Key</label>
+          <input type="text" id="inputCustomSupabaseKey" placeholder="eyJhbGciOiJIUzI1NiIsInR5c..."
+            class="w-full px-3 py-2.5 rounded-xl bg-[#131b2e] text-white font-mono text-xs border border-white/15 focus:outline-none focus:ring-1 focus:ring-emerald-400" />
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="space-y-2">
+        <button type="button" id="btnSaveCustomSupabase"
+          class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-black font-headline-md text-xs font-black shadow-[0_0_15px_rgba(16,185,129,0.3)] hover:brightness-110 active:scale-98 cursor-pointer transition-all flex items-center justify-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px]">sync</span>
+          <span>Simpan &amp; Hubungkan Sekarang</span>
+        </button>
+
+        <div class="grid grid-cols-2 gap-2">
+          <button type="button" id="btnTestSupabasePing"
+            class="py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-mono text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1">
+            <span class="material-symbols-outlined text-[14px] text-cyan-400">speed</span>
+            <span id="testPingBtnText">Tes Ping API</span>
+          </button>
+          <button type="button" id="btnResetSupabaseDefault"
+            class="py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-mono text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1">
+            <span class="material-symbols-outlined text-[14px] text-amber-400">restart_alt</span>
+            <span>Reset Default</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>

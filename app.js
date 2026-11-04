@@ -924,8 +924,8 @@
       const scanViewStore = document.getElementById('scanViewStoreName');
       if (scanViewStore) scanViewStore.textContent = appState.activeStore;
 
-      appState.supabaseUrl = SUPABASE_CONFIG.URL;
-      appState.supabaseKey = SUPABASE_CONFIG.KEY;
+      appState.supabaseUrl = localStorage.getItem('custom_supabase_url') || SUPABASE_CONFIG.URL;
+      appState.supabaseKey = localStorage.getItem('custom_supabase_key') || SUPABASE_CONFIG.KEY;
     } catch (e) {
       console.warn('loadDataFromStorage error:', e);
       appState.cart = [];
@@ -933,8 +933,8 @@
       appState.budgetLimit = 350000;
       appState.masterItems = DEFAULT_MASTER_ITEMS;
       appState.activeStore = 'Lotte Mart Grocery - Puri Indah';
-      appState.supabaseUrl = SUPABASE_CONFIG.URL;
-      appState.supabaseKey = SUPABASE_CONFIG.KEY;
+      appState.supabaseUrl = localStorage.getItem('custom_supabase_url') || SUPABASE_CONFIG.URL;
+      appState.supabaseKey = localStorage.getItem('custom_supabase_key') || SUPABASE_CONFIG.KEY;
     }
   }
 
@@ -2484,6 +2484,121 @@
   // ==========================================================================
   // EVENT LISTENERS & SUPABASE MODAL HANDLERS
   // ==========================================================================
+    // ==========================================================================
+  // SUPABASE CONFIGURATION MODAL & CONNECTION HUB
+  // ==========================================================================
+  function initSupabaseConfigModule() {
+    const cloudBtn = document.getElementById('cloudStatusTag');
+    const modal = document.getElementById('modalSupabaseConfig');
+    const closeBtn = document.getElementById('btnCloseSupabaseModal');
+    const saveBtn = document.getElementById('btnSaveCustomSupabase');
+    const pingBtn = document.getElementById('btnTestSupabasePing');
+    const resetBtn = document.getElementById('btnResetSupabaseDefault');
+
+    if (cloudBtn && modal) {
+      cloudBtn.addEventListener('click', () => {
+        AudioEngine.playTap();
+        const displayUrl = document.getElementById('displaySupabaseUrl');
+        const inputUrl = document.getElementById('inputCustomSupabaseUrl');
+        const inputKey = document.getElementById('inputCustomSupabaseKey');
+        const statusText = document.getElementById('supabaseLiveStatusText');
+
+        if (displayUrl) displayUrl.textContent = appState.supabaseUrl || SUPABASE_CONFIG.URL;
+        if (inputUrl) inputUrl.value = localStorage.getItem('custom_supabase_url') || '';
+        if (inputKey) inputKey.value = localStorage.getItem('custom_supabase_key') || '';
+        if (statusText) {
+          if (appState.isCloudConnected) {
+            statusText.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> TERHUBUNG & AKTIF';
+            statusText.className = 'font-mono text-[10.5px] text-emerald-400 font-bold flex items-center gap-1';
+          } else {
+            statusText.innerHTML = '<span class="w-2 h-2 rounded-full bg-rose-500"></span> TERPUTUS (OFFLINE)';
+            statusText.className = 'font-mono text-[10.5px] text-rose-400 font-bold flex items-center gap-1';
+          }
+        }
+        modal.classList.remove('hidden');
+      });
+    }
+
+    if (closeBtn && modal) {
+      closeBtn.addEventListener('click', () => {
+        modal.classList.add('hidden');
+      });
+    }
+
+    if (pingBtn) {
+      pingBtn.addEventListener('click', async () => {
+        const testPingBtnText = document.getElementById('testPingBtnText');
+        if (testPingBtnText) testPingBtnText.textContent = 'Memeriksa...';
+        const start = Date.now();
+        try {
+          const res = await fetch(${appState.supabaseUrl}/rest/v1/master_products?select=id&limit=1, {
+            headers: {
+              'apikey': appState.supabaseKey,
+              'Authorization': Bearer 
+            }
+          });
+          const latency = Date.now() - start;
+          if (res.ok) {
+            showToast(Supabase Terhubung! Respon: ms, 'success');
+            AudioEngine.playSuccess();
+            if (testPingBtnText) testPingBtnText.textContent = Ping: ms (OK);
+            updateCloudStatusUI(true);
+          } else {
+            showToast(HTTP : Gagal otentikasi Supabase, 'danger');
+            AudioEngine.playAlert();
+            if (testPingBtnText) testPingBtnText.textContent = Error ();
+          }
+        } catch (err) {
+          showToast(Koneksi Gagal: , 'danger');
+          AudioEngine.playAlert();
+          if (testPingBtnText) testPingBtnText.textContent = 'Gagal';
+        }
+      });
+    }
+
+    if (saveBtn) {
+      saveBtn.addEventListener('click', () => {
+        const inputUrl = document.getElementById('inputCustomSupabaseUrl');
+        const inputKey = document.getElementById('inputCustomSupabaseKey');
+        const url = inputUrl ? inputUrl.value.trim() : '';
+        const key = inputKey ? inputKey.value.trim() : '';
+
+        if (!url || !key) {
+          showToast('Harap masukkan Project URL dan Anon Key!', 'warning');
+          AudioEngine.playAlert();
+          return;
+        }
+
+        localStorage.setItem('custom_supabase_url', url);
+        localStorage.setItem('custom_supabase_key', key);
+        appState.supabaseUrl = url;
+        appState.supabaseKey = key;
+        initSupabaseClient();
+        showToast('Konfigurasi Supabase disimpan & dihubungkan!', 'success');
+        AudioEngine.playSuccess();
+        if (modal) modal.classList.add('hidden');
+      });
+    }
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        localStorage.removeItem('custom_supabase_url');
+        localStorage.removeItem('custom_supabase_key');
+        appState.supabaseUrl = SUPABASE_CONFIG.URL;
+        appState.supabaseKey = SUPABASE_CONFIG.KEY;
+        initSupabaseClient();
+        const inputUrl = document.getElementById('inputCustomSupabaseUrl');
+        const inputKey = document.getElementById('inputCustomSupabaseKey');
+        const displayUrl = document.getElementById('displaySupabaseUrl');
+        if (inputUrl) inputUrl.value = '';
+        if (inputKey) inputKey.value = '';
+        if (displayUrl) displayUrl.textContent = SUPABASE_CONFIG.URL;
+        showToast('Koneksi Supabase direset ke server bawaan!', 'info');
+        AudioEngine.playTap();
+      });
+    }
+  }
+
   function setupEventListeners() {
     // Discount Quick Builder Buttons (+10%, +20%, +25%, etc.)
     document.querySelectorAll('.btn-add-discount-pill').forEach(btn => {
@@ -2689,6 +2804,7 @@
       btnCheckoutSticky.addEventListener('click', handleCheckout);
     }
 
+    initSupabaseConfigModule();
     const btnStore = document.getElementById('btnStoreSelector');
     if (btnStore) {
       btnStore.addEventListener('click', openStoreModal);
