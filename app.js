@@ -9,8 +9,8 @@
 
   // --- SUPABASE EMBEDDED CONFIG ---
   const SUPABASE_CONFIG = {
-    URL: 'https://szhtgpjvudguknevurfh.supabase.co',
-    KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN6aHRncGp2dWRndWtuZXZ1cmZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA5OTcwNDcsImV4cCI6MjEwNjU3MzA0N30.qtqxVbdfU3RBz4cH2jr20w8JHiyhMs3NcppzIPGc1GA'
+    URL: 'https://fwhwfssghdadyiustxnk.supabase.co',
+    KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ3aHdmc3NnaGRhZHlpdXN0eG5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM0NzQwMzgsImV4cCI6MjEwOTA1MDAzOH0.O_ngz4gZPuT0yrbGJf6BcpDI_XU69IwUD2Q4jnLdAhI'
   };
 
   // --- STORAGE KEYS ---
@@ -6640,12 +6640,12 @@
         'AKSES GOOGLE BELUM DIAKTIFKAN DI DASHBOARD SUPABASE!\n\n' +
         'Langkah manual yang perlu Anda lakukan (hanya 2 menit):\n\n' +
         '1. Buka Dashboard Supabase Anda:\n' +
-        '   https://supabase.com/dashboard/project/szhtgpjvudguknevurfh/auth/providers\n\n' +
+        '   https://supabase.com/dashboard/project/fwhwfssghdadyiustxnk/auth/providers\n\n' +
         '2. Klik provider "Google" dan aktifkan toggle "Enable Google provider".\n\n' +
         '3. Buka Google Cloud Console (https://console.cloud.google.com/apis/credentials):\n' +
         '   - Buat OAuth Client ID (Web Application)\n' +
         '   - Masukkan Callback URL Supabase ini ke Authorized Redirect URIs:\n' +
-        '     https://szhtgpjvudguknevurfh.supabase.co/auth/v1/callback\n\n' +
+        '     https://fwhwfssghdadyiustxnk.supabase.co/auth/v1/callback\n\n' +
         '4. Salin Client ID & Client Secret dari Google ke kolom di Supabase tadi, lalu klik Save.\n\n' +
         'Setelah itu, tombol Google ini akan 100% otomatis membuka akun Google asli Anda!';
 
