@@ -6465,6 +6465,29 @@
     // Parent window: Dengarkan perubahan localStorage jika popup menulis auth token
     window.addEventListener('storage', (e) => {
       if (localStorage.getItem('sg_explicit_logout') === 'true') return;
+      if (e.key === 'pending_google_login' && e.newValue) {
+        try {
+          const parsed = JSON.parse(e.newValue);
+          if (parsed && parsed.email) {
+            localStorage.removeItem('pending_google_login');
+            const username = parsed.email.split('@')[0];
+            const slug = 'g_' + getUserSlug(username);
+            const userObj = {
+              slug: slug,
+              username: username,
+              displayName: parsed.name,
+              provider: 'google',
+              email: parsed.email,
+              avatarUrl: '',
+              avatarText: parsed.avatar || (parsed.name[0] || 'G').toUpperCase(),
+              loginAt: Date.now()
+            };
+            loginAsUser(userObj, true);
+            showToast('Berhasil masuk sebagai ' + parsed.name + ' (' + parsed.email + ')', 'success');
+            return;
+          }
+        } catch (err) { }
+      }
       if ((e.key === 'sg_oauth_sync_user' || e.key === AUTH_STORAGE_KEYS.CURRENT_USER || (e.key && e.key.includes('auth-token'))) && e.newValue) {
         try {
           const parsed = JSON.parse(e.newValue);
@@ -6493,11 +6516,15 @@
           const height = 650;
           const left = Math.max(0, Math.round(window.screenX + (window.outerWidth - width) / 2));
           const top = Math.max(0, Math.round(window.screenY + (window.outerHeight - height) / 2));
-          return window.open(
+          const popup = window.open(
             'google-auth.html',
             'GoogleSignInPopup',
             `width=${width},height=${height},left=${left},top=${top},status=0,toolbar=0,menubar=0,location=1`
           );
+          if (!popup || popup.closed || typeof popup.closed === 'undefined') {
+            window.location.href = 'google-auth.html';
+          }
+          return popup;
         }
 
         // Protokol file:// tidak mendukung OAuth callback redirect dari Supabase,
@@ -6509,6 +6536,32 @@
 
         if (!appState.supabaseClient) {
           initSupabaseClient();
+        }
+
+        // Cek apakah provider Google diaktifkan di dashboard Supabase
+        // Jika belum (seperti saat ini di fwhwfssghdadyiustxnk), langsung buka pemilih akun interaktif
+        // agar pengguna TIDAK melihat error JSON 400 "Unsupported provider: provider is not enabled"
+        let isGoogleEnabledOnSupabase = false;
+        if (appState.supabaseUrl && appState.supabaseKey) {
+          try {
+            const settingsRes = await fetch(appState.supabaseUrl + '/auth/v1/settings', {
+              headers: {
+                'apikey': appState.supabaseKey,
+                'Authorization': 'Bearer ' + appState.supabaseKey
+              }
+            });
+            if (settingsRes.ok) {
+              const settingsData = await settingsRes.json();
+              isGoogleEnabledOnSupabase = !!(settingsData && settingsData.external && settingsData.external.google);
+            }
+          } catch (e) {
+            console.warn('Cek status Google Supabase:', e);
+          }
+        }
+
+        if (!isGoogleEnabledOnSupabase) {
+          openGoogleChooserPopup();
+          return;
         }
 
         if (appState.supabaseClient) {

@@ -949,7 +949,7 @@
         handleIncomingRealtimePayload(event.data);
       };
     }
-  } catch (e) {}
+  } catch (e) { }
 
   if (typeof window !== 'undefined') {
     window.addEventListener('storage', (e) => {
@@ -983,7 +983,7 @@
     // 1. Broadcast locally to other tabs/windows
     try {
       if (localSyncChannel) localSyncChannel.postMessage(message);
-    } catch (e) {}
+    } catch (e) { }
 
     // 2. Broadcast to other devices over Supabase Realtime WebSocket (< 100ms latency)
     if (appState.realtimeChannel) {
@@ -1223,7 +1223,7 @@
       if (appState.realtimeChannel) {
         try {
           appState.supabaseClient.removeChannel(appState.realtimeChannel);
-        } catch (e) {}
+        } catch (e) { }
       }
 
       const userSyncId = 'user_' + (appState.currentUser ? appState.currentUser.slug : 'rian');
@@ -2484,7 +2484,7 @@
   // ==========================================================================
   // EVENT LISTENERS & SUPABASE MODAL HANDLERS
   // ==========================================================================
-    // ==========================================================================
+  // ==========================================================================
   // SUPABASE CONFIGURATION MODAL & CONNECTION HUB
   // ==========================================================================
   function initSupabaseConfigModule() {
@@ -3540,7 +3540,7 @@
             status: diff > 0 ? 'UP' : diff < 0 ? 'DOWN' : 'EQUAL',
             label: diff > 0 ? `↑ Naik Rp ${formatNumber(diff)} (+${pct}%)`
               : diff < 0 ? `↓ Turun Rp ${formatNumber(Math.abs(diff))} (${pct}%)`
-              : '= Stabil (Sama dng Bulan Lalu)'
+                : '= Stabil (Sama dng Bulan Lalu)'
           }
         };
       }
@@ -3556,7 +3556,7 @@
         compEl.textContent = data.comparison.label;
         compEl.className = data.comparison.status === 'UP' ? 'text-rose-400 font-bold'
           : data.comparison.status === 'DOWN' ? 'text-emerald-400 font-bold'
-          : 'text-secondary-fixed font-bold';
+            : 'text-secondary-fixed font-bold';
       }
 
       const totalCart = appState.cart.reduce((s, it) => s + (it.price * it.qty), 0);
@@ -3749,7 +3749,7 @@
         const status = ratio >= 1.0 ? 'DANGER' : ratio >= 0.8 ? 'WARNING' : 'SAFE';
         const healthScore = status === 'DANGER' ? Math.max(20, Math.round(100 - (ratio - 1) * 150))
           : status === 'WARNING' ? Math.round(85 - (ratio - 0.8) * 150)
-          : Math.round(100 - ratio * 20);
+            : Math.round(100 - ratio * 20);
 
         const recs = [];
         if (status === 'DANGER') {
@@ -3778,7 +3778,7 @@
       const isWarning = (insightData.status || 'SAFE') === 'WARNING';
       const scoreBadgeColor = isDanger ? 'bg-rose-100 text-rose-700 border-rose-300'
         : isWarning ? 'bg-amber-100 text-amber-800 border-amber-300'
-        : 'bg-emerald-100 text-emerald-800 border-emerald-300';
+          : 'bg-emerald-100 text-emerald-800 border-emerald-300';
 
       let recomHtml = '';
       (insightData.recommendations || []).forEach(r => {
@@ -4082,11 +4082,10 @@
           const isActive = p === currentPage;
           pageButtonsHtml += `
             <button type="button"
-              class="w-8 h-8 rounded-xl font-mono text-xs font-black transition-all flex items-center justify-center cursor-pointer select-none ${
-                isActive
-                  ? 'bg-emerald-500 text-black border border-emerald-400 shadow-lg shadow-emerald-500/20 scale-105'
-                  : 'bg-white/5 text-slate-300 border border-white/10 hover:bg-white/10 hover:text-white active:scale-95'
-              }"
+              class="w-8 h-8 rounded-xl font-mono text-xs font-black transition-all flex items-center justify-center cursor-pointer select-none ${isActive
+              ? 'bg-emerald-500 text-black border border-emerald-400 shadow-lg shadow-emerald-500/20 scale-105'
+              : 'bg-white/5 text-slate-300 border border-white/10 hover:bg-white/10 hover:text-white active:scale-95'
+            }"
               onclick="window.changeAstroPage(${p})"
               title="Ke Halaman ${p}">
               ${p}
@@ -4114,11 +4113,10 @@
             <div class="flex items-center justify-between gap-1.5 bg-white/5 p-1.5 rounded-2xl border border-white/10 shadow-lg">
               <!-- Prev Button -->
               <button type="button"
-                class="px-2.5 py-1.5 rounded-xl font-mono text-xs font-bold flex items-center gap-1 transition-all select-none ${
-                  isFirst
-                    ? 'opacity-35 cursor-not-allowed bg-transparent text-slate-600 border border-transparent'
-                    : 'bg-[#131b2e] text-slate-200 border border-white/10 hover:bg-emerald-500 hover:text-black active:scale-95 cursor-pointer'
-                }"
+                class="px-2.5 py-1.5 rounded-xl font-mono text-xs font-bold flex items-center gap-1 transition-all select-none ${isFirst
+            ? 'opacity-35 cursor-not-allowed bg-transparent text-slate-600 border border-transparent'
+            : 'bg-[#131b2e] text-slate-200 border border-white/10 hover:bg-emerald-500 hover:text-black active:scale-95 cursor-pointer'
+          }"
                 ${isFirst ? 'disabled' : `onclick="window.changeAstroPage(${currentPage - 1})"`}
                 title="Halaman Sebelumnya">
                 <span class="material-symbols-outlined text-[16px]">chevron_left</span>
@@ -4132,11 +4130,10 @@
 
               <!-- Next Button -->
               <button type="button"
-                class="px-2.5 py-1.5 rounded-xl font-mono text-xs font-bold flex items-center gap-1 transition-all select-none ${
-                  isLast
-                    ? 'opacity-35 cursor-not-allowed bg-transparent text-slate-600 border border-transparent'
-                    : 'bg-[#131b2e] text-slate-200 border border-white/10 hover:bg-emerald-500 hover:text-black active:scale-95 cursor-pointer'
-                }"
+                class="px-2.5 py-1.5 rounded-xl font-mono text-xs font-bold flex items-center gap-1 transition-all select-none ${isLast
+            ? 'opacity-35 cursor-not-allowed bg-transparent text-slate-600 border border-transparent'
+            : 'bg-[#131b2e] text-slate-200 border border-white/10 hover:bg-emerald-500 hover:text-black active:scale-95 cursor-pointer'
+          }"
                 ${isLast ? 'disabled' : `onclick="window.changeAstroPage(${currentPage + 1})"`}
                 title="Halaman Selanjutnya">
                 <span class="text-[11px] font-bold">Next</span>
@@ -5741,7 +5738,7 @@
     function saveCredentials(creds) {
       try {
         localStorage.setItem(USERS_CREDENTIALS_KEY, JSON.stringify(creds));
-      } catch (e) {}
+      } catch (e) { }
     }
 
     // 1. Check existing session
@@ -6196,7 +6193,7 @@
         if (parts.length < 2) return null;
         const base64Url = parts[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
           return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(''));
         return JSON.parse(jsonPayload);
@@ -6286,7 +6283,7 @@
                 handleSupabaseUserSession(data.user);
                 return true;
               }
-            } catch (e) {}
+            } catch (e) { }
           }
 
           // B. Decode Supabase JWT secara langsung jika setSession asynchronous
@@ -6316,7 +6313,7 @@
                 });
                 return true;
               }
-            } catch (e) {}
+            } catch (e) { }
           }
         }
       }
@@ -6337,7 +6334,7 @@
 
       try {
         localStorage.setItem('sg_oauth_error', JSON.stringify({ error: errCode, description: errDesc, time: Date.now() }));
-      } catch (e) {}
+      } catch (e) { }
 
       if (window.opener && !window.opener.closed) {
         try {
@@ -6346,13 +6343,13 @@
             error: errCode,
             description: errDesc
           }, '*');
-        } catch (e) {}
+        } catch (e) { }
       }
 
       // Jika ini di dalam popup, tutup jendela seketika agar tidak membuka halaman kembar
       if (isLikelyOAuthPopup) {
         setTimeout(() => {
-          try { window.close(); } catch (e) {}
+          try { window.close(); } catch (e) { }
         }, 150);
       } else {
         window.history.replaceState(null, '', window.location.pathname);
@@ -6375,7 +6372,7 @@
               const { data } = await appState.supabaseClient.auth.exchangeCodeForSession(code);
               if (data && data.user) resolvedUser = data.user;
             }
-          } catch (e) {}
+          } catch (e) { }
         } else if (currentHash.includes('access_token')) {
           try {
             const params = new URLSearchParams(currentHash.replace(/^#/, ''));
@@ -6394,7 +6391,7 @@
                 resolvedUser = { email: jwt.email, user_metadata: jwt.user_metadata || {} };
               }
             }
-          } catch (e) {}
+          } catch (e) { }
         }
 
         // 2. Jika user berhasil didapat: simpan ke localStorage agar jendela utama mendeteksi seketika
@@ -6419,7 +6416,7 @@
           try {
             localStorage.setItem('sg_oauth_sync_user', JSON.stringify(userObj));
             localStorage.setItem(AUTH_STORAGE_KEYS.CURRENT_USER, JSON.stringify(userObj));
-          } catch (e) {}
+          } catch (e) { }
 
           // Kirim postMessage jika opener masih terhubung
           if (window.opener && !window.opener.closed) {
@@ -6430,13 +6427,13 @@
                 search: currentSearch,
                 user: resolvedUser
               }, '*');
-            } catch (e) {}
+            } catch (e) { }
           }
 
           // Jika ini jendela popup, tutup otomatis
           if (isLikelyOAuthPopup) {
             setTimeout(() => {
-              try { window.close(); } catch (e) {}
+              try { window.close(); } catch (e) { }
             }, 300);
             return;
           }
@@ -6465,6 +6462,29 @@
     // Parent window: Dengarkan perubahan localStorage jika popup menulis auth token
     window.addEventListener('storage', (e) => {
       if (localStorage.getItem('sg_explicit_logout') === 'true') return;
+      if (e.key === 'pending_google_login' && e.newValue) {
+        try {
+          const parsed = JSON.parse(e.newValue);
+          if (parsed && parsed.email) {
+            localStorage.removeItem('pending_google_login');
+            const username = parsed.email.split('@')[0];
+            const slug = 'g_' + getUserSlug(username);
+            const userObj = {
+              slug: slug,
+              username: username,
+              displayName: parsed.name,
+              provider: 'google',
+              email: parsed.email,
+              avatarUrl: '',
+              avatarText: parsed.avatar || (parsed.name[0] || 'G').toUpperCase(),
+              loginAt: Date.now()
+            };
+            loginAsUser(userObj, true);
+            showToast('Berhasil masuk sebagai ' + parsed.name + ' (' + parsed.email + ')', 'success');
+            return;
+          }
+        } catch (err) { }
+      }
       if ((e.key === 'sg_oauth_sync_user' || e.key === AUTH_STORAGE_KEYS.CURRENT_USER || (e.key && e.key.includes('auth-token'))) && e.newValue) {
         try {
           const parsed = JSON.parse(e.newValue);
@@ -6476,7 +6496,7 @@
               handleSupabaseUserSession(u);
             }
           }
-        } catch (err) {}
+        } catch (err) { }
       }
     });
 
@@ -6486,18 +6506,22 @@
         AudioEngine.playTap();
         try {
           localStorage.removeItem('sg_explicit_logout');
-        } catch (e) {}
+        } catch (e) { }
 
         function openGoogleChooserPopup() {
           const width = 500;
           const height = 650;
           const left = Math.max(0, Math.round(window.screenX + (window.outerWidth - width) / 2));
           const top = Math.max(0, Math.round(window.screenY + (window.outerHeight - height) / 2));
-          return window.open(
+          const popup = window.open(
             'google-auth.html',
             'GoogleSignInPopup',
             `width=${width},height=${height},left=${left},top=${top},status=0,toolbar=0,menubar=0,location=1`
           );
+          if (!popup || popup.closed || typeof popup.closed === 'undefined') {
+            window.location.href = 'google-auth.html';
+          }
+          return popup;
         }
 
         // Protokol file:// tidak mendukung OAuth callback redirect dari Supabase,
@@ -6509,6 +6533,32 @@
 
         if (!appState.supabaseClient) {
           initSupabaseClient();
+        }
+
+        // Cek apakah provider Google diaktifkan di dashboard Supabase
+        // Jika belum (seperti saat ini di fwhwfssghdadyiustxnk), langsung buka pemilih akun interaktif
+        // agar pengguna TIDAK melihat error JSON 400 "Unsupported provider: provider is not enabled"
+        let isGoogleEnabledOnSupabase = false;
+        if (appState.supabaseUrl && appState.supabaseKey) {
+          try {
+            const settingsRes = await fetch(appState.supabaseUrl + '/auth/v1/settings', {
+              headers: {
+                'apikey': appState.supabaseKey,
+                'Authorization': 'Bearer ' + appState.supabaseKey
+              }
+            });
+            if (settingsRes.ok) {
+              const settingsData = await settingsRes.json();
+              isGoogleEnabledOnSupabase = !!(settingsData && settingsData.external && settingsData.external.google);
+            }
+          } catch (e) {
+            console.warn('Cek status Google Supabase:', e);
+          }
+        }
+
+        if (!isGoogleEnabledOnSupabase) {
+          openGoogleChooserPopup();
+          return;
         }
 
         if (appState.supabaseClient) {
@@ -6546,7 +6596,7 @@
               try {
                 localStorage.removeItem('sg_oauth_sync_user');
                 localStorage.removeItem('sg_oauth_error');
-              } catch (e) {}
+              } catch (e) { }
 
               // Buka di popup window terpisah agar halaman utama tidak beralih halaman
               const popup = window.open(
@@ -6564,7 +6614,7 @@
                     if (errRaw) {
                       localStorage.removeItem('sg_oauth_error');
                       clearInterval(checkInterval);
-                      try { popup.close(); } catch (e) {}
+                      try { popup.close(); } catch (e) { }
                       openGoogleChooserPopup();
                       return;
                     }
@@ -6577,7 +6627,7 @@
                       const u = JSON.parse(syncRaw);
                       if (u) {
                         loginAsUser(u, true);
-                        try { popup.close(); } catch (e) {}
+                        try { popup.close(); } catch (e) { }
                         return;
                       }
                     }
@@ -6588,7 +6638,7 @@
                       if (sData && sData.session && sData.session.user) {
                         clearInterval(checkInterval);
                         handleSupabaseUserSession(sData.session.user);
-                        try { popup.close(); } catch (e) {}
+                        try { popup.close(); } catch (e) { }
                         return;
                       }
                     }
@@ -6600,7 +6650,7 @@
                       if (cur && cur.provider === 'google' && cur.loginAt > Date.now() - 30000) {
                         clearInterval(checkInterval);
                         loginAsUser(cur, true);
-                        try { popup.close(); } catch (e) {}
+                        try { popup.close(); } catch (e) { }
                         return;
                       }
                     }
@@ -6619,7 +6669,7 @@
                         }
                       }, 400);
                     }
-                  } catch (e) {}
+                  } catch (e) { }
                 }, 300);
               } else {
                 openGoogleChooserPopup();
@@ -6636,7 +6686,7 @@
     }
 
     function showSupabaseGoogleGuide() {
-      const guideText = 
+      const guideText =
         'AKSES GOOGLE BELUM DIAKTIFKAN DI DASHBOARD SUPABASE!\n\n' +
         'Langkah manual yang perlu Anda lakukan (hanya 2 menit):\n\n' +
         '1. Buka Dashboard Supabase Anda:\n' +
@@ -6700,7 +6750,7 @@
           showToast(`Selamat datang, ${acct.name}! Berhasil masuk via Google.`, 'success');
         }
       }
-    } catch(e) {}
+    } catch (e) { }
 
     // 7. Profile Header Trigger
     if (btnProfileTrigger) {
@@ -6783,7 +6833,7 @@
   function loginAsUser(userObj, withGreeting = true) {
     try {
       localStorage.removeItem('sg_explicit_logout');
-    } catch (e) {}
+    } catch (e) { }
     appState.currentUser = userObj;
     try {
       localStorage.setItem(AUTH_STORAGE_KEYS.CURRENT_USER, JSON.stringify(userObj));
@@ -6854,7 +6904,7 @@
           localStorage.removeItem(key);
         }
       }
-    } catch (e) {}
+    } catch (e) { }
 
     // Sign out tuntas dari Supabase Client
     if (appState.supabaseClient && appState.supabaseClient.auth) {
@@ -6992,7 +7042,7 @@
     try {
       const saved = localStorage.getItem(AUTH_STORAGE_KEYS.KNOWN_USERS);
       if (saved) knownUsers = JSON.parse(saved);
-    } catch (e) {}
+    } catch (e) { }
 
     // Sembunyikan bagian jika tidak ada akun tersimpan di perangkat
     if (!Array.isArray(knownUsers) || knownUsers.length === 0) {
