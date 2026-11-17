@@ -1933,13 +1933,13 @@
       html += `
         <div class="neo-ticket-card ticket-perforation-left ${isChecked ? 'is-checked' : 'is-pending'}" data-id="${item.id}">
           <!-- Top Row: Checkbox, LOT #, Category, Barcode Strip & Quick Actions -->
-          <div class="flex items-center justify-between border-b border-white/10 pb-2">
+          <div class="flex items-center justify-between border-b-2 border-black/10 pb-2">
             <div class="flex items-center gap-2">
               <button type="button" class="cart-check-btn ${isChecked ? 'checked' : ''}" onclick="window.toggleItemInCart('${item.id}')" title="Centang jika sudah di rak troli">
                 <i data-lucide="check"></i>
               </button>
               <div class="flex items-center gap-1.5">
-                <span class="font-mono text-[11px] font-black text-white tracking-tight">LOT #${lotNumber}</span>
+                <span class="font-mono text-[11px] font-black text-black tracking-tight">LOT #${lotNumber}</span>
                 <span class="cat-mono-tag">${escapeHtml(item.category)}</span>
               </div>
               <span class="barcode-strip hidden sm:inline-block" title="Barcode Lot"></span>
@@ -1964,16 +1964,16 @@
           <!-- Middle Row: Title, Spec & Status Rencana -->
           <div class="flex items-start justify-between gap-2 pt-0.5">
             <div>
-              <h4 class="card-item-title text-[15px] font-extrabold text-white leading-snug">${escapeHtml(item.name)}</h4>
+              <h4 class="card-item-title text-[15px] font-black text-black leading-snug">${escapeHtml(item.name)}</h4>
               <div class="flex items-center gap-2 mt-1">
-                <span class="font-mono text-[11px] text-slate-400 font-semibold">Kemasan: ${escapeHtml(item.unit)}</span>
+                <span class="font-mono text-[11px] text-stone-600 font-bold">Kemasan: ${escapeHtml(item.unit)}</span>
                 ${item.isPlanned !== false ? `
-                  <span class="inline-flex items-center gap-1 font-mono text-[9px] font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  <span class="inline-flex items-center gap-1 font-mono text-[9px] font-black px-1.5 py-0.5 rounded bg-[#BBF7D0] text-black border border-black shadow-[1px_1px_0_#000]">
                     <i data-lucide="check-circle-2" class="w-2.5 h-2.5"></i>
                     <span>Rencana</span>
                   </span>
                 ` : `
-                  <span class="inline-flex items-center gap-1 font-mono text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30" title="Di luar daftar rencana">
+                  <span class="inline-flex items-center gap-1 font-mono text-[9px] font-black px-1.5 py-0.5 rounded bg-[#FEF08A] text-black border border-black shadow-[1px_1px_0_#000]" title="Di luar daftar rencana">
                     <i data-lucide="alert-circle" class="w-2.5 h-2.5"></i>
                     <span>Impulsif</span>
                   </span>
@@ -1983,10 +1983,10 @@
           </div>
 
           <!-- Pricing Flow & Badges Row -->
-          <div class="flex flex-wrap items-center gap-2 pt-1 border-t border-dashed border-white/10">
-            <span class="unit-rate-mono">
-              ${hasDiscount ? `<span class="strike text-slate-500">Rp ${formatNumber(item.price)}</span>` : ''}
-              <strong>Rp ${formatNumber(discount.finalUnitPrice)}</strong><span class="text-slate-400">/${escapeHtml(item.unit)}</span>
+          <div class="flex flex-wrap items-center gap-2 pt-1 border-t-2 border-dashed border-black/10">
+            <span class="unit-rate-mono text-black font-black">
+              ${hasDiscount ? `<span class="strike text-stone-400">Rp ${formatNumber(item.price)}</span>` : ''}
+              <strong>Rp ${formatNumber(discount.finalUnitPrice)}</strong><span class="text-stone-600 font-bold">/${escapeHtml(item.unit)}</span>
             </span>
 
             <!-- F-04: Comparison Badge -->
@@ -2003,28 +2003,28 @@
               </span>
             ` : ''}
             ${hasDiscount && discount.formulaText && discount.formulaText.includes('Lapis') ? `
-              <div class="w-full text-[10.5px] font-mono text-cyan-300 bg-cyan-950/40 px-2.5 py-1.5 rounded-xl border border-cyan-500/30 mt-1 flex items-start gap-1">
-                <span class="font-bold shrink-0">✨ Diskon Kompound:</span>
+              <div class="w-full text-[10.5px] font-mono text-black bg-[#BAE6FD] px-2.5 py-1.5 rounded-xl border-2 border-black shadow-[2px_2px_0_#000] mt-1 flex items-start gap-1 font-bold">
+                <span class="font-black shrink-0">✨ Diskon Kompound:</span>
                 <span>${escapeHtml(discount.formulaText)}</span>
               </div>
             ` : ''}
           </div>
 
           <!-- Bottom Row: Tactile POS Stepper & Chunky Subtotal -->
-          <div class="flex items-center justify-between pt-2 border-t border-white/10 mt-1">
-            <div class="flex items-center gap-1.5 bg-[#131b2e] p-1 rounded-xl border border-white/15 shadow-inner">
-              <button type="button" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-lg bg-white/10 hover:bg-emerald-500 hover:text-black text-white font-black flex items-center justify-center active:scale-95 cursor-pointer transition-all shrink-0 ${item.qty === 1 ? 'text-rose-400 hover:bg-rose-500 hover:text-white' : ''}" onclick="window.changeItemQty('${item.id}', -1)" title="${item.qty === 1 ? 'Hapus Barang' : 'Kurangi'}">
+          <div class="flex items-center justify-between pt-2 border-t-2 border-black/10 mt-1">
+            <div class="flex items-center gap-1 bg-white p-1 rounded-xl border-2 border-black shadow-[2px_2px_0_#000]">
+              <button type="button" class="stepper-tap-btn w-11 h-11 min-w-[44px] min-h-[44px] rounded-lg bg-[#FFDE59] hover:bg-[#FACC15] text-black font-black flex items-center justify-center active:scale-95 cursor-pointer transition-all shrink-0 border-2 border-black shadow-[1.5px_1.5px_0_#000] ${item.qty === 1 ? 'is-trash' : ''}" onclick="window.changeItemQty('${item.id}', -1)" title="${item.qty === 1 ? 'Hapus Barang' : 'Kurangi'}">
                 <i data-lucide="${item.qty === 1 ? 'trash-2' : 'minus'}"></i>
               </button>
-              <input type="number" inputmode="numeric" min="1" class="w-12 min-w-0 text-center font-mono font-black text-sm text-emerald-400 bg-transparent border-0 focus:outline-none focus:ring-1 focus:ring-emerald-400 rounded p-1 shrink-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" value="${item.qty}" onchange="window.setItemQty('${item.id}', this.value)" oninput="window.setItemQty('${item.id}', this.value)" title="Ketik kuantitas langsung" />
-              <button type="button" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-black flex items-center justify-center active:scale-95 cursor-pointer transition-all shrink-0 shadow-[0_0_8px_rgba(16,185,129,0.3)]" onclick="window.changeItemQty('${item.id}', 1)" title="Tambah">
+              <input type="number" inputmode="numeric" min="1" class="w-12 min-w-0 text-center font-mono font-black text-sm text-black bg-transparent border-0 focus:outline-none rounded p-1 shrink-0" value="${item.qty}" onchange="window.setItemQty('${item.id}', this.value)" oninput="window.setItemQty('${item.id}', this.value)" title="Ketik kuantitas langsung" />
+              <button type="button" class="stepper-tap-btn w-11 h-11 min-w-[44px] min-h-[44px] rounded-lg bg-[#FFDE59] hover:bg-[#FACC15] text-black font-black flex items-center justify-center active:scale-95 cursor-pointer transition-all shrink-0 border-2 border-black shadow-[1.5px_1.5px_0_#000]" onclick="window.changeItemQty('${item.id}', 1)" title="Tambah">
                 <i data-lucide="plus"></i>
               </button>
             </div>
 
             <div class="text-right">
-              <div class="font-mono text-[9px] text-slate-400 font-bold uppercase tracking-wider">SUBTOTAL (${item.qty} ${item.unit})</div>
-              <div class="font-headline-md text-[18px] font-black text-emerald-400 tracking-tight">Rp ${formatNumber(lineTotal)}</div>
+              <div class="font-mono text-[9.5px] text-stone-600 font-bold uppercase tracking-wider">SUBTOTAL (${item.qty} ${item.unit})</div>
+              <div class="font-headline-md text-[18px] font-black text-black tracking-tight">Rp ${formatNumber(lineTotal)}</div>
             </div>
           </div>
         </div>
