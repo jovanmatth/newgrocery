@@ -892,6 +892,76 @@ nav.fixed.bottom-0 {
 }
 
 /* ==========================================================================
+   USER PROFILE MODAL - NEOBRUTALISM KOTAK-KOTAK STYLING
+   ========================================================================== */
+#modalUserProfileBackdrop #profileModalAvatar {
+  border: 2.5px solid #000000 !important;
+  box-shadow: 2.5px 2.5px 0px #000000 !important;
+}
+
+#modalUserProfileBackdrop #profileModalProviderBadge {
+  border: 1.5px solid #000000 !important;
+  box-shadow: 1px 1px 0px #000000 !important;
+  color: #000000 !important;
+}
+
+#modalUserProfileBackdrop button:not(#btnCloseUserProfileModal) {
+  border: 2px solid #000000 !important;
+  box-shadow: 2.5px 2.5px 0px #000000 !important;
+  font-weight: 800 !important;
+  transition: all 0.12s ease !important;
+}
+
+#modalUserProfileBackdrop button:not(#btnCloseUserProfileModal):hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3.5px 3.5px 0px #000000 !important;
+}
+
+#modalUserProfileBackdrop button:not(#btnCloseUserProfileModal):active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #000000 !important;
+}
+
+#btnSwitchAccount {
+  background: #FEF08A !important;
+  color: #000000 !important;
+}
+
+#btnSwitchAccount:hover {
+  background: #FDE047 !important;
+}
+
+#btnLogoutUser {
+  background: #FECDD3 !important;
+  color: #000000 !important;
+  border: 2.5px solid #000000 !important;
+}
+
+#btnLogoutUser:hover {
+  background: #FB7185 !important;
+}
+
+#btnExportDataProfile,
+#btnImportDataProfile {
+  background: #FFFFFF !important;
+  color: #000000 !important;
+}
+
+#btnExportDataProfile:hover,
+#btnImportDataProfile:hover {
+  background: #F8FAFC !important;
+}
+
+#btnResetDataProfile {
+  background: #FFFFFF !important;
+  color: #DC2626 !important;
+}
+
+#btnResetDataProfile:hover {
+  background: #FEE2E2 !important;
+}
+
+/* ==========================================================================
    TOAST NOTIFICATIONS
    ========================================================================== */
 .neo-toast {

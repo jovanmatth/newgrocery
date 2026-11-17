@@ -6947,23 +6947,23 @@
         avatar.textContent = appState.currentUser.avatarText || 'U';
       }
       if (appState.currentUser.avatarClass === 'avatar-green') {
-        avatar.className = 'w-14 h-14 rounded-2xl bg-emerald-600 text-white text-2xl font-bold flex items-center justify-center shadow-md shrink-0';
+        avatar.className = 'w-14 h-14 rounded-2xl bg-emerald-600 text-white text-2xl font-black flex items-center justify-center border-2 border-black shadow-[2px_2px_0_#000] shrink-0';
       } else if (appState.currentUser.avatarClass === 'avatar-amber') {
-        avatar.className = 'w-14 h-14 rounded-2xl bg-amber-500 text-white text-2xl font-bold flex items-center justify-center shadow-md shrink-0';
+        avatar.className = 'w-14 h-14 rounded-2xl bg-amber-500 text-white text-2xl font-black flex items-center justify-center border-2 border-black shadow-[2px_2px_0_#000] shrink-0';
       } else if (appState.currentUser.avatarClass === 'avatar-dark') {
-        avatar.className = 'w-14 h-14 rounded-2xl bg-stone-900 text-white text-2xl font-bold flex items-center justify-center shadow-md shrink-0 border border-stone-700';
+        avatar.className = 'w-14 h-14 rounded-2xl bg-stone-900 text-white text-2xl font-black flex items-center justify-center border-2 border-black shadow-[2px_2px_0_#000] shrink-0';
       } else if (isGoogle) {
-        avatar.className = 'w-14 h-14 rounded-2xl bg-blue-600 text-white text-2xl font-bold flex items-center justify-center shadow-md shrink-0';
+        avatar.className = 'w-14 h-14 rounded-2xl bg-[#7C3AED] text-white text-2xl font-black flex items-center justify-center border-2 border-black shadow-[2px_2px_0_#000] shrink-0';
       } else {
-        avatar.className = 'w-14 h-14 rounded-2xl bg-gradient-to-tr from-primary to-secondary text-secondary-fixed text-xl font-bold flex items-center justify-center shadow-md shrink-0';
+        avatar.className = 'w-14 h-14 rounded-2xl bg-[#FFDE59] text-black text-2xl font-black flex items-center justify-center border-2 border-black shadow-[2px_2px_0_#000] shrink-0';
       }
     }
     if (displayName) displayName.textContent = appState.currentUser.displayName || appState.currentUser.username;
     if (badge) {
       badge.textContent = isGoogle ? 'Akun Google' : 'Username Mandiri';
       badge.className = isGoogle
-        ? 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700'
-        : 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-secondary-fixed/30 text-secondary';
+        ? 'text-[10px] font-mono font-black px-2 py-0.5 rounded-md bg-[#BAE6FD] text-black border-[1.5px] border-black shadow-[1px_1px_0_#000]'
+        : 'text-[10px] font-mono font-black px-2 py-0.5 rounded-md bg-[#FEF08A] text-black border-[1.5px] border-black shadow-[1px_1px_0_#000]';
     }
     if (subtitle) {
       subtitle.textContent = isGoogle && appState.currentUser.email
