@@ -1133,6 +1133,55 @@ nav.fixed.bottom-0 {
 }
 
 /* ==========================================================================
+   CHECKOUT PROCESSING & RECEIPT STAGE (SOLID NEOBRUTALISM)
+   ========================================================================== */
+#checkoutStageProcessing {
+  background: #FFFDF8 !important;
+  color: #000000 !important;
+}
+
+#checkoutStageProcessing * {
+  color: #000000 !important;
+}
+
+#posStepBadge {
+  background: #BAE6FD !important;
+  color: #000000 !important;
+  border: 1.5px solid #000000 !important;
+}
+
+#checkoutStageReceipt {
+  background: #FFFDF8 !important;
+  color: #000000 !important;
+}
+
+#checkoutStageReceipt * {
+  color: #000000 !important;
+}
+
+.store-item-btn {
+  background: #FFFFFF !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 2px 2px 0px #000000 !important;
+  border-radius: 14px !important;
+  font-weight: 800 !important;
+  transition: all 0.12s ease !important;
+}
+
+.store-item-btn:hover {
+  background: #FEF9C3 !important;
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px #000000 !important;
+}
+
+.store-item-btn.active {
+  background: #FEF08A !important;
+  border: 2.5px solid #000000 !important;
+  box-shadow: 3px 3px 0px #000000 !important;
+}
+
+/* ==========================================================================
    TOAST NOTIFICATIONS
    ========================================================================== */
 .neo-toast {

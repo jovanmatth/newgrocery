@@ -1854,64 +1854,58 @@
 
       <!-- STAGE 2: MESIN KASIR ASTRO BERJALAN (ANIMASI INTERAKTIF) -->
       <div id="checkoutStageProcessing"
-        class="hidden flex-col items-center justify-center p-8 bg-[#001d0f] text-white min-h-[480px] space-y-6 text-center">
+        class="hidden flex-col items-center justify-center p-8 bg-[#FFFDF8] text-black min-h-[480px] space-y-6 text-center">
         <!-- POS Terminal Scanner Hologram -->
         <div class="relative">
           <div
-            class="w-28 h-28 rounded-3xl bg-gradient-to-tr from-[#003818] via-secondary to-[#6bff8f] p-1 flex items-center justify-center shadow-[0_0_40px_rgba(107,255,143,0.5)] animate-pulse">
-            <div class="w-full h-full bg-[#001d0f] rounded-[22px] flex flex-col items-center justify-center">
-              <span
-                class="material-symbols-outlined text-[48px] text-secondary-fixed animate-bounce">point_of_sale</span>
-            </div>
-          </div>
-          <!-- Scanning Laser line -->
-          <div
-            class="absolute -inset-2 rounded-3xl border-2 border-secondary-fixed/40 animate-ping pointer-events-none">
+            class="w-24 h-24 rounded-2xl bg-[#FFDE59] border-[2.5px] border-black shadow-[4px_4px_0_#000] flex items-center justify-center">
+            <span
+              class="material-symbols-outlined text-[48px] text-black animate-bounce">point_of_sale</span>
           </div>
         </div>
 
         <div>
           <span
-            class="px-3 py-1 rounded-full bg-secondary/30 text-secondary-fixed text-xs font-mono font-bold tracking-wider uppercase mb-2 inline-block"
+            class="px-3 py-1 rounded-full bg-[#BAE6FD] text-black text-xs font-mono font-black border-2 border-black shadow-xs tracking-wider uppercase mb-2 inline-block"
             id="posStepBadge">FASE 1 / 3</span>
-          <h3 class="font-headline-sm text-xl font-bold text-white mb-1.5" id="posStepTitle">Menghubungkan ke Kasir
+          <h3 class="font-headline-sm text-xl font-black text-black mb-1.5" id="posStepTitle">Menghubungkan ke Kasir
             Astro...</h3>
-          <p class="text-xs text-gray-300 max-w-xs mx-auto leading-relaxed" id="posStepDesc">Memverifikasi transaksi dan
+          <p class="text-xs text-stone-700 font-bold max-w-xs mx-auto leading-relaxed" id="posStepDesc">Memverifikasi transaksi dan
             mengunci harga resmi barang belanjaan.</p>
         </div>
 
         <!-- Animated Progress Track -->
-        <div class="w-full max-w-xs space-y-1.5">
-          <div class="w-full h-3 bg-white/10 rounded-full overflow-hidden p-0.5 border border-white/20">
+        <div class="w-full max-w-xs space-y-2">
+          <div class="w-full h-4 bg-white rounded-full overflow-hidden p-0.5 border-2 border-black shadow-[2px_2px_0_#000]">
             <div id="posProgressBar"
-              class="h-full bg-gradient-to-r from-secondary to-secondary-fixed rounded-full transition-all duration-300 shadow-[0_0_12px_#6bff8f]"
+              class="h-full bg-[#4ADE80] rounded-full transition-all duration-300 border border-black"
               style="width: 25%;"></div>
           </div>
-          <div class="flex justify-between text-[10px] text-gray-400 font-mono">
+          <div class="flex justify-between text-[11px] text-black font-mono font-black">
             <span>Kasir Astro</span>
             <span>Verifikasi Saldo</span>
             <span>Cetak Struk</span>
           </div>
         </div>
 
-        <div class="text-[11px] text-secondary-fixed flex items-center gap-1.5">
-          <span class="w-2 h-2 rounded-full bg-secondary-fixed animate-ping"></span>
+        <div class="text-[11px] text-stone-700 font-bold flex items-center justify-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-black animate-ping"></span>
           <span>Transaksi Anda dijamin aman dengan enkripsi 256-bit</span>
         </div>
       </div>
 
       <!-- STAGE 3: STRUK DIGITAL THERMAL ROLLOUT & CELEBRATION -->
-      <div id="checkoutStageReceipt" class="hidden flex-col h-full max-h-[92vh] bg-[#0d1322]">
-        <!-- Top Green Bar -->
+      <div id="checkoutStageReceipt" class="hidden flex-col h-full max-h-[92vh] bg-[#FFFDF8]">
+        <!-- Top Header Bar -->
         <div
-          class="p-3.5 bg-gradient-to-r from-[#003818] via-[#091f16] to-[#0d1322] text-white flex items-center justify-between shrink-0 border-b border-white/10">
+          class="p-3.5 bg-[#FFFDF8] text-black flex items-center justify-between shrink-0 border-b-2 border-black">
           <div class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-emerald-400 text-[20px]">verified</span>
-            <span class="font-bold text-sm">Pembayaran Berhasil!</span>
+            <span class="material-symbols-outlined text-[#15803D] text-[22px] font-black">verified</span>
+            <span class="font-headline-sm text-sm font-black text-black">Pembayaran Berhasil!</span>
           </div>
           <button type="button" id="btnCloseReceiptView"
-            class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center transition-all cursor-pointer">
-            <span class="material-symbols-outlined text-[16px]">close</span>
+            class="w-8 h-8 rounded-xl bg-white hover:bg-[#FECDD3] text-black border-2 border-black shadow-xs flex items-center justify-center transition-all cursor-pointer">
+            <span class="material-symbols-outlined text-[18px] font-bold">close</span>
           </button>
         </div>
 
@@ -1920,68 +1914,68 @@
 
           <!-- Thermal Paper Body with Zig-Zag Cut -->
           <div
-            class="thermal-receipt-roll bg-white rounded-2xl p-5 shadow-2xl border border-gray-200 text-gray-900 font-mono text-xs space-y-3">
+            class="thermal-receipt-roll bg-white rounded-2xl p-5 shadow-[4px_4px_0_#000] border-2 border-black text-black font-mono text-xs space-y-3">
 
             <!-- Store & Transaction Header -->
-            <div class="text-center pb-3 border-b border-dashed border-gray-300">
-              <div class="font-bold text-sm text-primary tracking-wider">ASTRO QUICK COMMERCE - HUB PURI INDAH</div>
-              <div class="text-[10px] text-gray-500">Astro Hub Puri Indah • Delivery 15 Menit Sampai</div>
-              <div class="text-[10px] text-gray-400 mt-1" id="receiptTimestamp">Senin, 26 Okt 2026 • 19:30 WIB</div>
-              <div class="text-[10px] font-bold text-primary mt-0.5">TRX: <span
+            <div class="text-center pb-3 border-b-2 border-dashed border-stone-300">
+              <div class="font-black text-sm text-black tracking-wider">ASTRO QUICK COMMERCE - HUB PURI INDAH</div>
+              <div class="text-[10px] text-stone-600 font-bold">Astro Hub Puri Indah • Delivery 15 Menit Sampai</div>
+              <div class="text-[10px] text-stone-500 font-semibold mt-1" id="receiptTimestamp">Senin, 26 Okt 2026 • 19:30 WIB</div>
+              <div class="text-[10px] font-black text-black mt-0.5">TRX: <span
                   id="receiptTrxId">ASTRO-PURI-20261026-98421</span></div>
             </div>
 
             <!-- Customer & Cashier Info -->
-            <div class="text-[11px] space-y-0.5 text-gray-600">
+            <div class="text-[11px] space-y-0.5 text-stone-700 font-bold">
               <div class="flex justify-between">
                 <span>Pelanggan:</span>
-                <strong class="text-gray-900" id="receiptCustomerName">Rian Pratama</strong>
+                <strong class="text-black font-black" id="receiptCustomerName">Rian Pratama</strong>
               </div>
               <div class="flex justify-between">
                 <span>Kasir:</span>
-                <span class="text-gray-900">Sistem Dispatcher Astro</span>
+                <span class="text-black font-bold">Sistem Dispatcher Astro</span>
               </div>
               <div class="flex justify-between">
                 <span>Metode Bayar:</span>
-                <strong class="text-emerald-700" id="receiptPaymentMethodLabel">QRIS Astro Instant (Lunas)</strong>
+                <strong class="text-[#15803D] font-black" id="receiptPaymentMethodLabel">QRIS Astro Instant (Lunas)</strong>
               </div>
             </div>
 
             <!-- Purchased Items Table -->
-            <div class="py-2 border-y border-dashed border-gray-300 space-y-1.5" id="receiptItemsBody">
+            <div class="py-2 border-y-2 border-dashed border-stone-300 space-y-1.5" id="receiptItemsBody">
               <!-- Rendered by JS -->
             </div>
 
             <!-- Financial Totals -->
             <div class="space-y-1 text-[11px]">
-              <div class="flex justify-between">
+              <div class="flex justify-between text-stone-700 font-bold">
                 <span>Subtotal Belanja:</span>
-                <span id="receiptSubtotal">Rp 0</span>
+                <span id="receiptSubtotal" class="font-black text-black">Rp 0</span>
               </div>
-              <div class="flex justify-between text-emerald-600">
+              <div class="flex justify-between text-[#15803D] font-black">
                 <span>Hemat Voucher:</span>
                 <span id="receiptVoucherDiscount">-Rp 15.000</span>
               </div>
-              <div class="flex justify-between">
+              <div class="flex justify-between text-stone-700 font-bold">
                 <span>Biaya Layanan:</span>
-                <span id="receiptServiceFee">Rp 1.000</span>
+                <span id="receiptServiceFee" class="font-black text-black">Rp 1.000</span>
               </div>
               <div
-                class="pt-2 border-t-2 border-dashed border-gray-400 flex justify-between items-baseline font-bold text-sm text-primary">
+                class="pt-2 border-t-2 border-dashed border-stone-400 flex justify-between items-baseline font-black text-sm text-black">
                 <span>TOTAL AKHIR:</span>
-                <span class="text-base text-emerald-700 font-bold" id="receiptGrandTotal">Rp 0</span>
+                <span class="text-base text-[#15803D] font-black" id="receiptGrandTotal">Rp 0</span>
               </div>
-              <div class="text-[10px] text-gray-500 flex justify-between pt-0.5" id="receiptCashDetailRow">
+              <div class="text-[10px] text-stone-600 font-bold flex justify-between pt-0.5" id="receiptCashDetailRow">
                 <span>Diterima / Kembalian:</span>
-                <span id="receiptCashChangeText">-</span>
+                <span id="receiptCashChangeText" class="font-black text-black">-</span>
               </div>
             </div>
 
             <!-- Barcode & Thank you -->
-            <div class="text-center pt-2 border-t border-dashed border-gray-300 space-y-2">
-              <div class="font-mono text-[9px] tracking-[6px] text-gray-400 select-all font-bold">||| |||| || ||||| ||||
+            <div class="text-center pt-2 border-t-2 border-dashed border-stone-300 space-y-2">
+              <div class="font-mono text-[9px] tracking-[6px] text-black select-all font-black">||| |||| || ||||| ||||
                 || |||</div>
-              <p class="text-[10px] text-gray-500 leading-tight">Terima kasih telah berbelanja di Astro! Pesanan diantar
+              <p class="text-[10px] text-stone-600 font-bold leading-tight">Terima kasih telah berbelanja di Astro! Pesanan diantar
                 dalam 15 menit.
                 Simpan struk digital ini sebagai bukti transaksi resmi.</p>
             </div>
@@ -1991,22 +1985,22 @@
         </div>
 
         <!-- Receipt Actions Footer -->
-        <div class="p-4 bg-[#090d16] border-t border-white/10 shrink-0 space-y-2">
+        <div class="p-4 bg-[#FFFDF8] border-t-2 border-black shrink-0 space-y-2">
           <div class="flex gap-2">
             <button type="button" id="btnCopyReceiptText"
-              class="flex-1 py-2.5 rounded-xl bg-white/10 text-white font-bold text-xs hover:bg-white/15 transition-all flex items-center justify-center gap-1.5 cursor-pointer">
-              <span class="material-symbols-outlined text-[16px] text-cyan-400">content_copy</span>
+              class="flex-1 py-2.5 rounded-xl bg-white hover:bg-stone-100 text-black font-mono text-xs font-black border-2 border-black shadow-[2px_2px_0_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all flex items-center justify-center gap-1.5 cursor-pointer">
+              <span class="material-symbols-outlined text-[16px] text-black font-bold">content_copy</span>
               <span>Salin Teks Struk</span>
             </button>
             <button type="button" id="btnViewHistoryFromReceipt"
-              class="flex-1 py-2.5 rounded-xl bg-white/10 text-white font-bold text-xs hover:bg-white/15 transition-all flex items-center justify-center gap-1.5 cursor-pointer">
-              <span class="material-symbols-outlined text-[16px] text-emerald-400">receipt_long</span>
+              class="flex-1 py-2.5 rounded-xl bg-white hover:bg-stone-100 text-black font-mono text-xs font-black border-2 border-black shadow-[2px_2px_0_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all flex items-center justify-center gap-1.5 cursor-pointer">
+              <span class="material-symbols-outlined text-[16px] text-black font-bold">receipt_long</span>
               <span>Buka Riwayat</span>
             </button>
           </div>
           <button type="button" id="btnDoneAstroCheckout"
-            class="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 text-black font-bold text-sm shadow-lg shadow-emerald-500/20 hover:brightness-110 active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer">
-            <span class="material-symbols-outlined text-[18px] text-black">shopping_cart</span>
+            class="w-full py-3 rounded-xl bg-[#FFDE59] hover:bg-[#FACC15] text-black font-headline-sm text-sm font-black border-[2.5px] border-black shadow-[3px_3px_0_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer">
+            <span class="material-symbols-outlined text-[18px] text-black font-bold">shopping_cart</span>
             <span>Mulai Belanja Lagi (Troli Baru)</span>
           </button>
         </div>
