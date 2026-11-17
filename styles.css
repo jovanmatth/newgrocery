@@ -756,8 +756,22 @@ input[type="number"] {
 }
 
 #cartSummaryBottom {
-  bottom: calc(5.25rem + max(1rem, env(safe-area-inset-bottom, 0px))) !important;
-  z-index: 45;
+  position: fixed !important;
+  bottom: calc(66px + max(0.5rem, env(safe-area-inset-bottom, 0px))) !important;
+  left: 0 !important;
+  right: 0 !important;
+  max-width: 480px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 0.85rem !important;
+  padding-right: 0.85rem !important;
+  z-index: 45 !important;
+  pointer-events: none !important;
+  box-sizing: border-box !important;
+}
+
+#cartSummaryBottom > div {
+  pointer-events: auto !important;
 }
 
 /* ==========================================================================
