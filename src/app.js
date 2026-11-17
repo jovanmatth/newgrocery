@@ -6503,187 +6503,128 @@
       }
     });
 
-    // 4. Handle Official Supabase Google OAuth Flow & Interactive Google Chooser
+    // 4. Handle Official Supabase Google OAuth Flow (Langsung Resmi Google accounts.google.com)
     if (btnGoogle) {
       btnGoogle.addEventListener('click', async () => {
         AudioEngine.playTap();
         try {
           localStorage.removeItem('sg_explicit_logout');
-        } catch (e) {}
-
-        function openGoogleChooserPopup() {
-          const width = 500;
-          const height = 650;
-          const left = Math.max(0, Math.round(window.screenX + (window.outerWidth - width) / 2));
-          const top = Math.max(0, Math.round(window.screenY + (window.outerHeight - height) / 2));
-          const popup = window.open(
-            'google-auth.html',
-            'GoogleSignInPopup',
-            `width=${width},height=${height},left=${left},top=${top},status=0,toolbar=0,menubar=0,location=1`
-          );
-          if (!popup || popup.closed || typeof popup.closed === 'undefined') {
-            window.location.href = 'google-auth.html';
-          }
-          return popup;
-        }
-
-        // Protokol file:// tidak mendukung OAuth callback redirect dari Supabase,
-        // buka langsung pemilih akun Google interaktif resmi (google-auth.html)
-        if (window.location.protocol === 'file:') {
-          openGoogleChooserPopup();
-          return;
-        }
+        } catch (e) { }
 
         if (!appState.supabaseClient) {
           initSupabaseClient();
         }
 
-        // Cek apakah provider Google diaktifkan di dashboard Supabase
-        // Jika belum (seperti saat ini di fwhwfssghdadyiustxnk), langsung buka pemilih akun interaktif
-        // agar pengguna TIDAK melihat error JSON 400 "Unsupported provider: provider is not enabled"
-        let isGoogleEnabledOnSupabase = false;
-        if (appState.supabaseUrl && appState.supabaseKey) {
-          try {
-            const settingsRes = await fetch(appState.supabaseUrl + '/auth/v1/settings', {
-              headers: {
-                'apikey': appState.supabaseKey,
-                'Authorization': 'Bearer ' + appState.supabaseKey
-              }
-            });
-            if (settingsRes.ok) {
-              const settingsData = await settingsRes.json();
-              isGoogleEnabledOnSupabase = !!(settingsData && settingsData.external && settingsData.external.google);
-            }
-          } catch (e) {
-            console.warn('Cek status Google Supabase:', e);
-          }
-        }
-
-        if (!isGoogleEnabledOnSupabase) {
-          openGoogleChooserPopup();
+        if (!appState.supabaseClient) {
+          showToast('Koneksi Supabase belum siap, coba sesaat lagi.', 'warning');
           return;
         }
 
-        if (appState.supabaseClient) {
-          showToast('Membuka Google Sign-In...', 'info');
+        showToast('Membuka Google Sign-In...', 'info');
 
-          try {
-            const currentRedirect = window.location.origin + window.location.pathname;
-            const { data, error } = await appState.supabaseClient.auth.signInWithOAuth({
-              provider: 'google',
-              options: {
-                skipBrowserRedirect: true, // Mencegah halaman utama beralih halaman
-                redirectTo: currentRedirect,
-                scopes: 'openid email profile',
-                queryParams: {
-                  prompt: 'select_account',
-                  access_type: 'offline'
-                }
+        try {
+          const currentRedirect = window.location.origin + window.location.pathname;
+          const { data, error } = await appState.supabaseClient.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+              skipBrowserRedirect: true, // Mencegah halaman utama beralih halaman jika popup aktif
+              redirectTo: currentRedirect,
+              scopes: 'openid email profile',
+              queryParams: {
+                prompt: 'select_account',
+                access_type: 'offline'
               }
-            });
-
-            if (error) {
-              console.warn('Supabase Google OAuth status:', error.message);
-              // Buka langsung pemilih akun Google agar login tidak terhambat
-              openGoogleChooserPopup();
-              return;
             }
+          });
 
-            if (data && data.url) {
-              const width = 500;
-              const height = 650;
-              const left = Math.max(0, Math.round(window.screenX + (window.outerWidth - width) / 2));
-              const top = Math.max(0, Math.round(window.screenY + (window.outerHeight - height) / 2));
+          if (error) {
+            console.warn('Supabase Google OAuth status:', error.message);
+            showToast(error.message, 'danger');
+            return;
+          }
 
-              // Hapus flag sinkronisasi & error lama sebelum mulai
-              try {
-                localStorage.removeItem('sg_oauth_sync_user');
-                localStorage.removeItem('sg_oauth_error');
-              } catch (e) {}
+          if (data && data.url) {
+            const width = 500;
+            const height = 650;
+            const left = Math.max(0, Math.round(window.screenX + (window.outerWidth - width) / 2));
+            const top = Math.max(0, Math.round(window.screenY + (window.outerHeight - height) / 2));
 
-              // Buka di popup window terpisah agar halaman utama tidak beralih halaman
-              const popup = window.open(
-                data.url,
-                'GoogleSignInPopup',
-                `width=${width},height=${height},left=${left},top=${top},status=0,toolbar=0,menubar=0,location=1`
-              );
+            // Hapus flag sinkronisasi & error lama sebelum mulai
+            try {
+              localStorage.removeItem('sg_oauth_sync_user');
+              localStorage.removeItem('sg_oauth_error');
+            } catch (e) { }
 
-              if (popup) {
-                // Pantau sinkronisasi aktif setiap 300ms dari localStorage dan session
-                const checkInterval = setInterval(async () => {
-                  try {
-                    // Cek jika ada error dari callback
-                    const errRaw = localStorage.getItem('sg_oauth_error');
-                    if (errRaw) {
-                      localStorage.removeItem('sg_oauth_error');
-                      clearInterval(checkInterval);
-                      try { popup.close(); } catch (e) {}
-                      openGoogleChooserPopup();
+            // Buka langsung halaman resmi Google (accounts.google.com)
+            const popup = window.open(
+              data.url,
+              'GoogleSignInPopup',
+              `width=${width},height=${height},left=${left},top=${top},status=0,toolbar=0,menubar=0,location=1`
+            );
+
+            if (popup) {
+              // Pantau sinkronisasi aktif setiap 300ms dari localStorage dan session
+              const checkInterval = setInterval(async () => {
+                try {
+                  // A. Cek sync user dari localStorage
+                  const syncRaw = localStorage.getItem('sg_oauth_sync_user');
+                  if (syncRaw) {
+                    localStorage.removeItem('sg_oauth_sync_user');
+                    clearInterval(checkInterval);
+                    const u = JSON.parse(syncRaw);
+                    if (u) {
+                      loginAsUser(u, true);
+                      try { popup.close(); } catch (e) { }
                       return;
                     }
+                  }
 
-                    // A. Cek sync user dari localStorage (paling cepat & aman dari pemutusan opener)
-                    const syncRaw = localStorage.getItem('sg_oauth_sync_user');
-                    if (syncRaw) {
-                      localStorage.removeItem('sg_oauth_sync_user');
+                  // B. Cek session aktif di Supabase Client
+                  if (appState.supabaseClient) {
+                    const { data: sData } = await appState.supabaseClient.auth.getSession();
+                    if (sData && sData.session && sData.session.user) {
                       clearInterval(checkInterval);
-                      const u = JSON.parse(syncRaw);
-                      if (u) {
-                        loginAsUser(u, true);
-                        try { popup.close(); } catch (e) {}
-                        return;
-                      }
+                      handleSupabaseUserSession(sData.session.user);
+                      try { popup.close(); } catch (e) { }
+                      return;
                     }
+                  }
 
-                    // B. Cek session aktif di Supabase Client
-                    if (appState.supabaseClient) {
-                      const { data: sData } = await appState.supabaseClient.auth.getSession();
-                      if (sData && sData.session && sData.session.user) {
-                        clearInterval(checkInterval);
-                        handleSupabaseUserSession(sData.session.user);
-                        try { popup.close(); } catch (e) {}
-                        return;
-                      }
-                    }
-
-                    // C. Cek current user di localStorage
-                    const curRaw = localStorage.getItem(AUTH_STORAGE_KEYS.CURRENT_USER);
-                    if (curRaw) {
-                      const cur = JSON.parse(curRaw);
-                      if (cur && cur.provider === 'google' && cur.loginAt > Date.now() - 30000) {
-                        clearInterval(checkInterval);
-                        loginAsUser(cur, true);
-                        try { popup.close(); } catch (e) {}
-                        return;
-                      }
-                    }
-
-                    // D. Jika popup sudah ditutup user
-                    if (popup.closed) {
+                  // C. Cek current user di localStorage
+                  const curRaw = localStorage.getItem(AUTH_STORAGE_KEYS.CURRENT_USER);
+                  if (curRaw) {
+                    const cur = JSON.parse(curRaw);
+                    if (cur && cur.provider === 'google' && cur.loginAt > Date.now() - 30000) {
                       clearInterval(checkInterval);
-                      // Cek sekali lagi apakah login sudah tersimpan
-                      setTimeout(() => {
-                        const finalCheck = localStorage.getItem(AUTH_STORAGE_KEYS.CURRENT_USER);
-                        if (finalCheck) {
-                          const u = JSON.parse(finalCheck);
-                          if (u && u.provider === 'google') {
-                            loginAsUser(u, true);
-                          }
+                      loginAsUser(cur, true);
+                      try { popup.close(); } catch (e) { }
+                      return;
+                    }
+                  }
+
+                  // D. Jika popup sudah ditutup user
+                  if (popup.closed) {
+                    clearInterval(checkInterval);
+                    setTimeout(() => {
+                      const finalCheck = localStorage.getItem(AUTH_STORAGE_KEYS.CURRENT_USER);
+                      if (finalCheck) {
+                        const u = JSON.parse(finalCheck);
+                        if (u && u.provider === 'google') {
+                          loginAsUser(u, true);
                         }
-                      }, 400);
-                    }
-                  } catch (e) {}
-                }, 300);
-              } else {
-                openGoogleChooserPopup();
-              }
+                      }
+                    }, 400);
+                  }
+                } catch (e) { }
+              }, 300);
+            } else {
+              // Jika popup diblokir browser (misal di HP), alihkan langsung ke Google resmi
+              window.location.href = data.url;
             }
-          } catch (err) {
-            console.error('Supabase OAuth error:', err);
-            openGoogleChooserPopup();
           }
-        } else {
-          openGoogleChooserPopup();
+        } catch (err) {
+          console.error('Supabase OAuth error:', err);
+          showToast('Gagal membuka Google OAuth: ' + err.message, 'danger');
         }
       });
     }
