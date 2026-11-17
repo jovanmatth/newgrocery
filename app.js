@@ -2100,6 +2100,13 @@
   window.calculateDiscount = calculateDiscount;
   window.comparePriceWithLastMonth = comparePriceWithLastMonth;
   window.appState = appState;
+  window.renderCart = renderCart;
+  window.renderAll = renderAll;
+  window.updateBudgetHud = updateBudgetHud;
+  window.saveCart = saveCart;
+  window.saveBudget = saveBudget;
+  window.loadDataFromStorage = loadDataFromStorage;
+  window.handleIncomingRealtimePayload = handleIncomingRealtimePayload;
 
   // MODAL TAMBAH & EDIT ITEM
   // ==========================================================================
