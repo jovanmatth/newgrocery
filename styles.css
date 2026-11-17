@@ -1054,6 +1054,85 @@ nav.fixed.bottom-0 {
 }
 
 /* ==========================================================================
+   CHECKOUT MODAL & PAYMENT METHODS (SOLID NEOBRUTALISM - NON-HITAM)
+   ========================================================================== */
+.checkout-method-tab {
+  background: #FFFFFF !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 2.5px 2.5px 0px #000000 !important;
+  border-radius: 16px !important;
+  color: #000000 !important;
+  transition: all 0.12s ease !important;
+  cursor: pointer !important;
+}
+
+.checkout-method-tab:hover {
+  background: #FEF9C3 !important;
+  transform: translate(-1px, -1px);
+  box-shadow: 3.5px 3.5px 0px #000000 !important;
+}
+
+.checkout-method-tab.active {
+  background: #FEF08A !important;
+  border: 2.5px solid #000000 !important;
+  box-shadow: 3.5px 3.5px 0px #000000 !important;
+  transform: translate(-1px, -1px);
+}
+
+.checkout-method-tab * {
+  color: #000000 !important;
+}
+
+.checkout-voucher-btn {
+  background: #FFFFFF !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 2px 2px 0px #000000 !important;
+  border-radius: 14px !important;
+  color: #000000 !important;
+}
+
+.checkout-voucher-btn.active {
+  background: #DCFCE7 !important;
+  border: 2.5px solid #000000 !important;
+  box-shadow: 3px 3px 0px #000000 !important;
+}
+
+.checkout-voucher-btn * {
+  color: #000000 !important;
+}
+
+.btn-select-va-bank,
+.btn-quick-cash {
+  background: #FFFFFF !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 2px 2px 0px #000000 !important;
+  color: #000000 !important;
+  font-weight: 800 !important;
+  border-radius: 12px !important;
+}
+
+.btn-select-va-bank.active,
+.btn-quick-cash.active {
+  background: #FEF08A !important;
+  box-shadow: 3px 3px 0px #000000 !important;
+}
+
+#btnConfirmAstroPay {
+  background: #4ADE80 !important;
+  color: #000000 !important;
+  border: 2.5px solid #000000 !important;
+  box-shadow: 3.5px 3.5px 0px #000000 !important;
+  border-radius: 14px !important;
+  font-weight: 900 !important;
+}
+
+#btnConfirmAstroPay:hover {
+  background: #22C55E !important;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px #000000 !important;
+}
+
+/* ==========================================================================
    TOAST NOTIFICATIONS
    ========================================================================== */
 .neo-toast {

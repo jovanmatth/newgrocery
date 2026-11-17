@@ -4432,10 +4432,6 @@
     methodTabs.forEach(t => {
       const match = t.getAttribute('data-method') === method;
       t.classList.toggle('active', match);
-      t.classList.toggle('border-secondary', match);
-      t.classList.toggle('bg-secondary/10', match);
-      t.classList.toggle('border-outline-variant/30', !match);
-      t.classList.toggle('bg-surface-container-low', !match);
     });
 
     const panelQris = document.getElementById('methodPanelQris');
