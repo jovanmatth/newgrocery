@@ -1225,68 +1225,64 @@
     class="modal-backdrop hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4"
     id="modalShelfPriceBackdrop">
     <div
-      class="w-full max-w-md bg-[#0d1322] border border-white/10 rounded-t-[32px] sm:rounded-[32px] p-6 shadow-2xl text-white">
-      <div class="w-12 h-1 bg-white/20 rounded-full mx-auto mb-4"></div>
+      class="w-full max-w-md bg-white border-[3px] border-black rounded-t-[28px] sm:rounded-[28px] p-6 shadow-[6px_6px_0_#000] text-black">
+      <div class="w-12 h-1.5 bg-black/20 rounded-full mx-auto mb-4 sm:hidden"></div>
       <div class="flex items-center justify-between mb-4">
         <div>
-          <span class="font-label-sm text-[11px] text-cyan-400 font-bold uppercase tracking-wider">Ambil dari Rencana
-            Belanja</span>
-          <h3 class="font-headline-sm text-headline-sm text-white font-bold" id="shelfModalItemName">Nama Barang</h3>
-          <span class="font-body-sm text-[12px] text-slate-400" id="shelfModalItemSpec">1 pack •
-            Kategori</span>
+          <span class="font-mono text-[10px] text-black font-black uppercase tracking-wider bg-[#BAE6FD] px-2 py-0.5 rounded border border-black shadow-[1px_1px_0_#000]">Ambil dari Rencana Belanja</span>
+          <h3 class="font-headline-sm text-lg text-black font-black mt-1" id="shelfModalItemName">Nama Barang</h3>
+          <span class="font-body-sm text-xs text-stone-600 font-semibold" id="shelfModalItemSpec">1 pack • Kategori</span>
         </div>
         <button
-          class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white cursor-pointer transition-all"
+          class="w-9 h-9 rounded-xl bg-white hover:bg-[#FECDD3] border-2 border-black shadow-[2px_2px_0_#000] flex items-center justify-center text-black cursor-pointer transition-all active:translate-x-0.5 active:translate-y-0.5"
           id="btnCloseShelfModal">
-          <span class="material-symbols-outlined text-[18px]">close</span>
+          <span class="material-symbols-outlined text-[20px] font-bold">close</span>
         </button>
       </div>
 
       <form id="formShelfPriceModal" class="space-y-4">
         <input type="hidden" id="shelfModalPlannerId">
 
-        <div class="p-3 bg-white/5 border border-white/10 rounded-xl flex items-center justify-between">
-          <span class="font-body-sm text-body-sm text-slate-400">Harga Acuan Bulan Lalu:</span>
-          <strong class="font-numeric-md text-numeric-md text-emerald-400 font-bold" id="shelfModalLastPriceText">Rp
-            0</strong>
+        <div class="p-3.5 bg-[#FFFDF8] border-2 border-black rounded-xl flex items-center justify-between shadow-[2px_2px_0_#000]">
+          <span class="font-mono text-xs text-stone-700 font-black">Harga Acuan Bulan Lalu:</span>
+          <strong class="font-numeric-md text-base text-[#15803D] font-black" id="shelfModalLastPriceText">Rp 0</strong>
         </div>
 
         <div>
-          <label class="font-label-sm text-label-sm text-slate-300 font-bold block mb-1">HARGA SATUAN DI RAK
+          <label class="font-mono text-[11px] text-black font-black block mb-1 uppercase tracking-wider">HARGA SATUAN DI RAK
             TOKO (RP) *</label>
           <div class="relative">
-            <span class="absolute left-3 top-1/2 -translate-y-1/2 font-numeric-md text-slate-500">Rp</span>
+            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 font-numeric-md text-stone-500 font-black">Rp</span>
             <input type="number" id="inputShelfPrice" placeholder="Contoh: 38000" required inputmode="numeric"
-              class="w-full pl-10 pr-3 py-2.5 rounded-xl bg-[#131b2e] text-white font-numeric-lg text-numeric-lg font-bold border border-white/15 focus:bg-[#18233c] focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder:text-slate-600">
+              class="w-full pl-11 pr-3 py-2.5 rounded-xl bg-white text-black font-numeric-md text-base font-bold border-2 border-black shadow-[2px_2px_0_#000] focus:outline-none placeholder:text-stone-400">
           </div>
         </div>
 
         <!-- Fluktuasi Harga Badge Seketika -->
         <div id="shelfModalFluctuationBox"
-          class="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
-          <span class="material-symbols-outlined text-[18px] text-cyan-400" id="shelfFluctuationIcon">query_stats</span>
+          class="p-3 rounded-xl bg-white border-2 border-black shadow-[2px_2px_0_#000] flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px] text-black" id="shelfFluctuationIcon">query_stats</span>
           <div class="flex-1 min-w-0">
-            <span class="font-label-sm text-label-sm font-bold block text-white" id="shelfFluctuationText">Ketik harga
-              rak untuk
-              melihat fluktuasi</span>
-            <span class="font-body-sm text-[11px] text-slate-400" id="shelfFluctuationSub">Dibandingkan dengan
+            <span class="font-mono text-xs font-black block text-black" id="shelfFluctuationText">Ketik harga
+              rak untuk melihat fluktuasi</span>
+            <span class="font-body-sm text-[11px] text-stone-600 font-bold" id="shelfFluctuationSub">Dibandingkan dengan
               catatan belanja bulan lalu</span>
           </div>
         </div>
 
         <div>
-          <label class="font-label-sm text-label-sm text-slate-300 font-bold block mb-1">POTONGAN / DISKON RAK
+          <label class="font-mono text-[11px] text-black font-black block mb-1 uppercase tracking-wider">POTONGAN / DISKON RAK
             (OPSIONAL)</label>
           <input type="text" id="inputShelfDiscount" placeholder="Contoh: 10% atau 50+20 atau Rp 5000"
-            class="w-full px-3 py-2 rounded-xl bg-[#131b2e] text-white font-body-sm text-body-sm border border-white/15 focus:outline-none focus:ring-1 focus:ring-emerald-500 placeholder:text-slate-600">
+            class="w-full px-3 py-2.5 rounded-xl bg-white text-black font-body-sm text-sm font-bold border-2 border-black shadow-[2px_2px_0_#000] focus:outline-none placeholder:text-stone-400">
         </div>
 
-        <div class="flex gap-2 pt-2">
+        <div class="flex gap-2.5 pt-2">
           <button type="button"
-            class="flex-1 py-3 rounded-full bg-white/10 hover:bg-white/15 text-slate-300 font-label-md text-label-md font-semibold cursor-pointer transition-all"
+            class="flex-1 py-3 rounded-xl bg-white hover:bg-stone-100 text-black font-headline-sm text-sm font-black border-2 border-black shadow-[2.5px_2.5px_0_#000] cursor-pointer transition-all active:translate-x-0.5 active:translate-y-0.5"
             id="btnCancelShelfModal">Batal</button>
           <button type="submit"
-            class="flex-1 py-3 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 text-black font-label-md text-label-md font-bold shadow-lg shadow-emerald-500/20 cursor-pointer hover:brightness-110 active:scale-95 transition-all"
+            class="flex-1 py-3 rounded-xl bg-[#FFDE59] hover:bg-[#FACC15] text-black font-headline-sm text-sm font-black border-[2.5px] border-black shadow-[3px_3px_0_#000] cursor-pointer transition-all active:translate-x-0.5 active:translate-y-0.5"
             id="btnSubmitShelfModal">
             Masukkan ke Troli
           </button>
@@ -1300,18 +1296,18 @@
     class="modal-backdrop hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4"
     id="modalItemBackdrop">
     <div
-      class="w-full max-w-lg bg-[#0d1322] border border-white/10 rounded-t-[32px] sm:rounded-[32px] p-6 shadow-2xl text-white max-h-[90vh] overflow-y-auto"
+      class="w-full max-w-lg bg-white border-[3px] border-black rounded-t-[28px] sm:rounded-[28px] p-6 shadow-[6px_6px_0_#000] text-black max-h-[90vh] overflow-y-auto"
       id="modalItemSheet">
-      <div class="w-12 h-1 bg-white/20 rounded-full mx-auto mb-4"></div>
+      <div class="w-12 h-1.5 bg-black/20 rounded-full mx-auto mb-4 sm:hidden"></div>
       <div class="flex items-center justify-between mb-3">
         <div>
-          <span class="font-label-sm text-[11px] text-cyan-400 font-bold uppercase tracking-wider">Input Produk</span>
-          <h3 class="font-headline-sm text-headline-sm text-white font-bold" id="modalItemTitle">Tambah ke Troli</h3>
+          <span class="font-mono text-[10px] text-black font-black uppercase tracking-wider bg-[#FFDE59] px-2 py-0.5 rounded border border-black shadow-[1px_1px_0_#000]">Input Produk</span>
+          <h3 class="font-headline-sm text-lg text-black font-black mt-1" id="modalItemTitle">Tambah ke Troli</h3>
         </div>
         <button
-          class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white cursor-pointer transition-all"
+          class="w-9 h-9 rounded-xl bg-white hover:bg-[#FECDD3] border-2 border-black shadow-[2px_2px_0_#000] flex items-center justify-center text-black cursor-pointer transition-all active:translate-x-0.5 active:translate-y-0.5"
           id="btnCloseItemModal">
-          <span class="material-symbols-outlined text-[18px]">close</span>
+          <span class="material-symbols-outlined text-[20px] font-bold">close</span>
         </button>
       </div>
 
@@ -1319,166 +1315,166 @@
         <input type="hidden" id="modalItemId">
 
         <div>
-          <label class="font-label-sm text-label-sm text-slate-300 font-bold block mb-1">NAMA PRODUK *</label>
+          <label class="font-mono text-[11px] text-black font-black block mb-1 uppercase tracking-wider">NAMA PRODUK *</label>
           <input type="text" id="inputItemName" placeholder="Contoh: Minyak Goreng Sania 2L" required autocomplete="off"
-            class="w-full px-3 py-2.5 rounded-xl bg-[#131b2e] text-white font-body-md text-body-md border border-white/15 focus:bg-[#18233c] focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder:text-slate-600">
+            class="w-full px-3 py-2.5 rounded-xl bg-white text-black font-body-md text-sm font-bold border-2 border-black shadow-[2px_2px_0_#000] focus:outline-none placeholder:text-stone-400">
           <div
-            class="neo-autocomplete-dropdown hidden mt-1 bg-[#0d1322] rounded-xl shadow-2xl border border-white/15 max-h-40 overflow-y-auto text-white"
+            class="neo-autocomplete-dropdown hidden mt-1 bg-white rounded-xl shadow-[4px_4px_0_#000] border-2 border-black max-h-40 overflow-y-auto text-black"
             id="autoSuggestContainer"></div>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="font-label-sm text-label-sm text-slate-300 font-bold block mb-1">KATEGORI</label>
+            <label class="font-mono text-[11px] text-black font-black block mb-1 uppercase tracking-wider">KATEGORI</label>
             <select id="selectItemCategory"
-              class="w-full px-3 py-2.5 rounded-xl bg-[#131b2e] text-white font-body-sm text-body-sm border border-white/15 focus:outline-none focus:ring-2 focus:ring-emerald-500">
-              <option value="Bahan Pokok" class="bg-[#0d1322] text-white">Bahan Pokok</option>
-              <option value="Makanan & Minuman" class="bg-[#0d1322] text-white">Makanan & Minuman</option>
-              <option value="Kebersihan" class="bg-[#0d1322] text-white">Kebersihan</option>
-              <option value="Dapur & Bumbu" class="bg-[#0d1322] text-white">Dapur & Bumbu</option>
-              <option value="Lainnya" class="bg-[#0d1322] text-white">Lainnya</option>
+              class="w-full px-3 py-2.5 rounded-xl bg-white text-black font-body-sm text-sm font-bold border-2 border-black shadow-[2px_2px_0_#000] focus:outline-none">
+              <option value="Bahan Pokok" class="bg-white text-black">Bahan Pokok</option>
+              <option value="Makanan & Minuman" class="bg-white text-black">Makanan & Minuman</option>
+              <option value="Kebersihan" class="bg-white text-black">Kebersihan</option>
+              <option value="Dapur & Bumbu" class="bg-white text-black">Dapur & Bumbu</option>
+              <option value="Lainnya" class="bg-white text-black">Lainnya</option>
             </select>
           </div>
           <div>
-            <label class="font-label-sm text-label-sm text-slate-300 font-bold block mb-1">KEMASAN/SATUAN</label>
+            <label class="font-mono text-[11px] text-black font-black block mb-1 uppercase tracking-wider">KEMASAN/SATUAN</label>
             <select id="selectItemUnit"
-              class="w-full px-3 py-2.5 rounded-xl bg-[#131b2e] text-white font-body-sm text-body-sm border border-white/15 focus:outline-none focus:ring-2 focus:ring-emerald-500">
-              <option value="karung/5kg" class="bg-[#0d1322] text-white">karung/5kg</option>
-              <option value="pcs" class="bg-[#0d1322] text-white">pcs (buah)</option>
-              <option value="kg" class="bg-[#0d1322] text-white">kg (kilogram)</option>
-              <option value="liter" class="bg-[#0d1322] text-white">liter</option>
-              <option value="pack" class="bg-[#0d1322] text-white">pack</option>
-              <option value="pouch" class="bg-[#0d1322] text-white">pouch</option>
-              <option value="botol" class="bg-[#0d1322] text-white">botol</option>
-              <option value="kaleng" class="bg-[#0d1322] text-white">kaleng</option>
-              <option value="sachet" class="bg-[#0d1322] text-white">sachet</option>
-              <option value="dus" class="bg-[#0d1322] text-white">dus</option>
+              class="w-full px-3 py-2.5 rounded-xl bg-white text-black font-body-sm text-sm font-bold border-2 border-black shadow-[2px_2px_0_#000] focus:outline-none">
+              <option value="karung/5kg" class="bg-white text-black">karung/5kg</option>
+              <option value="pcs" class="bg-white text-black">pcs (buah)</option>
+              <option value="kg" class="bg-white text-black">kg (kilogram)</option>
+              <option value="liter" class="bg-white text-black">liter</option>
+              <option value="pack" class="bg-white text-black">pack</option>
+              <option value="pouch" class="bg-white text-black">pouch</option>
+              <option value="botol" class="bg-white text-black">botol</option>
+              <option value="kaleng" class="bg-white text-black">kaleng</option>
+              <option value="sachet" class="bg-white text-black">sachet</option>
+              <option value="dus" class="bg-white text-black">dus</option>
             </select>
           </div>
         </div>
 
         <div>
           <label
-            class="font-label-sm text-label-sm text-slate-300 font-bold block mb-1.5 uppercase tracking-wider">KUANTITAS
+            class="font-mono text-[11px] text-black font-black block mb-1.5 uppercase tracking-wider">KUANTITAS
             (QTY)</label>
           <div
-            class="inline-flex items-center justify-between w-48 bg-[#131b2e] p-1.5 rounded-2xl border border-white/15 shadow-inner">
+            class="inline-flex items-center justify-between w-48 bg-white p-1 rounded-2xl border-2 border-black shadow-[2px_2px_0_#000]">
             <button type="button"
-              class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white/10 hover:bg-emerald-500 hover:text-black flex items-center justify-center text-white transition-all active:scale-90 cursor-pointer shrink-0 font-bold"
+              class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white hover:bg-stone-100 border-2 border-black shadow-[1.5px_1.5px_0_#000] flex items-center justify-center text-black font-black transition-all active:translate-x-0.5 active:translate-y-0.5 cursor-pointer shrink-0"
               id="btnModalQtyMinus" title="Kurangi Kuantitas">
-              <span class="material-symbols-outlined text-[20px]">remove</span>
+              <span class="material-symbols-outlined text-[20px] font-black">remove</span>
             </button>
             <input type="number" id="inputItemQty" value="1" min="1" inputmode="numeric" required
-              class="w-16 min-w-0 text-center bg-transparent font-mono text-xl font-black text-emerald-400 focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
+              class="w-16 min-w-0 text-center bg-transparent font-mono text-xl font-black text-black focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
             <button type="button"
-              class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black flex items-center justify-center transition-all active:scale-90 cursor-pointer shrink-0 font-bold shadow-[0_0_12px_rgba(16,185,129,0.35)]"
+              class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-[#4ADE80] hover:bg-[#22C55E] text-black border-2 border-black shadow-[1.5px_1.5px_0_#000] flex items-center justify-center font-black transition-all active:translate-x-0.5 active:translate-y-0.5 cursor-pointer shrink-0"
               id="btnModalQtyPlus" title="Tambah Kuantitas">
-              <span class="material-symbols-outlined text-[20px]">add</span>
+              <span class="material-symbols-outlined text-[20px] font-black">add</span>
             </button>
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="font-label-sm text-label-sm text-slate-300 font-bold block mb-1">HARGA SATUAN (RP)
+            <label class="font-mono text-[11px] text-black font-black block mb-1 uppercase tracking-wider">HARGA SATUAN (RP)
               *</label>
             <input type="number" id="inputItemPrice" placeholder="18000" required inputmode="numeric"
-              class="w-full px-3 py-2.5 rounded-xl bg-[#131b2e] text-white font-numeric-md text-numeric-md font-bold border border-white/15 focus:bg-[#18233c] focus:outline-none focus:ring-2 focus:ring-emerald-500 placeholder:text-slate-600">
+              class="w-full px-3 py-2.5 rounded-xl bg-white text-black font-numeric-md text-base font-bold border-2 border-black shadow-[2px_2px_0_#000] focus:outline-none placeholder:text-stone-400">
           </div>
           <div>
-            <label class="font-label-sm text-label-sm text-slate-300 font-bold block mb-1">HARGA BULAN LALU
+            <label class="font-mono text-[11px] text-black font-black block mb-1 uppercase tracking-wider">HARGA BULAN LALU
               (RP)</label>
             <input type="number" id="inputItemLastMonthPrice" placeholder="Otomatis" inputmode="numeric"
-              class="w-full px-3 py-2.5 rounded-xl bg-[#131b2e] text-white font-numeric-md text-numeric-md border border-white/15 focus:bg-[#18233c] focus:outline-none focus:ring-2 focus:ring-emerald-500 placeholder:text-slate-600">
+              class="w-full px-3 py-2.5 rounded-xl bg-white text-black font-numeric-md text-base font-bold border-2 border-black shadow-[2px_2px_0_#000] focus:outline-none placeholder:text-stone-400">
           </div>
         </div>
 
         <!-- Fluktuasi Badge -->
         <div id="modalPriceComparisonBox">
           <div
-            class="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-cyan-400 font-label-sm text-label-sm font-semibold flex items-center gap-1"
+            class="px-3 py-1.5 rounded-xl bg-white border-2 border-black shadow-[2px_2px_0_#000] text-black font-mono text-xs font-bold flex items-center gap-1.5"
             id="modalComparePill">
-            <span class="material-symbols-outlined text-[15px]">info</span>
+            <span class="material-symbols-outlined text-[16px] text-black">info</span>
             <span id="modalCompareText">Masukkan harga untuk cek fluktuasi</span>
           </div>
         </div>
 
         <!-- Pilihan & Input Diskon Fleksibel -->
-        <div class="p-3 bg-white/5 rounded-2xl border border-white/10 space-y-2.5">
+        <div class="p-3.5 bg-[#FFFDF8] rounded-2xl border-2 border-black shadow-[3px_3px_0_#000] space-y-2.5">
           <div class="flex items-center justify-between">
-            <label class="font-label-sm text-label-sm text-emerald-400 font-bold flex items-center gap-1.5">
-              <span class="material-symbols-outlined text-[16px] text-cyan-400">percent</span>
+            <label class="font-mono text-[11px] text-black font-black flex items-center gap-1.5 uppercase tracking-wider">
+              <span class="material-symbols-outlined text-[16px] text-black">percent</span>
               POTONGAN / DISKON TOKO
             </label>
-            <span class="text-[10.5px] text-slate-400 font-medium">Bisa ketik bebas (misal 10% + 10%)</span>
+            <span class="text-[11px] text-stone-600 font-bold">Bisa ketik bebas (misal 10% + 10%)</span>
           </div>
 
           <!-- Input utama diskon -->
           <div class="relative">
             <input type="text" id="inputItemDiscount" placeholder="Ketik diskon, contoh: 10% + 10% atau 25% atau 5000"
-              class="w-full pl-3 pr-16 py-2.5 rounded-xl bg-[#131b2e] text-white font-body-md text-body-md border border-white/15 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-semibold placeholder:text-slate-600">
+              class="w-full pl-3 pr-16 py-2.5 rounded-xl bg-white text-black font-bold text-sm border-2 border-black shadow-[2px_2px_0_#000] focus:outline-none placeholder:text-stone-400">
             <button type="button" id="btnClearDiscountPill"
-              class="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-1 rounded-lg text-[10px] font-bold text-rose-400 hover:bg-rose-500/10 cursor-pointer">
+              class="absolute right-2 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-lg text-[10px] font-black text-[#DC2626] bg-[#FEE2E2] hover:bg-[#FECDD3] border border-black shadow-xs cursor-pointer">
               Hapus
             </button>
           </div>
 
           <!-- Tombol Pilihan Cepat Tambah Persen (+10%, +20%, +25%, dll) -->
           <div>
-            <span class="text-[10px] text-slate-400 font-bold block mb-1">PILIHAN PERSEN CEPAT (KLIK UNTUK
+            <span class="font-mono text-[10px] text-black font-black block mb-1.5 uppercase tracking-wider">PILIHAN PERSEN CEPAT (KLIK UNTUK
               BERTUMPUK):</span>
             <div class="flex items-center gap-1.5 flex-wrap">
               <button type="button"
-                class="btn-add-discount-pill px-2.5 py-1 rounded-lg bg-white/5 border border-white/15 text-slate-200 font-bold text-xs hover:bg-emerald-500/20 hover:border-emerald-400 transition-all cursor-pointer shadow-xs"
+                class="btn-add-discount-pill px-3 py-1.5 rounded-xl bg-white hover:bg-[#FFDE59] border-2 border-black text-black font-mono text-xs font-black shadow-[2px_2px_0_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer"
                 data-val="10%">+ 10%</button>
               <button type="button"
-                class="btn-add-discount-pill px-2.5 py-1 rounded-lg bg-white/5 border border-white/15 text-slate-200 font-bold text-xs hover:bg-emerald-500/20 hover:border-emerald-400 transition-all cursor-pointer shadow-xs"
+                class="btn-add-discount-pill px-3 py-1.5 rounded-xl bg-white hover:bg-[#FFDE59] border-2 border-black text-black font-mono text-xs font-black shadow-[2px_2px_0_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer"
                 data-val="20%">+ 20%</button>
               <button type="button"
-                class="btn-add-discount-pill px-2.5 py-1 rounded-lg bg-white/5 border border-white/15 text-slate-200 font-bold text-xs hover:bg-emerald-500/20 hover:border-emerald-400 transition-all cursor-pointer shadow-xs"
+                class="btn-add-discount-pill px-3 py-1.5 rounded-xl bg-white hover:bg-[#FFDE59] border-2 border-black text-black font-mono text-xs font-black shadow-[2px_2px_0_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer"
                 data-val="25%">+ 25%</button>
               <button type="button"
-                class="btn-add-discount-pill px-2.5 py-1 rounded-lg bg-white/5 border border-white/15 text-slate-200 font-bold text-xs hover:bg-emerald-500/20 hover:border-emerald-400 transition-all cursor-pointer shadow-xs"
+                class="btn-add-discount-pill px-3 py-1.5 rounded-xl bg-white hover:bg-[#FFDE59] border-2 border-black text-black font-mono text-xs font-black shadow-[2px_2px_0_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer"
                 data-val="50%">+ 50%</button>
               <button type="button"
-                class="btn-add-discount-pill px-2.5 py-1 rounded-lg bg-white/5 border border-white/15 text-slate-200 font-bold text-xs hover:bg-emerald-500/20 hover:border-emerald-400 transition-all cursor-pointer shadow-xs"
+                class="btn-add-discount-pill px-3 py-1.5 rounded-xl bg-white hover:bg-[#FFDE59] border-2 border-black text-black font-mono text-xs font-black shadow-[2px_2px_0_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer"
                 data-val="5%">+ 5%</button>
               <button type="button"
-                class="btn-add-discount-pill px-2.5 py-1 rounded-lg bg-white/5 border border-white/15 text-slate-200 font-bold text-xs hover:bg-emerald-500/20 hover:border-emerald-400 transition-all cursor-pointer shadow-xs"
+                class="btn-add-discount-pill px-3 py-1.5 rounded-xl bg-white hover:bg-[#FFDE59] border-2 border-black text-black font-mono text-xs font-black shadow-[2px_2px_0_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer"
                 data-val="Rp 5000">Rp 5.000</button>
             </div>
           </div>
 
           <!-- Preview Realtime Perhitungan Diskon -->
           <div
-            class="mt-2 p-2.5 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs hidden space-y-1"
+            class="mt-2.5 p-3 rounded-xl bg-[#DCFCE7] border-2 border-black shadow-[2px_2px_0_#000] text-black text-xs hidden space-y-1.5"
             id="modalDiscountPreview">
-            <div class="flex items-center justify-between font-bold">
-              <span class="flex items-center gap-1 text-emerald-400">
-                <span class="material-symbols-outlined text-[15px]">price_check</span>
+            <div class="flex items-center justify-between font-black">
+              <span class="flex items-center gap-1.5 text-black font-bold">
+                <span class="material-symbols-outlined text-[16px] text-black">price_check</span>
                 <span>Harga Setelah Diskon:</span>
               </span>
-              <span class="text-sm font-mono text-emerald-300 font-extrabold" id="modalDiscountFinalPrice">Rp 0</span>
+              <span class="text-sm font-mono text-[#15803D] font-black" id="modalDiscountFinalPrice">Rp 0</span>
             </div>
-            <div class="text-[11px] text-emerald-400/80 font-semibold" id="modalDiscountSavedText">Hemat Rp 0</div>
+            <div class="text-[11px] text-[#166534] font-black" id="modalDiscountSavedText">Hemat Rp 0</div>
             <div
-              class="text-[10px] font-mono text-cyan-300 bg-cyan-950/40 p-1.5 rounded-lg border border-cyan-500/30 mt-1 hidden"
+              class="text-[11px] font-mono text-black bg-white p-2 rounded-lg border-[1.5px] border-black shadow-xs mt-1 hidden font-bold"
               id="modalDiscountBreakdown"></div>
           </div>
         </div>
 
         <!-- Subtotal Preview -->
-        <div class="p-3 bg-white/5 border border-white/10 rounded-xl flex items-center justify-between">
-          <span class="font-label-sm text-label-sm text-slate-400 font-semibold">SUBTOTAL:</span>
-          <strong class="font-numeric-md text-numeric-md text-emerald-400 font-bold" id="modalLineTotal">Rp 0</strong>
+        <div class="p-3.5 bg-white border-2 border-black rounded-xl flex items-center justify-between shadow-[2.5px_2.5px_0_#000]">
+          <span class="font-mono text-xs text-stone-700 font-black uppercase tracking-wider">SUBTOTAL:</span>
+          <strong class="font-numeric-md text-base text-black font-black" id="modalLineTotal">Rp 0</strong>
         </div>
 
-        <div class="flex gap-2 pt-2">
+        <div class="flex gap-2.5 pt-2">
           <button type="button"
-            class="flex-1 py-3 rounded-full bg-white/10 hover:bg-white/15 text-slate-300 font-label-md text-label-md font-semibold cursor-pointer transition-all"
+            class="flex-1 py-3 rounded-xl bg-white hover:bg-stone-100 text-black font-headline-sm text-sm font-black border-2 border-black shadow-[2.5px_2.5px_0_#000] cursor-pointer transition-all active:translate-x-0.5 active:translate-y-0.5"
             id="btnCancelModalItem">Batal</button>
           <button type="submit"
-            class="flex-1 py-3 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 text-black font-label-md text-label-md font-bold shadow-lg shadow-emerald-500/20 cursor-pointer hover:brightness-110 active:scale-95 transition-all"
+            class="flex-1 py-3 rounded-xl bg-[#FFDE59] hover:bg-[#FACC15] text-black font-headline-sm text-sm font-black border-[2.5px] border-black shadow-[3px_3px_0_#000] cursor-pointer transition-all active:translate-x-0.5 active:translate-y-0.5"
             id="btnSubmitModalItem">
             <span id="btnSubmitItemText">Simpan ke Troli</span>
           </button>

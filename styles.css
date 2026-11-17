@@ -976,6 +976,84 @@ nav.fixed.bottom-0 {
 }
 
 /* ==========================================================================
+   MODAL ITEM INPUT & DISCOUNT CALCULATOR (NON-TRANSPARAN SOLID NEOBRUTALISM)
+   ========================================================================== */
+.btn-add-discount-pill {
+  background: #FFFFFF !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 2px 2px 0px #000000 !important;
+  font-weight: 800 !important;
+  opacity: 1 !important;
+  transition: all 0.12s ease !important;
+}
+
+.btn-add-discount-pill:hover {
+  background: #FFDE59 !important;
+  color: #000000 !important;
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px #000000 !important;
+}
+
+.btn-add-discount-pill:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px #000000 !important;
+}
+
+#modalDiscountPreview {
+  background: #DCFCE7 !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 2.5px 2.5px 0px #000000 !important;
+  color: #000000 !important;
+  opacity: 1 !important;
+}
+
+#modalDiscountPreview * {
+  opacity: 1 !important;
+}
+
+#modalDiscountFinalPrice {
+  color: #15803D !important;
+  font-weight: 900 !important;
+}
+
+#modalDiscountSavedText {
+  color: #166534 !important;
+  font-weight: 800 !important;
+}
+
+#modalDiscountBreakdown {
+  background: #FFFFFF !important;
+  color: #000000 !important;
+  border: 1.5px solid #000000 !important;
+  box-shadow: 1.5px 1.5px 0px #000000 !important;
+  opacity: 1 !important;
+  font-weight: 800 !important;
+}
+
+#btnModalQtyMinus {
+  background: #FFFFFF !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 1.5px 1.5px 0px #000000 !important;
+  opacity: 1 !important;
+}
+
+#btnModalQtyPlus {
+  background: #4ADE80 !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 1.5px 1.5px 0px #000000 !important;
+  opacity: 1 !important;
+}
+
+#inputItemQty {
+  color: #000000 !important;
+  font-weight: 900 !important;
+  opacity: 1 !important;
+}
+
+/* ==========================================================================
    TOAST NOTIFICATIONS
    ========================================================================== */
 .neo-toast {
