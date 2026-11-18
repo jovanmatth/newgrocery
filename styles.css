@@ -97,14 +97,13 @@ input[type="number"] {
 .tab-pane {
   display: none !important;
   opacity: 0;
-  transform: translateY(4px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.15s ease;
 }
 
 .tab-pane.active {
   display: flex !important;
   opacity: 1;
-  transform: translateY(0);
+  transform: none !important;
 }
 
 .tab-pane.hidden {
@@ -751,7 +750,7 @@ input[type="number"] {
 
 #cartSummaryBottom {
   position: fixed !important;
-  bottom: calc(66px + max(0.5rem, env(safe-area-inset-bottom, 0px))) !important;
+  bottom: calc(62px + max(0.4rem, env(safe-area-inset-bottom, 0px))) !important;
   left: 0 !important;
   right: 0 !important;
   max-width: 480px !important;
@@ -762,9 +761,19 @@ input[type="number"] {
   z-index: 45 !important;
   pointer-events: none !important;
   box-sizing: border-box !important;
+  transition: opacity 0.2s ease, transform 0.2s ease !important;
+}
+
+#cartSummaryBottom.hidden {
+  display: none !important;
 }
 
 #cartSummaryBottom > div {
+  background: #FFFFFF !important;
+  border: 2.5px solid #000000 !important;
+  border-radius: 20px !important;
+  box-shadow: 4px 4px 0px #000000 !important;
+  color: #000000 !important;
   pointer-events: auto !important;
 }
 

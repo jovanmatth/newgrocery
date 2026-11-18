@@ -1903,13 +1903,16 @@
     if (appState.cart.length === 0) {
       container.innerHTML = '';
       emptyState.classList.remove('hidden');
-      summaryBottom.classList.add('hidden');
+      if (summaryBottom) summaryBottom.classList.add('hidden');
       updateBudgetHud();
       return;
     }
 
     emptyState.classList.add('hidden');
-    summaryBottom.classList.remove('hidden');
+    const isCartActive = document.getElementById('tabCart')?.classList.contains('active');
+    if (summaryBottom && isCartActive) {
+      summaryBottom.classList.remove('hidden');
+    }
 
     if (filteredItems.length === 0) {
       container.innerHTML = `
@@ -2375,6 +2378,17 @@
         if (targetPane) {
           targetPane.classList.add('active');
           targetPane.classList.remove('hidden');
+        }
+
+        const summaryBottom = document.getElementById('cartSummaryBottom');
+        if (paneId === 'tabCart') {
+          if (appState.cart && appState.cart.length > 0) {
+            summaryBottom?.classList.remove('hidden');
+          } else {
+            summaryBottom?.classList.add('hidden');
+          }
+        } else {
+          summaryBottom?.classList.add('hidden');
         }
 
         AudioEngine.playTap();
