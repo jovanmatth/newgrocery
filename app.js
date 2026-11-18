@@ -2647,29 +2647,31 @@
       });
     }
 
-    document.getElementById('btnOpenAddModal').addEventListener('click', () => openItemModal());
-    document.getElementById('btnEmptyAdd').addEventListener('click', () => openItemModal());
-    document.getElementById('btnCloseItemModal').addEventListener('click', closeItemModal);
-    document.getElementById('btnCancelModalItem').addEventListener('click', closeItemModal);
+    document.getElementById('btnOpenAddModal')?.addEventListener('click', () => openItemModal());
+    document.getElementById('btnEmptyAdd')?.addEventListener('click', () => openItemModal());
+    document.getElementById('btnCloseItemModal')?.addEventListener('click', closeItemModal);
+    document.getElementById('btnCancelModalItem')?.addEventListener('click', closeItemModal);
 
     // Modal Qty Stepper
-    document.getElementById('btnModalQtyMinus').addEventListener('click', () => {
+    document.getElementById('btnModalQtyMinus')?.addEventListener('click', () => {
+      if (!inputItemQty) return;
       const q = parseInt(inputItemQty.value, 10) || 1;
       if (q > 1) inputItemQty.value = q - 1;
       AudioEngine.playTap();
       updateModalLiveCalculations();
     });
-    document.getElementById('btnModalQtyPlus').addEventListener('click', () => {
+    document.getElementById('btnModalQtyPlus')?.addEventListener('click', () => {
+      if (!inputItemQty) return;
       const q = parseInt(inputItemQty.value, 10) || 1;
       inputItemQty.value = q + 1;
       AudioEngine.playTap();
       updateModalLiveCalculations();
     });
 
-    inputItemPrice.addEventListener('input', updateModalLiveCalculations);
-    inputItemLastMonthPrice.addEventListener('input', updateModalLiveCalculations);
-    inputItemDiscount.addEventListener('input', updateModalLiveCalculations);
-    inputItemQty.addEventListener('input', updateModalLiveCalculations);
+    inputItemPrice?.addEventListener('input', updateModalLiveCalculations);
+    inputItemLastMonthPrice?.addEventListener('input', updateModalLiveCalculations);
+    inputItemDiscount?.addEventListener('input', updateModalLiveCalculations);
+    inputItemQty?.addEventListener('input', updateModalLiveCalculations);
 
     // Category Tabs
     document.querySelectorAll('.neo-cat-chip').forEach(pill => {
@@ -2686,40 +2688,47 @@
     const searchInput = document.getElementById('searchCartInput');
     const btnClearSearch = document.getElementById('btnClearSearch');
 
-    searchInput.addEventListener('input', (e) => {
-      appState.searchQuery = e.target.value.trim();
-      if (appState.searchQuery) {
-        btnClearSearch.classList.remove('hidden');
-      } else {
-        btnClearSearch.classList.add('hidden');
-      }
-      renderCart();
-    });
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        appState.searchQuery = e.target.value.trim();
+        if (btnClearSearch) {
+          if (appState.searchQuery) {
+            btnClearSearch.classList.remove('hidden');
+          } else {
+            btnClearSearch.classList.add('hidden');
+          }
+        }
+        renderCart();
+      });
+    }
 
-    btnClearSearch.addEventListener('click', () => {
-      searchInput.value = '';
-      appState.searchQuery = '';
-      btnClearSearch.classList.add('hidden');
-      renderCart();
-    });
+    if (btnClearSearch) {
+      btnClearSearch.addEventListener('click', () => {
+        if (searchInput) searchInput.value = '';
+        appState.searchQuery = '';
+        btnClearSearch.classList.add('hidden');
+        renderCart();
+      });
+    }
 
     // Budget Quick Edit
     const budgetModal = document.getElementById('modalBudgetBackdrop');
-    document.getElementById('btnEditBudgetTrigger').addEventListener('click', () => {
-      document.getElementById('inputQuickBudget').value = appState.budgetLimit;
-      budgetModal.classList.remove('hidden');
+    document.getElementById('btnEditBudgetTrigger')?.addEventListener('click', () => {
+      const quickIn = document.getElementById('inputQuickBudget');
+      if (quickIn) quickIn.value = appState.budgetLimit;
+      budgetModal?.classList.remove('hidden');
       AudioEngine.playTap();
     });
 
-    document.getElementById('btnCloseBudgetModal').addEventListener('click', () => budgetModal.classList.add('hidden'));
-    document.getElementById('btnCancelQuickBudget').addEventListener('click', () => budgetModal.classList.add('hidden'));
-    document.getElementById('btnSaveQuickBudget').addEventListener('click', () => {
-      const val = parseFloat(document.getElementById('inputQuickBudget').value) || 0;
+    document.getElementById('btnCloseBudgetModal')?.addEventListener('click', () => budgetModal?.classList.add('hidden'));
+    document.getElementById('btnCancelQuickBudget')?.addEventListener('click', () => budgetModal?.classList.add('hidden'));
+    document.getElementById('btnSaveQuickBudget')?.addEventListener('click', () => {
+      const val = parseFloat(document.getElementById('inputQuickBudget')?.value) || 0;
       if (val > 0) {
         appState.budgetLimit = val;
         saveBudget();
         updateBudgetHud();
-        budgetModal.classList.add('hidden');
+        budgetModal?.classList.add('hidden');
         AudioEngine.playSuccess();
         showToast('Batas anggaran berhasil disimpan', 'success');
       }
@@ -2729,7 +2738,7 @@
     const btnSaveBudget = document.getElementById('btnSaveBudgetSetting');
     if (btnSaveBudget) {
       btnSaveBudget.addEventListener('click', () => {
-        const val = parseFloat(document.getElementById('inputBudgetSetting').value) || 0;
+        const val = parseFloat(document.getElementById('inputBudgetSetting')?.value) || 0;
         if (val > 0) {
           appState.budgetLimit = val;
           saveBudget();
@@ -2749,17 +2758,17 @@
     if (btnSyncNow) btnSyncNow.addEventListener('click', syncCloudData);
 
     // Trim Helper
-    document.getElementById('btnSuggestTrim').addEventListener('click', openTrimModal);
-    document.getElementById('btnCloseTrimModal').addEventListener('click', () => {
-      document.getElementById('modalTrimBackdrop').classList.add('hidden');
+    document.getElementById('btnSuggestTrim')?.addEventListener('click', openTrimModal);
+    document.getElementById('btnCloseTrimModal')?.addEventListener('click', () => {
+      document.getElementById('modalTrimBackdrop')?.classList.add('hidden');
     });
-    document.getElementById('btnCloseTrimDone').addEventListener('click', () => {
-      document.getElementById('modalTrimBackdrop').classList.add('hidden');
+    document.getElementById('btnCloseTrimDone')?.addEventListener('click', () => {
+      document.getElementById('modalTrimBackdrop')?.classList.add('hidden');
       renderCart();
     });
 
     // Finish Shopping / Checkout
-    document.getElementById('btnFinishShopping').addEventListener('click', handleCheckout);
+    document.getElementById('btnFinishShopping')?.addEventListener('click', handleCheckout);
 
     // Clear Cart with Safety Confirmation Modal (Skenario 8)
     const modalClearCart = document.getElementById('modalConfirmClearCart');
@@ -2811,7 +2820,7 @@
     }
 
     // Sample Data
-    document.getElementById('btnLoadSampleData').addEventListener('click', () => {
+    document.getElementById('btnLoadSampleData')?.addEventListener('click', () => {
       appState.cart = JSON.parse(JSON.stringify(DEFAULT_SAMPLE_CART));
       saveCart();
       renderCart();
@@ -2869,10 +2878,10 @@
     }
 
     // Master DB
-    document.getElementById('searchMasterInput').addEventListener('input', (e) => {
+    document.getElementById('searchMasterInput')?.addEventListener('input', (e) => {
       renderMasterList(e.target.value.trim().toLowerCase());
     });
-    document.getElementById('btnAddMasterItem').addEventListener('click', () => {
+    document.getElementById('btnAddMasterItem')?.addEventListener('click', () => {
       const name = prompt('Nama Barang Acuan:');
       if (!name) return;
       const price = parseFloat(prompt('Harga Acuan Bulan Lalu (Rp):', '10000')) || 0;
@@ -5567,28 +5576,47 @@
   }
 
   window.openShelfPriceModal = function (plannerId) {
-    const item = appState.planner.find(p => p.id === plannerId);
+    if (!Array.isArray(appState.planner)) appState.planner = [];
+    const item = appState.planner.find(p => String(p.id) === String(plannerId));
     if (!item) return;
 
     currentShelfModalPlannerItem = item;
     AudioEngine.playTap();
 
-    document.getElementById('shelfModalPlannerId').value = item.id;
-    document.getElementById('shelfModalItemName').textContent = item.name;
-    document.getElementById('shelfModalItemSpec').textContent = `${item.qty} ${item.unit} • ${item.category}`;
+    const idInput = document.getElementById('shelfModalPlannerId');
+    if (idInput) idInput.value = item.id;
+    const nameEl = document.getElementById('shelfModalItemName');
+    if (nameEl) nameEl.textContent = item.name;
+    const specEl = document.getElementById('shelfModalItemSpec');
+    if (specEl) specEl.textContent = `${item.qty} ${item.unit} • ${item.category}`;
 
-    const master = appState.masterItems.find(m => m.name.toLowerCase() === item.name.toLowerCase());
-    const lastPrice = master ? master.lastPrice : 0;
-    document.getElementById('shelfModalLastPriceText').textContent = lastPrice > 0 ? `Rp ${formatNumber(lastPrice)} / ${item.unit}` : 'Belum ada catatan';
+    const master = (appState.masterItems && Array.isArray(appState.masterItems))
+      ? appState.masterItems.find(m => m && m.name && m.name.toLowerCase() === item.name.toLowerCase())
+      : null;
+    const lastPrice = master ? master.lastPrice : (item.estPrice || 0);
+    const lastPriceText = document.getElementById('shelfModalLastPriceText');
+    if (lastPriceText) {
+      lastPriceText.textContent = lastPrice > 0 ? `Rp ${formatNumber(lastPrice)} / ${item.unit}` : 'Belum ada catatan';
+    }
 
     const inputPrice = document.getElementById('inputShelfPrice');
-    inputPrice.value = '';
-    document.getElementById('inputShelfDiscount').value = '';
+    if (inputPrice) {
+      // Pre-fill with acuan harga or item estimated price so user can easily tap 'Masukkan ke Troli'
+      inputPrice.value = lastPrice > 0 ? lastPrice : (item.estPrice > 0 ? item.estPrice : '');
+    }
+    const inputDisc = document.getElementById('inputShelfDiscount');
+    if (inputDisc) inputDisc.value = '';
 
-    updateShelfModalFluctuation(0, lastPrice);
+    updateShelfModalFluctuation(lastPrice > 0 ? lastPrice : 0, lastPrice);
 
-    document.getElementById('modalShelfPriceBackdrop').classList.remove('hidden');
-    inputPrice.focus();
+    const modal = document.getElementById('modalShelfPriceBackdrop');
+    if (modal) modal.classList.remove('hidden');
+    if (inputPrice) {
+      inputPrice.focus();
+      if (inputPrice.value) {
+        inputPrice.select();
+      }
+    }
   };
 
   function updateShelfModalFluctuation(currentPrice, lastPrice) {
@@ -5642,27 +5670,69 @@
   }
 
   function applyShelfPriceModalSubmit(e) {
-    if (e) e.preventDefault();
-    if (!currentShelfModalPlannerItem) return;
-
-    const price = parseFloat(document.getElementById('inputShelfPrice').value) || 0;
-    const discountRaw = document.getElementById('inputShelfDiscount').value.trim();
-    if (price <= 0) {
-      showToast('Masukkan harga di rak yang valid', 'warning');
-      return;
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault();
+      e.stopPropagation();
     }
 
-    const master = appState.masterItems.find(m => m.name.toLowerCase() === currentShelfModalPlannerItem.name.toLowerCase());
-    const lastPrice = master ? master.lastPrice : price;
+    if (!currentShelfModalPlannerItem) {
+      const pId = document.getElementById('shelfModalPlannerId')?.value;
+      if (pId && Array.isArray(appState.planner)) {
+        currentShelfModalPlannerItem = appState.planner.find(p => String(p.id) === String(pId));
+      }
+    }
+
+    if (!currentShelfModalPlannerItem) {
+      const domName = document.getElementById('shelfModalItemName')?.textContent?.trim();
+      if (domName && domName !== 'Nama Barang') {
+        currentShelfModalPlannerItem = {
+          id: document.getElementById('shelfModalPlannerId')?.value || ('plan-' + Date.now()),
+          name: domName,
+          category: 'Bahan Pokok',
+          unit: 'pcs',
+          qty: 1,
+          estPrice: 0
+        };
+      }
+    }
+
+    if (!currentShelfModalPlannerItem) {
+      document.getElementById('modalShelfPriceBackdrop')?.classList.add('hidden');
+      return false;
+    }
+
+    const master = (appState.masterItems && Array.isArray(appState.masterItems))
+      ? appState.masterItems.find(m => m && m.name && m.name.toLowerCase() === currentShelfModalPlannerItem.name.toLowerCase())
+      : null;
+    const lastPrice = master ? master.lastPrice : (currentShelfModalPlannerItem.estPrice || 0);
+
+    const priceInput = document.getElementById('inputShelfPrice');
+    let price = parseFloat(priceInput?.value) || 0;
+    const discountRaw = document.getElementById('inputShelfDiscount')?.value?.trim() || '';
+
+    // If price is 0 or empty, fallback to last month reference price or estimated price
+    if (price <= 0 && lastPrice > 0) {
+      price = lastPrice;
+    }
+
+    if (price <= 0) {
+      showToast('Masukkan harga di rak yang valid (misal: 35000)', 'warning');
+      priceInput?.focus();
+      return false;
+    }
+
+    if (!Array.isArray(appState.cart)) {
+      appState.cart = [];
+    }
 
     const newCartItem = {
       id: 'item-' + Date.now(),
       name: currentShelfModalPlannerItem.name,
-      category: currentShelfModalPlannerItem.category,
-      unit: currentShelfModalPlannerItem.unit,
-      qty: currentShelfModalPlannerItem.qty,
+      category: currentShelfModalPlannerItem.category || 'Bahan Pokok',
+      unit: currentShelfModalPlannerItem.unit || 'pcs',
+      qty: currentShelfModalPlannerItem.qty || 1,
       price: price,
-      lastMonthPrice: lastPrice,
+      lastMonthPrice: lastPrice || price,
       discountRaw: discountRaw,
       createdAt: Date.now(),
       inPhysicalCart: true,
@@ -5675,20 +5745,29 @@
     // Hapus barang dari daftar rencana kebutuhan karena sudah dimasukkan ke keranjang
     const removedPlannerId = currentShelfModalPlannerItem.id;
     const addedItemName = currentShelfModalPlannerItem.name;
-    appState.planner = appState.planner.filter(p => p.id !== removedPlannerId);
+    if (Array.isArray(appState.planner)) {
+      appState.planner = appState.planner.filter(p => String(p.id) !== String(removedPlannerId));
+    }
     currentShelfModalPlannerItem = null;
 
     saveCart();
     savePlanner();
     updateMasterDatabaseItem(newCartItem.name, newCartItem.category, newCartItem.unit, price);
 
-    document.getElementById('modalShelfPriceBackdrop').classList.add('hidden');
+    document.getElementById('modalShelfPriceBackdrop')?.classList.add('hidden');
+
+    // Reset filters so newly added cart item is immediately visible
+    appState.searchQuery = '';
+    appState.activeCategory = 'ALL';
+
     renderCart();
     renderShoppingPlannerSection();
 
     AudioEngine.playSuccess();
-    showToast(`"${addedItemName}" dimasukkan ke troli dan dihapus dari daftar rencana!`, 'success');
+    showToast(`"${addedItemName}" berhasil dimasukkan ke troli! 🛒`, 'success');
+    return false;
   }
+  window.applyShelfPriceModalSubmit = applyShelfPriceModalSubmit;
 
   function addPlannerItemFromForm(e) {
     if (e && typeof e.preventDefault === 'function') {

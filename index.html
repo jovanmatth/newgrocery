@@ -1194,7 +1194,7 @@
         </button>
       </div>
 
-      <form id="formShelfPriceModal" class="space-y-4">
+      <form id="formShelfPriceModal" class="space-y-4" onsubmit="event.preventDefault(); if(window.applyShelfPriceModalSubmit) window.applyShelfPriceModalSubmit(event); return false;" novalidate>
         <input type="hidden" id="shelfModalPlannerId">
 
         <div class="p-3.5 bg-[#FFFDF8] border-2 border-black rounded-xl flex items-center justify-between shadow-[2px_2px_0_#000]">
@@ -1207,7 +1207,7 @@
             TOKO (RP) *</label>
           <div class="relative">
             <span class="absolute left-3.5 top-1/2 -translate-y-1/2 font-numeric-md text-stone-500 font-black">Rp</span>
-            <input type="number" id="inputShelfPrice" placeholder="Contoh: 38000" required inputmode="numeric"
+            <input type="number" id="inputShelfPrice" placeholder="Contoh: 38000" inputmode="numeric"
               class="w-full pl-11 pr-3 py-2.5 rounded-xl bg-white text-black font-numeric-md text-base font-bold border-2 border-black shadow-[2px_2px_0_#000] focus:outline-none placeholder:text-stone-400">
           </div>
         </div>
@@ -1234,10 +1234,11 @@
         <div class="flex gap-2.5 pt-2">
           <button type="button"
             class="flex-1 py-3 rounded-xl bg-white hover:bg-stone-100 text-black font-headline-sm text-sm font-black border-2 border-black shadow-[2.5px_2.5px_0_#000] cursor-pointer transition-all active:translate-x-0.5 active:translate-y-0.5"
-            id="btnCancelShelfModal">Batal</button>
-          <button type="submit"
+            id="btnCancelShelfModal" onclick="document.getElementById('modalShelfPriceBackdrop')?.classList.add('hidden')">Batal</button>
+          <button type="button"
             class="flex-1 py-3 rounded-xl bg-[#FFDE59] hover:bg-[#FACC15] text-black font-headline-sm text-sm font-black border-[2.5px] border-black shadow-[3px_3px_0_#000] cursor-pointer transition-all active:translate-x-0.5 active:translate-y-0.5"
-            id="btnSubmitShelfModal">
+            id="btnSubmitShelfModal"
+            onclick="if(window.applyShelfPriceModalSubmit) window.applyShelfPriceModalSubmit(event); return false;">
             Masukkan ke Troli
           </button>
         </div>
