@@ -406,61 +406,64 @@
       <!-- Top Live Gauge Card (Neobrutalist Bento Display) -->
       <section class="w-full mb-space-md" id="budgetHudCard">
         <div
-          class="relative overflow-hidden rounded-[22px] bg-white border-[2.5px] border-black p-4 pt-4 pb-4 shadow-[4px_4px_0_#000] text-black">
+          class="relative overflow-hidden rounded-[22px] bg-white border-[2.5px] border-black p-4 sm:p-5 shadow-[4px_4px_0_#000] text-black">
 
-          <!-- Top Row: Status Pill & Savings Rubber Stamp -->
-          <div class="relative z-10 flex items-center justify-between mb-3 border-b-2 border-black/10 pb-3">
-            <div
-              class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#DCFCE7] border-2 border-black text-black font-mono text-[10px] font-black uppercase tracking-wider shadow-[1.5px_1.5px_0_#000]"
-              id="hudStatusBadge">
-              <span class="w-2 h-2 rounded-full bg-black animate-ping"></span>
-              <span id="hudStatusText">RADAR-ACTIVE</span>
+          <!-- Top Row: Judul / Header & Single Clean Status Badge -->
+          <div class="relative z-10 flex items-center justify-between mb-2 gap-1.5">
+            <div class="flex items-center gap-1.5 min-w-0">
+              <span class="material-symbols-outlined text-[15px] sm:text-[16px] text-stone-700 font-bold shrink-0">account_balance_wallet</span>
+              <span class="font-mono text-[9px] sm:text-[10px] tracking-wider text-stone-600 uppercase font-black truncate">Total Belanja Berjalan</span>
             </div>
-            <!-- Savings Badge: Tactile Rubber Stamp with slight tilt -->
+            <!-- Status Pill (Single, Neobrutalist) -->
             <div
-              class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#FFDE59] text-black font-mono text-[10px] font-black uppercase tracking-wider transform -rotate-1 shadow-[2px_2px_0_#000] border-2 border-black"
-              id="hudSavingsBadge">
-              <span class="material-symbols-outlined text-[13px] text-black"
-                style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
-              <span id="hudTotalSavingsText">HEMAT Rp 0</span>
+              class="flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-[#DCFCE7] border-2 border-black text-black font-mono text-[9px] sm:text-[10px] font-black uppercase tracking-wider shadow-[1.5px_1.5px_0_#000] shrink-0"
+              id="hudStatusBadge">
+              <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-600 animate-ping"></span>
+              <span id="hudStatusText">STATUS: AMAN</span>
+              <!-- Hidden icon container to preserve JS compatibility if accessed -->
+              <span id="hudStatusIcon" class="hidden"></span>
             </div>
           </div>
 
-          <!-- Main Numbers Group -->
-          <div class="relative z-10 flex flex-col mb-3">
-            <div class="flex items-baseline justify-between">
-              <span class="font-mono text-[10px] tracking-wider text-stone-600 uppercase font-bold">Total Belanja
-                Berjalan</span>
+          <!-- Hero Row: Main Spending & Savings Badge -->
+          <div class="relative z-10 flex items-center justify-between gap-2 mb-3">
+            <div class="flex items-baseline gap-1.5 min-w-0">
+              <span class="font-headline-md text-black text-[20px] sm:text-[24px] font-black leading-none">Rp</span>
               <span
-                class="font-mono text-[10px] text-black font-black bg-[#DCFCE7] px-2 py-0.5 rounded-lg border-2 border-black shadow-[1.5px_1.5px_0_#000] flex items-center gap-1"
-                id="hudStatusIcon">
-                <span class="material-symbols-outlined text-[12px] text-black">verified_user</span> STATUS: AMAN
-              </span>
+                class="font-numeric-lg text-[32px] sm:text-[38px] text-black tracking-tight font-black leading-none truncate"
+                id="hudTotalSpending">0</span>
             </div>
-            <div class="flex items-baseline justify-between gap-space-xs mt-1">
-              <div class="flex items-baseline gap-1.5">
-                <span class="font-headline-md text-black text-[24px] font-black leading-none">Rp</span>
-                <span
-                  class="font-numeric-lg text-[38px] text-black tracking-tight font-black leading-none"
-                  id="hudTotalSpending">0</span>
+            <!-- Savings Badge: Tactile Rubber Stamp with slight tilt -->
+            <div
+              class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-[#FFDE59] text-black font-mono text-[10px] sm:text-[10.5px] font-black uppercase tracking-wider shadow-[2px_2px_0_#000] border-2 border-black shrink-0"
+              id="hudSavingsBadge">
+              <span class="material-symbols-outlined text-[13px] sm:text-[14px] text-black"
+                style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+              <span id="hudTotalSavingsText">Hemat Rp 0</span>
+            </div>
+          </div>
+
+          <!-- Sub-metrics Grid (Sisa Anggaran & Pemakaian) -->
+          <div class="relative z-10 grid grid-cols-2 gap-2 mb-3 pt-2.5 border-t-2 border-black/10">
+            <!-- Sisa Anggaran Box -->
+            <div class="p-2 sm:p-2.5 rounded-xl bg-[#F0FDF4] border-2 border-black shadow-[1.5px_1.5px_0_#000] flex flex-col justify-center min-w-0" id="hudRemainingBox">
+              <span class="font-mono text-[9px] sm:text-[9.5px] text-stone-600 font-bold uppercase block mb-0.5 truncate" id="hudRemainingLabel">Sisa Anggaran</span>
+              <div id="hudRemainingText" class="font-mono text-xs sm:text-sm font-black text-[#15803D] truncate">
+                Rp 350.000
               </div>
-              <div class="text-right">
-                <span class="font-mono text-[10px] text-stone-600 block uppercase font-bold">Pemakaian</span>
-                <span class="font-mono text-xs text-black font-black" id="budgetPercentLabel">0% / 100%</span>
+            </div>
+
+            <!-- Pemakaian Kuota Box -->
+            <div class="p-2 sm:p-2.5 rounded-xl bg-[#FFFDF8] border-2 border-black shadow-[1.5px_1.5px_0_#000] flex flex-col justify-center text-right min-w-0" id="hudUsageBox">
+              <span class="font-mono text-[9px] sm:text-[9.5px] text-stone-600 font-bold uppercase block mb-0.5 truncate">Pemakaian Kuota</span>
+              <div class="font-mono text-xs sm:text-sm font-black text-black truncate" id="budgetPercentLabel">
+                0% CAP
               </div>
             </div>
           </div>
 
           <!-- Tactile Gauge Bar -->
           <div class="relative z-10 space-y-1.5">
-            <div class="flex items-center justify-between font-mono text-[11px]">
-              <div class="flex items-center gap-1.5 text-black" id="hudRemainingText">
-                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-stone-100 border-2 border-black shadow-[1.5px_1.5px_0_#000]">
-                  <span class="text-stone-600 text-[10px] font-bold">Sisa Aman:</span>
-                  <strong class="text-black font-black text-[12px]">Rp 350.000</strong>
-                </span>
-              </div>
-            </div>
             <!-- Segmented Gauge Display (10-Segment Discrete Neobrutalist blocks) -->
             <div class="segment-meter-grid" id="budgetSegmentMeter">
               <div class="segment-block" data-seg="0"></div>

@@ -1762,37 +1762,55 @@
 
     const navBudgetDot = document.getElementById('navBudgetDot');
 
+    const remainingBox = document.getElementById('hudRemainingBox');
+    const remainingLabel = document.getElementById('hudRemainingLabel');
+
     if (percentage < 90) {
       if (statusBadge) {
-        statusBadge.className = 'flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-mono text-[10px] font-black tracking-widest';
+        statusBadge.className = 'flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#DCFCE7] text-black border-2 border-black shadow-[1.5px_1.5px_0_#000] font-mono text-[10px] font-black uppercase tracking-wider';
       }
-      if (statusText) statusText.textContent = '● STATUS: AMAN';
-      if (statusIcon) statusIcon.innerHTML = '<span class="material-symbols-outlined text-[11px]">verified_user</span> STATUS: AMAN';
-      if (remainingText) remainingText.innerHTML = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-stone-800/80 border border-stone-700/80"><span class="text-stone-400 text-[10px]">Sisa Aman:</span><strong class="text-citrus font-black text-[12px]">Rp ${formatNumber(remaining)}</strong></span>`;
+      if (statusText) statusText.textContent = 'STATUS: AMAN';
+      if (statusIcon) statusIcon.textContent = 'verified_user';
+      if (remainingLabel) remainingLabel.textContent = 'Sisa Anggaran';
+      if (remainingBox) remainingBox.className = 'p-2.5 rounded-xl bg-[#F0FDF4] border-2 border-black shadow-[1.5px_1.5px_0_#000] flex flex-col justify-center';
+      if (remainingText) {
+        remainingText.innerHTML = `Rp ${formatNumber(remaining)}`;
+        remainingText.className = 'font-mono text-xs sm:text-sm font-black text-[#15803D]';
+      }
       if (overBudgetBanner) overBudgetBanner.classList.add('hidden');
-      if (navBudgetDot) navBudgetDot.className = 'w-2 h-2 rounded-full bg-citrus absolute -top-0.5 -right-1';
+      if (navBudgetDot) navBudgetDot.className = 'w-2 h-2 rounded-full bg-[#4ADE80] absolute -top-0.5 -right-1';
       if (progressBar) progressBar.className = 'h-full bg-emerald-500 rounded-full transition-all duration-300';
     } else if (percentage >= 90 && percentage <= 100) {
       if (statusBadge) {
-        statusBadge.className = 'flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono text-[10px] font-black tracking-widest';
+        statusBadge.className = 'flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#FEF08A] text-black border-2 border-black shadow-[1.5px_1.5px_0_#000] font-mono text-[10px] font-black uppercase tracking-wider amber';
       }
       if (statusText) statusText.textContent = '▲ PERINGATAN WASPADA (≥90%)';
-      if (statusIcon) statusIcon.innerHTML = '<span class="material-symbols-outlined text-[11px]">warning</span> WASPADA (≥90%)';
-      if (remainingText) remainingText.innerHTML = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-stone-800/80 border border-amber-500/40"><span class="text-stone-400 text-[10px]">Sisa Kritis:</span><strong class="text-amber-300 font-black text-[12px]">Rp ${formatNumber(remaining)}</strong></span>`;
+      if (statusIcon) statusIcon.textContent = 'warning';
+      if (remainingLabel) remainingLabel.textContent = 'Sisa Kritis';
+      if (remainingBox) remainingBox.className = 'p-2.5 rounded-xl bg-[#FEF08A] border-2 border-black shadow-[1.5px_1.5px_0_#000] flex flex-col justify-center';
+      if (remainingText) {
+        remainingText.innerHTML = `Rp ${formatNumber(remaining)}`;
+        remainingText.className = 'font-mono text-xs sm:text-sm font-black text-amber-900';
+      }
       if (overBudgetBanner) overBudgetBanner.classList.add('hidden');
       if (navBudgetDot) navBudgetDot.className = 'w-2 h-2 rounded-full bg-amber-400 absolute -top-0.5 -right-1';
       if (progressBar) progressBar.className = 'h-full bg-amber-400 rounded-full transition-all duration-300';
     } else {
       if (statusBadge) {
-        statusBadge.className = 'flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-rose-500/25 text-rose-300 border border-rose-500/50 font-mono text-[10px] font-black tracking-widest animate-pulse';
+        statusBadge.className = 'flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#FECDD3] text-rose-900 border-2 border-black shadow-[1.5px_1.5px_0_#000] font-mono text-[10px] font-black uppercase tracking-wider animate-pulse';
       }
       if (statusText) statusText.textContent = '🚨 OVER BUDGET (>100%)';
-      if (statusIcon) statusIcon.innerHTML = '<span class="material-symbols-outlined text-[11px]">emergency</span> DEFISIT KUOTA';
+      if (statusIcon) statusIcon.textContent = 'emergency';
       const overAmount = Math.abs(remaining);
-      if (remainingText) remainingText.innerHTML = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-rose-950/80 border border-rose-600/60"><span class="text-rose-300 text-[10px]">Defisit:</span><strong class="text-rose-400 font-black text-[12px]">Rp ${formatNumber(overAmount)}</strong></span>`;
+      if (remainingLabel) remainingLabel.textContent = 'Defisit Kuota';
+      if (remainingBox) remainingBox.className = 'p-2.5 rounded-xl bg-[#FECDD3] border-2 border-black shadow-[1.5px_1.5px_0_#000] flex flex-col justify-center';
+      if (remainingText) {
+        remainingText.innerHTML = `-Rp ${formatNumber(overAmount)}`;
+        remainingText.className = 'font-mono text-xs sm:text-sm font-black text-rose-700';
+      }
       if (overBudgetBanner) {
         overBudgetBanner.classList.remove('hidden');
-        overBudgetBanner.className = 'neo-alert-overbudget bg-red-600 text-white border-2 border-red-800 rounded-2xl p-3.5 mb-space-md shadow-lg animate-shake';
+        overBudgetBanner.className = 'neo-alert-overbudget bg-rose-600 text-white border-[2.5px] border-black rounded-2xl p-3.5 mb-space-md shadow-[4px_4px_0_#000] animate-shake';
         overBudgetBanner.innerHTML = `
           <div class="flex items-start gap-2.5">
             <span class="material-symbols-outlined text-white text-[20px] shrink-0 mt-0.5 animate-bounce">warning</span>
@@ -1800,11 +1818,11 @@
               <div class="font-headline-sm text-sm font-black text-white leading-tight">
                 Total belanja melebihi batas saldo dompet! Kurangi kuantitas atau batalkan barang sekunder.
               </div>
-              <div class="font-mono text-xs text-red-100 font-bold mt-1">
+              <div class="font-mono text-xs text-rose-100 font-bold mt-1">
                 Defisit Kuota: -Rp ${formatNumber(overAmount)} (Total: Rp ${formatNumber(totalSpent)} / Limit: Rp ${formatNumber(limit)})
               </div>
             </div>
-            <button id="btnSuggestTrim" onclick="window.suggestTrimItems ? window.suggestTrimItems() : null" class="px-2.5 py-1 rounded-lg bg-white text-red-700 text-xs font-black shadow-sm shrink-0 cursor-pointer hover:bg-red-50 active:scale-95">
+            <button id="btnSuggestTrim" onclick="window.suggestTrimItems ? window.suggestTrimItems() : null" class="px-2.5 py-1 rounded-lg bg-white text-rose-700 border-2 border-black font-black text-xs shadow-[1.5px_1.5px_0_#000] shrink-0 cursor-pointer hover:bg-stone-100 active:translate-x-0.5 active:translate-y-0.5">
               Pangkas
             </button>
           </div>
