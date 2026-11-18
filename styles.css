@@ -1175,6 +1175,11 @@ nav.fixed.bottom-0 {
   box-shadow: 3px 3px 0px #000000 !important;
 }
 
+.store-item-btn .store-check-icon {
+  color: #000000 !important;
+  font-weight: 900 !important;
+}
+
 /* ==========================================================================
    TOAST NOTIFICATIONS
    ========================================================================== */

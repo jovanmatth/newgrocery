@@ -2018,50 +2018,222 @@
 
   <!-- ================= MODAL: PILIH SUPERMARKET ================= -->
   <div
-    class="modal-backdrop hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4"
+    class="modal-backdrop hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4"
     id="modalStoreBackdrop">
     <div
-      class="w-full max-w-md bg-[#0d1322] border border-white/10 rounded-t-[32px] sm:rounded-[32px] p-6 shadow-2xl text-white">
-      <div class="w-12 h-1 bg-white/20 rounded-full mx-auto mb-4"></div>
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="font-headline-sm text-headline-sm text-white font-bold">Pilih Supermarket</h3>
+      class="w-full max-w-md bg-[#FFFDF8] border-t-[3px] sm:border-[3px] border-black rounded-t-[32px] sm:rounded-[32px] p-5 sm:p-6 shadow-[0_-6px_0_#000] sm:shadow-[6px_6px_0_#000] text-black max-h-[85vh] flex flex-col">
+      <div class="w-12 h-1.5 bg-black/20 rounded-full mx-auto mb-3 sm:hidden shrink-0"></div>
+      
+      <div class="flex items-center justify-between mb-3 pb-2.5 border-b-2 border-black/10 shrink-0">
+        <div class="flex items-center gap-2">
+          <div class="w-9 h-9 rounded-xl bg-[#FFDE59] border-2 border-black shadow-[2px_2px_0_#000] flex items-center justify-center">
+            <span class="material-symbols-outlined text-[20px] text-black font-black">storefront</span>
+          </div>
+          <div>
+            <h3 class="font-headline-sm text-base font-black text-black leading-tight">Pilih Lokasi Belanja</h3>
+            <p class="text-[11px] font-bold text-stone-500">Pilih supermarket atau tambahkan tokomu</p>
+          </div>
+        </div>
         <button
-          class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white cursor-pointer transition-all"
-          id="btnCloseStoreModal">
-          <span class="material-symbols-outlined text-[18px]">close</span>
+          type="button"
+          class="w-8 h-8 rounded-xl bg-white hover:bg-stone-100 border-2 border-black shadow-[2px_2px_0_#000] flex items-center justify-center text-black cursor-pointer transition-all active:translate-x-0.5 active:translate-y-0.5"
+          id="btnCloseStoreModal" title="Tutup">
+          <span class="material-symbols-outlined text-[18px] font-black">close</span>
         </button>
       </div>
-      <div class="space-y-2 mb-2">
+
+      <!-- Quick Search / Filter Input -->
+      <div class="mb-3 shrink-0">
+        <div class="relative">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-[18px]">search</span>
+          <input
+            type="text"
+            id="inputFilterStore"
+            placeholder="Cari nama supermarket atau cabang..."
+            class="w-full pl-9 pr-3 py-2 text-xs font-bold text-black bg-white border-2 border-black rounded-xl shadow-[2px_2px_0_#000] focus:outline-none focus:bg-amber-50"
+          />
+        </div>
+      </div>
+
+      <!-- Store List Container (Scrollable) -->
+      <div id="storeListContainer" class="space-y-2 mb-3 overflow-y-auto max-h-[42vh] pr-1">
         <button
-          class="store-item-btn w-full p-3.5 rounded-xl bg-white/5 hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/30 text-white flex items-center justify-between font-label-md font-semibold cursor-pointer active transition-all"
+          class="store-item-btn w-full p-3 rounded-xl bg-white hover:bg-amber-50 border-2 border-black text-black flex items-center justify-between font-label-md font-bold cursor-pointer active transition-all shadow-[2px_2px_0_#000]"
           data-store="Lotte Mart Grocery - Puri Indah" onclick="selectStore('Lotte Mart Grocery - Puri Indah')">
-          <span>Lotte Mart Grocery - Puri Indah</span>
-          <span class="material-symbols-outlined text-emerald-400 store-check-icon">check</span>
+          <div class="flex items-center gap-2.5 text-left min-w-0">
+            <span class="material-symbols-outlined text-[18px] text-black shrink-0">shopping_bag</span>
+            <div class="truncate">
+              <div class="text-xs font-black text-black truncate">Lotte Mart Grocery - Puri Indah</div>
+              <div class="text-[10px] font-bold text-stone-500">Jakarta Barat • Hypermarket</div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-black font-black store-check-icon shrink-0">check_circle</span>
         </button>
+
         <button
-          class="store-item-btn w-full p-3.5 rounded-xl bg-white/5 hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/30 text-white flex items-center justify-between font-label-md font-semibold cursor-pointer transition-all"
+          class="store-item-btn w-full p-3 rounded-xl bg-white hover:bg-amber-50 border-2 border-black text-black flex items-center justify-between font-label-md font-bold cursor-pointer transition-all shadow-[2px_2px_0_#000]"
           data-store="GrandLucky SCBD" onclick="selectStore('GrandLucky SCBD')">
-          <span>GrandLucky SCBD</span>
-          <span class="material-symbols-outlined text-emerald-400 store-check-icon hidden">check</span>
+          <div class="flex items-center gap-2.5 text-left min-w-0">
+            <span class="material-symbols-outlined text-[18px] text-black shrink-0">store</span>
+            <div class="truncate">
+              <div class="text-xs font-black text-black truncate">GrandLucky SCBD</div>
+              <div class="text-[10px] font-bold text-stone-500">Jakarta Selatan • Superstore</div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-black font-black store-check-icon hidden shrink-0">check_circle</span>
         </button>
+
         <button
-          class="store-item-btn w-full p-3.5 rounded-xl bg-white/5 hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/30 text-white flex items-center justify-between font-label-md font-semibold cursor-pointer transition-all"
+          class="store-item-btn w-full p-3 rounded-xl bg-white hover:bg-amber-50 border-2 border-black text-black flex items-center justify-between font-label-md font-bold cursor-pointer transition-all shadow-[2px_2px_0_#000]"
           data-store="Superindo Express" onclick="selectStore('Superindo Express')">
-          <span>Superindo Express</span>
-          <span class="material-symbols-outlined text-emerald-400 store-check-icon hidden">check</span>
+          <div class="flex items-center gap-2.5 text-left min-w-0">
+            <span class="material-symbols-outlined text-[18px] text-black shrink-0">local_convenience_store</span>
+            <div class="truncate">
+              <div class="text-xs font-black text-black truncate">Superindo Express</div>
+              <div class="text-[10px] font-bold text-stone-500">Jabodetabek • Supermarket Segar</div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-black font-black store-check-icon hidden shrink-0">check_circle</span>
         </button>
+
         <button
-          class="store-item-btn w-full p-3.5 rounded-xl bg-white/5 hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/30 text-white flex items-center justify-between font-label-md font-semibold cursor-pointer transition-all"
+          class="store-item-btn w-full p-3 rounded-xl bg-white hover:bg-amber-50 border-2 border-black text-black flex items-center justify-between font-label-md font-bold cursor-pointer transition-all shadow-[2px_2px_0_#000]"
           data-store="Hypermart Mega Mall" onclick="selectStore('Hypermart Mega Mall')">
-          <span>Hypermart Mega Mall</span>
-          <span class="material-symbols-outlined text-emerald-400 store-check-icon hidden">check</span>
+          <div class="flex items-center gap-2.5 text-left min-w-0">
+            <span class="material-symbols-outlined text-[18px] text-black shrink-0">apartment</span>
+            <div class="truncate">
+              <div class="text-xs font-black text-black truncate">Hypermart Mega Mall</div>
+              <div class="text-[10px] font-bold text-stone-500">Mall Pusat • Retail & Grosir</div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-black font-black store-check-icon hidden shrink-0">check_circle</span>
         </button>
+
         <button
-          class="store-item-btn w-full p-3.5 rounded-xl bg-white/5 hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/30 text-white flex items-center justify-between font-label-md font-semibold cursor-pointer transition-all"
+          class="store-item-btn w-full p-3 rounded-xl bg-white hover:bg-amber-50 border-2 border-black text-black flex items-center justify-between font-label-md font-bold cursor-pointer transition-all shadow-[2px_2px_0_#000]"
           data-store="Alfamidi Super" onclick="selectStore('Alfamidi Super')">
-          <span>Alfamidi Super</span>
-          <span class="material-symbols-outlined text-emerald-400 store-check-icon hidden">check</span>
+          <div class="flex items-center gap-2.5 text-left min-w-0">
+            <span class="material-symbols-outlined text-[18px] text-black shrink-0">storefront</span>
+            <div class="truncate">
+              <div class="text-xs font-black text-black truncate">Alfamidi Super</div>
+              <div class="text-[10px] font-bold text-stone-500">Lingkungan Warga • Minimarket Modern</div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-black font-black store-check-icon hidden shrink-0">check_circle</span>
         </button>
+
+        <button
+          class="store-item-btn w-full p-3 rounded-xl bg-white hover:bg-amber-50 border-2 border-black text-black flex items-center justify-between font-label-md font-bold cursor-pointer transition-all shadow-[2px_2px_0_#000]"
+          data-store="Aeon Mall Store - BSD City" onclick="selectStore('Aeon Mall Store - BSD City')">
+          <div class="flex items-center gap-2.5 text-left min-w-0">
+            <span class="material-symbols-outlined text-[18px] text-black shrink-0">shopping_cart</span>
+            <div class="truncate">
+              <div class="text-xs font-black text-black truncate">Aeon Mall Store - BSD City</div>
+              <div class="text-[10px] font-bold text-stone-500">Tangerang • Bakery, Sushi & Grocery</div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-black font-black store-check-icon hidden shrink-0">check_circle</span>
+        </button>
+
+        <button
+          class="store-item-btn w-full p-3 rounded-xl bg-white hover:bg-amber-50 border-2 border-black text-black flex items-center justify-between font-label-md font-bold cursor-pointer transition-all shadow-[2px_2px_0_#000]"
+          data-store="Farmers Market - Kelapa Gading" onclick="selectStore('Farmers Market - Kelapa Gading')">
+          <div class="flex items-center gap-2.5 text-left min-w-0">
+            <span class="material-symbols-outlined text-[18px] text-black shrink-0">agriculture</span>
+            <div class="truncate">
+              <div class="text-xs font-black text-black truncate">Farmers Market - Kelapa Gading</div>
+              <div class="text-[10px] font-bold text-stone-500">Jakarta Utara • Buah & Sayur Organik</div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-black font-black store-check-icon hidden shrink-0">check_circle</span>
+        </button>
+
+        <button
+          class="store-item-btn w-full p-3 rounded-xl bg-white hover:bg-amber-50 border-2 border-black text-black flex items-center justify-between font-label-md font-bold cursor-pointer transition-all shadow-[2px_2px_0_#000]"
+          data-store="Ranch Market - Grand Indonesia" onclick="selectStore('Ranch Market - Grand Indonesia')">
+          <div class="flex items-center gap-2.5 text-left min-w-0">
+            <span class="material-symbols-outlined text-[18px] text-black shrink-0">store</span>
+            <div class="truncate">
+              <div class="text-xs font-black text-black truncate">Ranch Market - Grand Indonesia</div>
+              <div class="text-[10px] font-bold text-stone-500">Jakarta Pusat • Gourmet & Impor</div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-black font-black store-check-icon hidden shrink-0">check_circle</span>
+        </button>
+
+        <button
+          class="store-item-btn w-full p-3 rounded-xl bg-white hover:bg-amber-50 border-2 border-black text-black flex items-center justify-between font-label-md font-bold cursor-pointer transition-all shadow-[2px_2px_0_#000]"
+          data-store="Transmart Carrefour - Central Park" onclick="selectStore('Transmart Carrefour - Central Park')">
+          <div class="flex items-center gap-2.5 text-left min-w-0">
+            <span class="material-symbols-outlined text-[18px] text-black shrink-0">shopping_bag</span>
+            <div class="truncate">
+              <div class="text-xs font-black text-black truncate">Transmart Carrefour - Central Park</div>
+              <div class="text-[10px] font-bold text-stone-500">Jakarta Barat • Hypermarket Lengkap</div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-black font-black store-check-icon hidden shrink-0">check_circle</span>
+        </button>
+
+        <button
+          class="store-item-btn w-full p-3 rounded-xl bg-white hover:bg-amber-50 border-2 border-black text-black flex items-center justify-between font-label-md font-bold cursor-pointer transition-all shadow-[2px_2px_0_#000]"
+          data-store="Hero Supermarket - Kemang" onclick="selectStore('Hero Supermarket - Kemang')">
+          <div class="flex items-center gap-2.5 text-left min-w-0">
+            <span class="material-symbols-outlined text-[18px] text-black shrink-0">local_mall</span>
+            <div class="truncate">
+              <div class="text-xs font-black text-black truncate">Hero Supermarket - Kemang</div>
+              <div class="text-[10px] font-bold text-stone-500">Jakarta Selatan • Premium Supermarket</div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-black font-black store-check-icon hidden shrink-0">check_circle</span>
+        </button>
+
+        <button
+          class="store-item-btn w-full p-3 rounded-xl bg-white hover:bg-amber-50 border-2 border-black text-black flex items-center justify-between font-label-md font-bold cursor-pointer transition-all shadow-[2px_2px_0_#000]"
+          data-store="Papaya Fresh Gallery - Blok M" onclick="selectStore('Papaya Fresh Gallery - Blok M')">
+          <div class="flex items-center gap-2.5 text-left min-w-0">
+            <span class="material-symbols-outlined text-[18px] text-black shrink-0">restaurant</span>
+            <div class="truncate">
+              <div class="text-xs font-black text-black truncate">Papaya Fresh Gallery - Blok M</div>
+              <div class="text-[10px] font-bold text-stone-500">Jakarta Selatan • Kebutuhan Jepang & Fresh</div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-black font-black store-check-icon hidden shrink-0">check_circle</span>
+        </button>
+
+        <button
+          class="store-item-btn w-full p-3 rounded-xl bg-white hover:bg-amber-50 border-2 border-black text-black flex items-center justify-between font-label-md font-bold cursor-pointer transition-all shadow-[2px_2px_0_#000]"
+          data-store="Indomaret Fresh - Pantai Indah Kapuk" onclick="selectStore('Indomaret Fresh - Pantai Indah Kapuk')">
+          <div class="flex items-center gap-2.5 text-left min-w-0">
+            <span class="material-symbols-outlined text-[18px] text-black shrink-0">storefront</span>
+            <div class="truncate">
+              <div class="text-xs font-black text-black truncate">Indomaret Fresh - Pantai Indah Kapuk</div>
+              <div class="text-[10px] font-bold text-stone-500">Jakarta Utara • Sayur, Buah & Kebutuhan Cepat</div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-black font-black store-check-icon hidden shrink-0">check_circle</span>
+        </button>
+      </div>
+
+      <!-- Form Tambah Lokasi Baru Sendiri -->
+      <div class="pt-3 border-t-2 border-black shrink-0 bg-[#FFFDF8]">
+        <label for="inputCustomStoreName" class="block text-[10px] font-black uppercase tracking-wider text-stone-600 mb-1.5">
+          + Tambah Lokasi / Cabang Baru Sendiri:
+        </label>
+        <div class="flex items-center gap-2">
+          <input
+            type="text"
+            id="inputCustomStoreName"
+            placeholder="Ketik nama toko/pasar baru..."
+            class="flex-1 px-3 py-2 text-xs font-bold text-black bg-white border-2 border-black rounded-xl shadow-[2px_2px_0_#000] focus:outline-none focus:bg-amber-50"
+            maxlength="50"
+          />
+          <button
+            type="button"
+            id="btnSaveCustomStore"
+            class="px-3.5 py-2 bg-[#FFDE59] hover:bg-[#FFE57F] text-black font-black text-xs rounded-xl border-2 border-black shadow-[2px_2px_0_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer whitespace-nowrap">
+            + Tambah
+          </button>
+        </div>
       </div>
     </div>
   </div>

@@ -3657,7 +3657,59 @@
   // ==========================================================================
   // SUPERMARKET STORE SELECTOR MODULE
   // ==========================================================================
+  const CUSTOM_STORES_KEY = 'smart_grocery_custom_stores';
+
+  function getCustomStores() {
+    try {
+      const raw = localStorage.getItem(CUSTOM_STORES_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveCustomStores(list) {
+    try {
+      localStorage.setItem(CUSTOM_STORES_KEY, JSON.stringify(list));
+    } catch (e) {
+      console.warn('Gagal menyimpan custom stores', e);
+    }
+  }
+
+  function createCustomStoreElement(storeName, isActive = false) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = `store-item-btn w-full p-3 rounded-xl bg-white hover:bg-amber-50 border-2 border-black text-black flex items-center justify-between font-label-md font-bold cursor-pointer transition-all shadow-[2px_2px_0_#000] ${isActive ? 'active' : ''}`;
+    btn.setAttribute('data-store', storeName);
+    btn.onclick = () => selectStore(storeName);
+    btn.innerHTML = `
+      <div class="flex items-center gap-2.5 text-left min-w-0">
+        <span class="material-symbols-outlined text-[18px] text-black shrink-0">pin_drop</span>
+        <div class="truncate">
+          <div class="text-xs font-black text-black truncate">${escapeHtml(storeName)}</div>
+          <div class="text-[10px] font-bold text-amber-700">⭐ Lokasi Toko Kustom Anda</div>
+        </div>
+      </div>
+      <span class="material-symbols-outlined text-black font-black store-check-icon ${isActive ? '' : 'hidden'} shrink-0">check_circle</span>
+    `;
+    return btn;
+  }
+
   function initStoreSelectorModule() {
+    const container = document.getElementById('storeListContainer');
+    const customStores = getCustomStores();
+
+    // Render custom stores into container
+    if (container && customStores.length > 0) {
+      customStores.forEach(name => {
+        if (!container.querySelector(`[data-store="${name.replace(/"/g, '\\"')}"]`)) {
+          const isAct = appState.activeStore === name;
+          container.appendChild(createCustomStoreElement(name, isAct));
+        }
+      });
+    }
+
+    // Attach click listeners to store buttons
     const storeButtons = document.querySelectorAll('.store-item-btn');
     storeButtons.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -3667,12 +3719,98 @@
         }
       });
     });
+
+    // Close modal on backdrop click
+    const modalBackdrop = document.getElementById('modalStoreBackdrop');
+    if (modalBackdrop) {
+      modalBackdrop.addEventListener('click', (e) => {
+        if (e.target === modalBackdrop) {
+          closeStoreModal();
+        }
+      });
+    }
+
+    // Real-time store search / filter
+    const filterInput = document.getElementById('inputFilterStore');
+    if (filterInput) {
+      filterInput.addEventListener('input', (e) => {
+        const q = (e.target.value || '').toLowerCase().trim();
+        const items = document.querySelectorAll('.store-item-btn');
+        items.forEach(item => {
+          const storeName = (item.getAttribute('data-store') || '').toLowerCase();
+          const matches = !q || storeName.includes(q);
+          item.style.display = matches ? 'flex' : 'none';
+        });
+      });
+    }
+
+    // Add custom store handler
+    const btnSaveCustom = document.getElementById('btnSaveCustomStore');
+    const inputCustom = document.getElementById('inputCustomStoreName');
+
+    const handleAddCustomStore = () => {
+      if (!inputCustom) return;
+      const storeName = inputCustom.value.trim();
+      if (!storeName) {
+        showToast('Ketik nama lokasi atau toko baru!', 'warning');
+        inputCustom.focus();
+        return;
+      }
+      if (storeName.length < 3) {
+        showToast('Nama lokasi minimal 3 karakter!', 'warning');
+        return;
+      }
+
+      // Check if store already exists in DOM
+      const existingBtn = document.querySelector(`.store-item-btn[data-store="${storeName.replace(/"/g, '\\"')}"]`);
+      if (existingBtn) {
+        selectStore(storeName);
+        inputCustom.value = '';
+        return;
+      }
+
+      // Save to custom stores
+      const list = getCustomStores();
+      if (!list.includes(storeName)) {
+        list.push(storeName);
+        saveCustomStores(list);
+      }
+
+      // Append to list container
+      if (container) {
+        const newEl = createCustomStoreElement(storeName, true);
+        container.prepend(newEl);
+      }
+
+      inputCustom.value = '';
+      selectStore(storeName);
+      showToast(`Lokasi baru ditambahkan: ${storeName}`, 'success');
+    };
+
+    if (btnSaveCustom) {
+      btnSaveCustom.addEventListener('click', handleAddCustomStore);
+    }
+    if (inputCustom) {
+      inputCustom.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          handleAddCustomStore();
+        }
+      });
+    }
   }
 
   function openStoreModal() {
     AudioEngine.playTap();
     const modal = document.getElementById('modalStoreBackdrop');
-    if (modal) modal.classList.remove('hidden');
+    if (modal) {
+      modal.classList.remove('hidden');
+      const filterInput = document.getElementById('inputFilterStore');
+      if (filterInput) {
+        filterInput.value = '';
+        document.querySelectorAll('.store-item-btn').forEach(b => b.style.display = 'flex');
+      }
+    }
   }
 
   function closeStoreModal() {
@@ -3681,6 +3819,8 @@
   }
 
   function selectStore(storeName) {
+    if (!storeName || !storeName.trim()) return;
+    storeName = storeName.trim();
     appState.activeStore = storeName;
     appState.selectedStore = storeName;
     saveStore(storeName);
