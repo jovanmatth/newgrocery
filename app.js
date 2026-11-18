@@ -1739,7 +1739,8 @@
     const overBudgetBanner = document.getElementById('overBudgetBanner');
 
     if (progressBar) {
-      progressBar.style.width = `${clampedPercentage}%`;
+      const displayWidth = percentage > 0 ? Math.min(100, Math.max(2.5, clampedPercentage)) : 0;
+      progressBar.style.width = `${displayWidth}%`;
     }
 
     // Stitch Screen 2: 10-Segment Discrete Gauge Blocks

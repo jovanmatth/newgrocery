@@ -462,30 +462,32 @@
             </div>
           </div>
 
-          <!-- Tactile Gauge Bar -->
+          <!-- Tactile Gauge Bar (Smooth Continuous Neobrutalist Progress Meter) -->
           <div class="relative z-10 space-y-1.5">
-            <!-- Segmented Gauge Display (10-Segment Discrete Neobrutalist blocks) -->
-            <div class="segment-meter-grid" id="budgetSegmentMeter">
-              <div class="segment-block" data-seg="0"></div>
-              <div class="segment-block" data-seg="1"></div>
-              <div class="segment-block" data-seg="2"></div>
-              <div class="segment-block" data-seg="3"></div>
-              <div class="segment-block" data-seg="4"></div>
-              <div class="segment-block" data-seg="5"></div>
-              <div class="segment-block" data-seg="6"></div>
-              <div class="segment-block" data-seg="7"></div>
-              <div class="segment-block" data-seg="8"></div>
-              <div class="segment-block" data-seg="9"></div>
+            <!-- Continuous Neobrutalist Progress Track -->
+            <div class="budget-progress-track relative" id="budgetProgressTrack">
+              <!-- Internal Reference Markers (50% & 80%) -->
+              <div class="absolute left-1/2 top-0 bottom-0 w-[1.5px] bg-black/15 pointer-events-none z-10" title="50% Limit"></div>
+              <div class="absolute left-[80%] top-0 bottom-0 w-[1.5px] bg-amber-600/35 pointer-events-none z-10" title="80% Waspada"></div>
+
+              <!-- Animated Continuous Fill Bar -->
+              <div id="budgetProgressBar"
+                class="h-full bg-emerald-500 rounded-full transition-all duration-300 relative flex items-center justify-end"
+                style="width: 0%;">
+                <!-- Tactile End Cap Marker -->
+                <div id="budgetProgressBarTip" class="w-1.5 h-full bg-black/25 rounded-r-full shrink-0"></div>
+              </div>
             </div>
-            <!-- Hidden smooth bar for compatibility with existing JS animations -->
-            <div class="hidden" id="budgetProgressBar" style="width: 0%;"></div>
+
+            <!-- Hidden container for backwards compatibility with legacy queries to #budgetSegmentMeter -->
+            <div id="budgetSegmentMeter" class="hidden"></div>
 
             <!-- Gauge Sub-ticks -->
-            <div class="flex justify-between px-0.5 text-[9px] font-mono text-stone-600 font-bold">
-              <span>Rp 0</span>
-              <span>50%</span>
-              <span class="text-amber-600 font-black">80% Waspada</span>
-              <span id="hudSubtickMax">Max 350k</span>
+            <div class="flex justify-between px-1 text-[9.5px] font-mono font-bold tracking-tight">
+              <span class="text-stone-600 font-black">Rp 0</span>
+              <span class="text-stone-500 font-black">50%</span>
+              <span class="text-amber-700 font-black">80% Waspada</span>
+              <span id="hudSubtickMax" class="text-stone-800 font-black">Max 350k</span>
             </div>
           </div>
         </div>
