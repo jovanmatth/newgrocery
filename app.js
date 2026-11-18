@@ -1491,18 +1491,19 @@
         saveHistory();
         renderHistoryList();
 
-        // Sinkronisasi Troli Aktif Pengguna dari Cloud
+        // Sinkronisasi Troli Aktif Pengguna dari Cloud (Hanya saat inisialisasi awal saat buka aplikasi)
         const userSyncId = 'user_' + (appState.currentUser ? appState.currentUser.slug : 'rian');
         const cartSyncId = 'active_cart_' + userSyncId;
         const cartRow = receiptsData.find(r => r.id === cartSyncId);
 
-        const timeSinceMyCartPush = Date.now() - (appState.lastCartPushTimestamp || 0);
-        if (timeSinceMyCartPush > 2000) {
-          if (cartRow && Array.isArray(cartRow.items)) {
-            appState.cart = cartRow.items;
-            saveCart(true); // skip pushing back to cloud
+        if (!appState.hasInitialCloudPulled) {
+          if (cartRow && Array.isArray(cartRow.items) && cartRow.items.length > 0) {
+            // Ambil dari cloud jika troli lokal kosong atau belum dimodifikasi
+            if (!appState.cart || appState.cart.length === 0) {
+              appState.cart = cartRow.items;
+              saveCart(true); // skip pushing back to cloud
+            }
           } else if (appState.cart.length > 0 && !cartRow) {
-            // Jika akun baru punya keranjang lokal tapi di cloud belum ada, upload ke cloud
             pushActiveCartToCloud();
           }
         }
@@ -1511,11 +1512,12 @@
         const plannerSyncId = 'active_planner_' + userSyncId;
         const plannerRow = receiptsData.find(r => r.id === plannerSyncId);
 
-        const timeSinceMyPlannerPush = Date.now() - (appState.lastPlannerPushTimestamp || 0);
-        if (timeSinceMyPlannerPush > 2000) {
-          if (plannerRow && Array.isArray(plannerRow.items)) {
-            appState.planner = plannerRow.items;
-            savePlanner(true); // skip pushing back to cloud
+        if (!appState.hasInitialCloudPulled) {
+          if (plannerRow && Array.isArray(plannerRow.items) && plannerRow.items.length > 0) {
+            if (!appState.planner || appState.planner.length === 0) {
+              appState.planner = plannerRow.items;
+              savePlanner(true); // skip pushing back to cloud
+            }
           } else if (appState.planner.length > 0 && !plannerRow) {
             pushActivePlannerToCloud();
           }
@@ -2078,7 +2080,7 @@
     const item = appState.cart.find(i => i.id === id);
     if (!item) return;
 
-    const newQty = item.qty + delta;
+    const newQty = (parseInt(item.qty, 10) || 0) + delta;
     if (newQty <= 0) {
       window.deleteCartItem(id);
       return;
@@ -2086,8 +2088,10 @@
 
     item.qty = newQty;
     AudioEngine.playTap();
+    appState.lastCartModifiedTimestamp = Date.now();
     saveCart();
     renderCart();
+    renderAstroCatalog();
   };
 
   window.setItemQty = function (id, value) {
@@ -2098,8 +2102,10 @@
     if (isNaN(parsed) || parsed < 1) parsed = 1;
     item.qty = parsed;
     AudioEngine.playTap();
+    appState.lastCartModifiedTimestamp = Date.now();
     saveCart();
     renderCart();
+    renderAstroCatalog();
   };
 
   window.deleteCartItem = function (id) {
@@ -2108,14 +2114,12 @@
 
     appState.cart = appState.cart.filter(i => i.id !== id);
     AudioEngine.playTap();
+    appState.lastCartModifiedTimestamp = Date.now();
     saveCart();
     renderCart();
     renderShoppingPlannerSection();
+    renderAstroCatalog();
     showToast(`"${item.name}" dihapus dari troli`, 'warning');
-
-
-
-
   };
 
   // ==========================================================================
@@ -4290,6 +4294,7 @@
   }
 
   function renderAstroCatalog() {
+    window.renderAstroCatalog = renderAstroCatalog;
     const grid = document.getElementById('astroCatalogGrid');
     const paginationContainer = document.getElementById('astroCatalogPagination');
     if (!grid) return;
@@ -4340,9 +4345,9 @@
     const paginatedItems = items.slice(startIndex, endIndex);
 
     grid.innerHTML = paginatedItems.map(prod => {
-      // Check if product is already in active cart
-      const inCart = appState.cart.find(c => c.astroId === prod.id || c.name.toLowerCase() === prod.name.toLowerCase());
-      const inCartQty = inCart ? inCart.qty : 0;
+      // Check if product is already in active cart (sum all matching items)
+      const matchingItems = appState.cart.filter(c => c.astroId === prod.id || c.name.toLowerCase() === prod.name.toLowerCase());
+      const inCartQty = matchingItems.reduce((sum, c) => sum + (parseInt(c.qty, 10) || 0), 0);
       const hasDiscount = prod.originalPrice && prod.originalPrice > prod.price;
 
       return `
@@ -4369,14 +4374,14 @@
           <div>
             ${inCartQty > 0 ? `
               <div class="flex items-center justify-between bg-primary rounded-xl p-1 text-white shadow-xs">
-                <button type="button" class="w-6 h-6 rounded-lg bg-white/10 hover:bg-white/20 active:scale-90 text-white flex items-center justify-center font-bold text-xs cursor-pointer transition-all" onclick="window.addAstroToCart('${prod.id}', -1)" title="Kurangi">-</button>
+                <button type="button" class="w-6 h-6 rounded-lg bg-white/10 hover:bg-white/20 active:scale-90 text-white flex items-center justify-center font-bold text-xs cursor-pointer transition-all select-none touch-manipulation" onclick="window.addAstroToCart('${prod.id}', -1, event)" title="Kurangi">-</button>
                 <span class="font-bold text-[11px] text-secondary-fixed px-1 font-mono">${inCartQty} di Troli</span>
-                <button type="button" class="w-6 h-6 rounded-lg bg-secondary-fixed text-primary hover:bg-white active:scale-90 flex items-center justify-center font-bold text-xs cursor-pointer transition-all" onclick="window.addAstroToCart('${prod.id}', 1)" title="Tambah">+</button>
+                <button type="button" class="w-6 h-6 rounded-lg bg-secondary-fixed text-primary hover:bg-white active:scale-90 flex items-center justify-center font-bold text-xs cursor-pointer transition-all select-none touch-manipulation" onclick="window.addAstroToCart('${prod.id}', 1, event)" title="Tambah">+</button>
               </div>
             ` : `
               <button type="button"
-                class="w-full py-2 px-2.5 rounded-xl bg-primary hover:bg-secondary text-secondary-fixed hover:text-white font-bold text-xs transition-all flex items-center justify-center gap-1 cursor-pointer shadow-xs active:scale-95"
-                onclick="window.addAstroToCart('${prod.id}', 1)">
+                class="w-full py-2 px-2.5 rounded-xl bg-primary hover:bg-secondary text-secondary-fixed hover:text-white font-bold text-xs transition-all flex items-center justify-center gap-1 cursor-pointer shadow-xs active:scale-95 select-none touch-manipulation"
+                onclick="window.addAstroToCart('${prod.id}', 1, event)">
                 <span class="material-symbols-outlined text-[15px]">add_shopping_cart</span>
                 <span>+ Keranjang</span>
               </button>
@@ -4486,13 +4491,18 @@
   };
 
   // 1-Click add to cart from Astro Catalog
-  window.addAstroToCart = function (astroId, delta = 1) {
+  window.addAstroToCart = function (astroId, delta = 1, evt) {
+    if (evt && typeof evt.stopPropagation === 'function') {
+      evt.stopPropagation();
+    }
     const prod = ASTRO_OFFICIAL_CATALOG.find(p => p.id === astroId);
     if (!prod) return;
 
-    let existing = appState.cart.find(c => c.astroId === prod.id || c.name.toLowerCase() === prod.name.toLowerCase());
+    // Find all matching items in cart (consolidate any duplicates)
+    const matchingItems = appState.cart.filter(c => c.astroId === prod.id || c.name.toLowerCase() === prod.name.toLowerCase());
+    const totalCurrentQty = matchingItems.reduce((sum, c) => sum + (parseInt(c.qty, 10) || 0), 0);
 
-    if (!existing) {
+    if (matchingItems.length === 0) {
       if (delta <= 0) return;
       const newItem = {
         id: 'item-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
@@ -4500,7 +4510,7 @@
         name: prod.name,
         category: prod.category,
         unit: prod.unit,
-        qty: 1,
+        qty: delta,
         price: prod.price,
         lastMonthPrice: prod.originalPrice || prod.price,
         discountRaw: prod.discountRaw || '',
@@ -4512,17 +4522,22 @@
       AudioEngine.playTap();
       showToast(`"${prod.name}" masuk ke troli!`, 'success');
     } else {
-      const nextQty = existing.qty + delta;
+      const nextQty = totalCurrentQty + delta;
+      // Consolidate into the primary (first) item and remove any duplicate entries
+      const primaryItem = matchingItems[0];
+      appState.cart = appState.cart.filter(c => !matchingItems.includes(c) || c.id === primaryItem.id);
+
       if (nextQty <= 0) {
-        appState.cart = appState.cart.filter(c => c.id !== existing.id);
+        appState.cart = appState.cart.filter(c => c.id !== primaryItem.id);
         AudioEngine.playTap();
         showToast(`"${prod.name}" dikeluarkan dari troli`, 'warning');
       } else {
-        existing.qty = nextQty;
+        primaryItem.qty = nextQty;
         AudioEngine.playTap();
       }
     }
 
+    appState.lastCartModifiedTimestamp = Date.now();
     saveCart();
     renderCart();
     renderAstroCatalog();

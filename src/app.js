@@ -949,7 +949,7 @@
         handleIncomingRealtimePayload(event.data);
       };
     }
-  } catch (e) {}
+  } catch (e) { }
 
   if (typeof window !== 'undefined') {
     window.addEventListener('storage', (e) => {
@@ -983,7 +983,7 @@
     // 1. Broadcast locally to other tabs/windows
     try {
       if (localSyncChannel) localSyncChannel.postMessage(message);
-    } catch (e) {}
+    } catch (e) { }
 
     // 2. Broadcast to other devices over Supabase Realtime WebSocket (< 100ms latency)
     if (appState.realtimeChannel) {
@@ -1223,7 +1223,7 @@
       if (appState.realtimeChannel) {
         try {
           appState.supabaseClient.removeChannel(appState.realtimeChannel);
-        } catch (e) {}
+        } catch (e) { }
       }
 
       const userSyncId = 'user_' + (appState.currentUser ? appState.currentUser.slug : 'rian');
@@ -1491,18 +1491,19 @@
         saveHistory();
         renderHistoryList();
 
-        // Sinkronisasi Troli Aktif Pengguna dari Cloud
+        // Sinkronisasi Troli Aktif Pengguna dari Cloud (Hanya saat inisialisasi awal saat buka aplikasi)
         const userSyncId = 'user_' + (appState.currentUser ? appState.currentUser.slug : 'rian');
         const cartSyncId = 'active_cart_' + userSyncId;
         const cartRow = receiptsData.find(r => r.id === cartSyncId);
 
-        const timeSinceMyCartPush = Date.now() - (appState.lastCartPushTimestamp || 0);
-        if (timeSinceMyCartPush > 2000) {
-          if (cartRow && Array.isArray(cartRow.items)) {
-            appState.cart = cartRow.items;
-            saveCart(true); // skip pushing back to cloud
+        if (!appState.hasInitialCloudPulled) {
+          if (cartRow && Array.isArray(cartRow.items) && cartRow.items.length > 0) {
+            // Ambil dari cloud jika troli lokal kosong atau belum dimodifikasi
+            if (!appState.cart || appState.cart.length === 0) {
+              appState.cart = cartRow.items;
+              saveCart(true); // skip pushing back to cloud
+            }
           } else if (appState.cart.length > 0 && !cartRow) {
-            // Jika akun baru punya keranjang lokal tapi di cloud belum ada, upload ke cloud
             pushActiveCartToCloud();
           }
         }
@@ -1511,11 +1512,12 @@
         const plannerSyncId = 'active_planner_' + userSyncId;
         const plannerRow = receiptsData.find(r => r.id === plannerSyncId);
 
-        const timeSinceMyPlannerPush = Date.now() - (appState.lastPlannerPushTimestamp || 0);
-        if (timeSinceMyPlannerPush > 2000) {
-          if (plannerRow && Array.isArray(plannerRow.items)) {
-            appState.planner = plannerRow.items;
-            savePlanner(true); // skip pushing back to cloud
+        if (!appState.hasInitialCloudPulled) {
+          if (plannerRow && Array.isArray(plannerRow.items) && plannerRow.items.length > 0) {
+            if (!appState.planner || appState.planner.length === 0) {
+              appState.planner = plannerRow.items;
+              savePlanner(true); // skip pushing back to cloud
+            }
           } else if (appState.planner.length > 0 && !plannerRow) {
             pushActivePlannerToCloud();
           }
@@ -2078,7 +2080,7 @@
     const item = appState.cart.find(i => i.id === id);
     if (!item) return;
 
-    const newQty = item.qty + delta;
+    const newQty = (parseInt(item.qty, 10) || 0) + delta;
     if (newQty <= 0) {
       window.deleteCartItem(id);
       return;
@@ -2086,8 +2088,10 @@
 
     item.qty = newQty;
     AudioEngine.playTap();
+    appState.lastCartModifiedTimestamp = Date.now();
     saveCart();
     renderCart();
+    renderAstroCatalog();
   };
 
   window.setItemQty = function (id, value) {
@@ -2098,8 +2102,10 @@
     if (isNaN(parsed) || parsed < 1) parsed = 1;
     item.qty = parsed;
     AudioEngine.playTap();
+    appState.lastCartModifiedTimestamp = Date.now();
     saveCart();
     renderCart();
+    renderAstroCatalog();
   };
 
   window.deleteCartItem = function (id) {
@@ -2108,14 +2114,12 @@
 
     appState.cart = appState.cart.filter(i => i.id !== id);
     AudioEngine.playTap();
+    appState.lastCartModifiedTimestamp = Date.now();
     saveCart();
     renderCart();
     renderShoppingPlannerSection();
+    renderAstroCatalog();
     showToast(`"${item.name}" dihapus dari troli`, 'warning');
-
-
-
-
   };
 
   // ==========================================================================
@@ -2651,7 +2655,7 @@
   // ==========================================================================
   // EVENT LISTENERS & SUPABASE MODAL HANDLERS
   // ==========================================================================
-    // ==========================================================================
+  // ==========================================================================
   // SUPABASE CONFIGURATION MODAL & CONNECTION HUB
   // ==========================================================================
   function initSupabaseConfigModule() {
@@ -3721,7 +3725,7 @@
             status: diff > 0 ? 'UP' : diff < 0 ? 'DOWN' : 'EQUAL',
             label: diff > 0 ? `↑ Naik Rp ${formatNumber(diff)} (+${pct}%)`
               : diff < 0 ? `↓ Turun Rp ${formatNumber(Math.abs(diff))} (${pct}%)`
-              : '= Stabil (Sama dng Bulan Lalu)'
+                : '= Stabil (Sama dng Bulan Lalu)'
           }
         };
       }
@@ -3737,7 +3741,7 @@
         compEl.textContent = data.comparison.label;
         compEl.className = data.comparison.status === 'UP' ? 'text-rose-400 font-bold'
           : data.comparison.status === 'DOWN' ? 'text-emerald-400 font-bold'
-          : 'text-secondary-fixed font-bold';
+            : 'text-secondary-fixed font-bold';
       }
 
       const totalCart = appState.cart.reduce((s, it) => s + (it.price * it.qty), 0);
@@ -4070,7 +4074,7 @@
         const status = ratio >= 1.0 ? 'DANGER' : ratio >= 0.8 ? 'WARNING' : 'SAFE';
         const healthScore = status === 'DANGER' ? Math.max(20, Math.round(100 - (ratio - 1) * 150))
           : status === 'WARNING' ? Math.round(85 - (ratio - 0.8) * 150)
-          : Math.round(100 - ratio * 20);
+            : Math.round(100 - ratio * 20);
 
         const recs = [];
         if (status === 'DANGER') {
@@ -4099,7 +4103,7 @@
       const isWarning = (insightData.status || 'SAFE') === 'WARNING';
       const scoreBadgeColor = isDanger ? 'bg-rose-100 text-rose-700 border-rose-300'
         : isWarning ? 'bg-amber-100 text-amber-800 border-amber-300'
-        : 'bg-emerald-100 text-emerald-800 border-emerald-300';
+          : 'bg-emerald-100 text-emerald-800 border-emerald-300';
 
       let recomHtml = '';
       (insightData.recommendations || []).forEach(r => {
@@ -4290,6 +4294,7 @@
   }
 
   function renderAstroCatalog() {
+    window.renderAstroCatalog = renderAstroCatalog;
     const grid = document.getElementById('astroCatalogGrid');
     const paginationContainer = document.getElementById('astroCatalogPagination');
     if (!grid) return;
@@ -4340,9 +4345,9 @@
     const paginatedItems = items.slice(startIndex, endIndex);
 
     grid.innerHTML = paginatedItems.map(prod => {
-      // Check if product is already in active cart
-      const inCart = appState.cart.find(c => c.astroId === prod.id || c.name.toLowerCase() === prod.name.toLowerCase());
-      const inCartQty = inCart ? inCart.qty : 0;
+      // Check if product is already in active cart (sum all matching items)
+      const matchingItems = appState.cart.filter(c => c.astroId === prod.id || c.name.toLowerCase() === prod.name.toLowerCase());
+      const inCartQty = matchingItems.reduce((sum, c) => sum + (parseInt(c.qty, 10) || 0), 0);
       const hasDiscount = prod.originalPrice && prod.originalPrice > prod.price;
 
       return `
@@ -4369,14 +4374,14 @@
           <div>
             ${inCartQty > 0 ? `
               <div class="flex items-center justify-between bg-primary rounded-xl p-1 text-white shadow-xs">
-                <button type="button" class="w-6 h-6 rounded-lg bg-white/10 hover:bg-white/20 active:scale-90 text-white flex items-center justify-center font-bold text-xs cursor-pointer transition-all" onclick="window.addAstroToCart('${prod.id}', -1)" title="Kurangi">-</button>
+                <button type="button" class="w-6 h-6 rounded-lg bg-white/10 hover:bg-white/20 active:scale-90 text-white flex items-center justify-center font-bold text-xs cursor-pointer transition-all select-none touch-manipulation" onclick="window.addAstroToCart('${prod.id}', -1, event)" title="Kurangi">-</button>
                 <span class="font-bold text-[11px] text-secondary-fixed px-1 font-mono">${inCartQty} di Troli</span>
-                <button type="button" class="w-6 h-6 rounded-lg bg-secondary-fixed text-primary hover:bg-white active:scale-90 flex items-center justify-center font-bold text-xs cursor-pointer transition-all" onclick="window.addAstroToCart('${prod.id}', 1)" title="Tambah">+</button>
+                <button type="button" class="w-6 h-6 rounded-lg bg-secondary-fixed text-primary hover:bg-white active:scale-90 flex items-center justify-center font-bold text-xs cursor-pointer transition-all select-none touch-manipulation" onclick="window.addAstroToCart('${prod.id}', 1, event)" title="Tambah">+</button>
               </div>
             ` : `
               <button type="button"
-                class="w-full py-2 px-2.5 rounded-xl bg-primary hover:bg-secondary text-secondary-fixed hover:text-white font-bold text-xs transition-all flex items-center justify-center gap-1 cursor-pointer shadow-xs active:scale-95"
-                onclick="window.addAstroToCart('${prod.id}', 1)">
+                class="w-full py-2 px-2.5 rounded-xl bg-primary hover:bg-secondary text-secondary-fixed hover:text-white font-bold text-xs transition-all flex items-center justify-center gap-1 cursor-pointer shadow-xs active:scale-95 select-none touch-manipulation"
+                onclick="window.addAstroToCart('${prod.id}', 1, event)">
                 <span class="material-symbols-outlined text-[15px]">add_shopping_cart</span>
                 <span>+ Keranjang</span>
               </button>
@@ -4403,11 +4408,10 @@
           const isActive = p === currentPage;
           pageButtonsHtml += `
             <button type="button"
-              class="w-8 h-8 rounded-xl font-mono text-xs font-black transition-all flex items-center justify-center cursor-pointer select-none ${
-                isActive
-                  ? 'bg-emerald-500 text-black border border-emerald-400 shadow-lg shadow-emerald-500/20 scale-105'
-                  : 'bg-white/5 text-slate-300 border border-white/10 hover:bg-white/10 hover:text-white active:scale-95'
-              }"
+              class="w-8 h-8 rounded-xl font-mono text-xs font-black transition-all flex items-center justify-center cursor-pointer select-none ${isActive
+              ? 'bg-emerald-500 text-black border border-emerald-400 shadow-lg shadow-emerald-500/20 scale-105'
+              : 'bg-white/5 text-slate-300 border border-white/10 hover:bg-white/10 hover:text-white active:scale-95'
+            }"
               onclick="window.changeAstroPage(${p})"
               title="Ke Halaman ${p}">
               ${p}
@@ -4435,11 +4439,10 @@
             <div class="flex items-center justify-between gap-1.5 bg-white/5 p-1.5 rounded-2xl border border-white/10 shadow-lg">
               <!-- Prev Button -->
               <button type="button"
-                class="px-2.5 py-1.5 rounded-xl font-mono text-xs font-bold flex items-center gap-1 transition-all select-none ${
-                  isFirst
-                    ? 'opacity-35 cursor-not-allowed bg-transparent text-slate-600 border border-transparent'
-                    : 'bg-[#131b2e] text-slate-200 border border-white/10 hover:bg-emerald-500 hover:text-black active:scale-95 cursor-pointer'
-                }"
+                class="px-2.5 py-1.5 rounded-xl font-mono text-xs font-bold flex items-center gap-1 transition-all select-none ${isFirst
+            ? 'opacity-35 cursor-not-allowed bg-transparent text-slate-600 border border-transparent'
+            : 'bg-[#131b2e] text-slate-200 border border-white/10 hover:bg-emerald-500 hover:text-black active:scale-95 cursor-pointer'
+          }"
                 ${isFirst ? 'disabled' : `onclick="window.changeAstroPage(${currentPage - 1})"`}
                 title="Halaman Sebelumnya">
                 <span class="material-symbols-outlined text-[16px]">chevron_left</span>
@@ -4453,11 +4456,10 @@
 
               <!-- Next Button -->
               <button type="button"
-                class="px-2.5 py-1.5 rounded-xl font-mono text-xs font-bold flex items-center gap-1 transition-all select-none ${
-                  isLast
-                    ? 'opacity-35 cursor-not-allowed bg-transparent text-slate-600 border border-transparent'
-                    : 'bg-[#131b2e] text-slate-200 border border-white/10 hover:bg-emerald-500 hover:text-black active:scale-95 cursor-pointer'
-                }"
+                class="px-2.5 py-1.5 rounded-xl font-mono text-xs font-bold flex items-center gap-1 transition-all select-none ${isLast
+            ? 'opacity-35 cursor-not-allowed bg-transparent text-slate-600 border border-transparent'
+            : 'bg-[#131b2e] text-slate-200 border border-white/10 hover:bg-emerald-500 hover:text-black active:scale-95 cursor-pointer'
+          }"
                 ${isLast ? 'disabled' : `onclick="window.changeAstroPage(${currentPage + 1})"`}
                 title="Halaman Selanjutnya">
                 <span class="text-[11px] font-bold">Next</span>
@@ -4489,13 +4491,18 @@
   };
 
   // 1-Click add to cart from Astro Catalog
-  window.addAstroToCart = function (astroId, delta = 1) {
+  window.addAstroToCart = function (astroId, delta = 1, evt) {
+    if (evt && typeof evt.stopPropagation === 'function') {
+      evt.stopPropagation();
+    }
     const prod = ASTRO_OFFICIAL_CATALOG.find(p => p.id === astroId);
     if (!prod) return;
 
-    let existing = appState.cart.find(c => c.astroId === prod.id || c.name.toLowerCase() === prod.name.toLowerCase());
+    // Find all matching items in cart (consolidate any duplicates)
+    const matchingItems = appState.cart.filter(c => c.astroId === prod.id || c.name.toLowerCase() === prod.name.toLowerCase());
+    const totalCurrentQty = matchingItems.reduce((sum, c) => sum + (parseInt(c.qty, 10) || 0), 0);
 
-    if (!existing) {
+    if (matchingItems.length === 0) {
       if (delta <= 0) return;
       const newItem = {
         id: 'item-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
@@ -4503,7 +4510,7 @@
         name: prod.name,
         category: prod.category,
         unit: prod.unit,
-        qty: 1,
+        qty: delta,
         price: prod.price,
         lastMonthPrice: prod.originalPrice || prod.price,
         discountRaw: prod.discountRaw || '',
@@ -4515,17 +4522,22 @@
       AudioEngine.playTap();
       showToast(`"${prod.name}" masuk ke troli!`, 'success');
     } else {
-      const nextQty = existing.qty + delta;
+      const nextQty = totalCurrentQty + delta;
+      // Consolidate into the primary (first) item and remove any duplicate entries
+      const primaryItem = matchingItems[0];
+      appState.cart = appState.cart.filter(c => !matchingItems.includes(c) || c.id === primaryItem.id);
+
       if (nextQty <= 0) {
-        appState.cart = appState.cart.filter(c => c.id !== existing.id);
+        appState.cart = appState.cart.filter(c => c.id !== primaryItem.id);
         AudioEngine.playTap();
         showToast(`"${prod.name}" dikeluarkan dari troli`, 'warning');
       } else {
-        existing.qty = nextQty;
+        primaryItem.qty = nextQty;
         AudioEngine.playTap();
       }
     }
 
+    appState.lastCartModifiedTimestamp = Date.now();
     saveCart();
     renderCart();
     renderAstroCatalog();
@@ -6329,7 +6341,7 @@
     function saveCredentials(creds) {
       try {
         localStorage.setItem(USERS_CREDENTIALS_KEY, JSON.stringify(creds));
-      } catch (e) {}
+      } catch (e) { }
     }
 
     // 1. Check existing session
@@ -6784,7 +6796,7 @@
         if (parts.length < 2) return null;
         const base64Url = parts[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
           return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(''));
         return JSON.parse(jsonPayload);
@@ -6874,7 +6886,7 @@
                 handleSupabaseUserSession(data.user);
                 return true;
               }
-            } catch (e) {}
+            } catch (e) { }
           }
 
           // B. Decode Supabase JWT secara langsung jika setSession asynchronous
@@ -6904,7 +6916,7 @@
                 });
                 return true;
               }
-            } catch (e) {}
+            } catch (e) { }
           }
         }
       }
@@ -6925,7 +6937,7 @@
 
       try {
         localStorage.setItem('sg_oauth_error', JSON.stringify({ error: errCode, description: errDesc, time: Date.now() }));
-      } catch (e) {}
+      } catch (e) { }
 
       if (window.opener && !window.opener.closed) {
         try {
@@ -6934,13 +6946,13 @@
             error: errCode,
             description: errDesc
           }, '*');
-        } catch (e) {}
+        } catch (e) { }
       }
 
       // Jika ini di dalam popup, tutup jendela seketika agar tidak membuka halaman kembar
       if (isLikelyOAuthPopup) {
         setTimeout(() => {
-          try { window.close(); } catch (e) {}
+          try { window.close(); } catch (e) { }
         }, 150);
       } else {
         window.history.replaceState(null, '', window.location.pathname);
@@ -6963,7 +6975,7 @@
               const { data } = await appState.supabaseClient.auth.exchangeCodeForSession(code);
               if (data && data.user) resolvedUser = data.user;
             }
-          } catch (e) {}
+          } catch (e) { }
         } else if (currentHash.includes('access_token')) {
           try {
             const params = new URLSearchParams(currentHash.replace(/^#/, ''));
@@ -6982,7 +6994,7 @@
                 resolvedUser = { email: jwt.email, user_metadata: jwt.user_metadata || {} };
               }
             }
-          } catch (e) {}
+          } catch (e) { }
         }
 
         // 2. Jika user berhasil didapat: simpan ke localStorage agar jendela utama mendeteksi seketika
@@ -7007,7 +7019,7 @@
           try {
             localStorage.setItem('sg_oauth_sync_user', JSON.stringify(userObj));
             localStorage.setItem(AUTH_STORAGE_KEYS.CURRENT_USER, JSON.stringify(userObj));
-          } catch (e) {}
+          } catch (e) { }
 
           // Kirim postMessage jika opener masih terhubung
           if (window.opener && !window.opener.closed) {
@@ -7018,13 +7030,13 @@
                 search: currentSearch,
                 user: resolvedUser
               }, '*');
-            } catch (e) {}
+            } catch (e) { }
           }
 
           // Jika ini jendela popup, tutup otomatis
           if (isLikelyOAuthPopup) {
             setTimeout(() => {
-              try { window.close(); } catch (e) {}
+              try { window.close(); } catch (e) { }
             }, 300);
             return;
           }
@@ -7087,7 +7099,7 @@
               handleSupabaseUserSession(u);
             }
           }
-        } catch (err) {}
+        } catch (err) { }
       }
     });
 
@@ -7218,7 +7230,7 @@
     }
 
     function showSupabaseGoogleGuide() {
-      const guideText = 
+      const guideText =
         'AKSES GOOGLE BELUM DIAKTIFKAN DI DASHBOARD SUPABASE!\n\n' +
         'Langkah manual yang perlu Anda lakukan (hanya 2 menit):\n\n' +
         '1. Buka Dashboard Supabase Anda:\n' +
@@ -7282,7 +7294,7 @@
           showToast(`Selamat datang, ${acct.name}! Berhasil masuk via Google.`, 'success');
         }
       }
-    } catch(e) {}
+    } catch (e) { }
 
     // 7. Profile Header Trigger
     if (btnProfileTrigger) {
@@ -7365,7 +7377,7 @@
   function loginAsUser(userObj, withGreeting = true) {
     try {
       localStorage.removeItem('sg_explicit_logout');
-    } catch (e) {}
+    } catch (e) { }
     appState.currentUser = userObj;
     try {
       localStorage.setItem(AUTH_STORAGE_KEYS.CURRENT_USER, JSON.stringify(userObj));
@@ -7436,7 +7448,7 @@
           localStorage.removeItem(key);
         }
       }
-    } catch (e) {}
+    } catch (e) { }
 
     // Sign out tuntas dari Supabase Client
     if (appState.supabaseClient && appState.supabaseClient.auth) {
@@ -7574,7 +7586,7 @@
     try {
       const saved = localStorage.getItem(AUTH_STORAGE_KEYS.KNOWN_USERS);
       if (saved) knownUsers = JSON.parse(saved);
-    } catch (e) {}
+    } catch (e) { }
 
     // Sembunyikan bagian jika tidak ada akun tersimpan di perangkat
     if (!Array.isArray(knownUsers) || knownUsers.length === 0) {
