@@ -705,8 +705,8 @@ input[type="number"] {
   margin-right: auto !important;
   padding-left: 0.75rem !important;
   padding-right: 0.95rem !important;
-  z-index: 45 !important;
-  pointer-events: none !important;
+  z-index: 55 !important;
+  pointer-events: auto !important;
   box-sizing: border-box !important;
   width: 100% !important;
   transition: opacity 0.2s ease, transform 0.2s ease !important;
@@ -738,6 +738,12 @@ input[type="number"] {
   border: 2px solid #000000 !important;
   box-shadow: 2.5px 2.5px 0px #000000 !important;
   border-radius: 12px !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  touch-action: manipulation !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -webkit-tap-highlight-color: transparent !important;
   transition: all 0.12s ease !important;
 }
 

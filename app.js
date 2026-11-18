@@ -4712,7 +4712,7 @@
   }
 
   function openAstroCheckoutModal() {
-    if (appState.cart.length === 0) {
+    if (!Array.isArray(appState.cart) || appState.cart.length === 0) {
       showToast('Keranjang belanja masih kosong! Pilih barang di Katalog Lotte Mart Puri Indah.', 'warning');
       const catalogSection = document.getElementById('sectionAstroCatalog');
       if (catalogSection) {
@@ -4729,9 +4729,9 @@
     if (!modal) return;
 
     // Reset stages
-    stageReview.classList.remove('hidden');
-    stageProcessing.classList.add('hidden');
-    stageReceipt.classList.add('hidden');
+    if (stageReview) stageReview.classList.remove('hidden');
+    if (stageProcessing) stageProcessing.classList.add('hidden');
+    if (stageReceipt) stageReceipt.classList.add('hidden');
 
     // Populate user
     const avatarEl = document.getElementById('checkoutUserAvatar');
@@ -4746,13 +4746,14 @@
 
     if (itemsContainer) {
       itemsContainer.innerHTML = appState.cart.map(item => {
-        const disc = calculateDiscount(item.price, item.discountRaw);
-        const lineTotal = disc.finalUnitPrice * item.qty;
+        const disc = calculateDiscount(item.price, item.discountRaw || '');
+        const unitPrice = disc ? disc.finalUnitPrice : (item.price || 0);
+        const lineTotal = unitPrice * (item.qty || 1);
         return `
           <div class="flex items-center justify-between text-xs py-1 border-b border-outline-variant/15 last:border-b-0">
             <div class="flex-1 min-w-0 pr-2">
-              <span class="font-bold text-gray-800 truncate block">${escapeHtml(item.name)}</span>
-              <span class="text-[10px] text-gray-500">${item.qty} ${escapeHtml(item.unit)} x Rp ${formatNumber(disc.finalUnitPrice)}</span>
+              <span class="font-bold text-gray-800 truncate block">${escapeHtml(item.name || '')}</span>
+              <span class="text-[10px] text-gray-500">${item.qty || 1} ${escapeHtml(item.unit || 'pcs')} x Rp ${formatNumber(unitPrice)}</span>
             </div>
             <strong class="font-mono text-gray-900 shrink-0">Rp ${formatNumber(lineTotal)}</strong>
           </div>
@@ -4786,9 +4787,21 @@
     });
 
     // Reset default payment method & refresh totals
-    selectPaymentMethod('qris');
-    startQrisCountdown();
-    refreshCheckoutTotals();
+    try {
+      selectPaymentMethod('qris');
+    } catch(e) {
+      console.warn('selectPaymentMethod warn:', e);
+    }
+    try {
+      startQrisCountdown();
+    } catch(e) {
+      console.warn('startQrisCountdown warn:', e);
+    }
+    try {
+      refreshCheckoutTotals();
+    } catch(e) {
+      console.warn('refreshCheckoutTotals warn:', e);
+    }
 
     modal.classList.remove('hidden');
     AudioEngine.playTap();
@@ -5034,6 +5047,8 @@
   function handleCheckout() {
     openAstroCheckoutModal();
   }
+  window.handleCheckout = handleCheckout;
+  window.openAstroCheckoutModal = openAstroCheckoutModal;
 
   function renderHistoryList() {
     const container = document.getElementById('historyListContainer');
