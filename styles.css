@@ -47,13 +47,7 @@
 
 html, body {
   min-height: 100%;
-  background-color: #FED766; /* Vibrant wallpaper background matching screenshot */
-  background-image: 
-    radial-gradient(circle at 12% 18%, #FB7185 0%, #FB7185 160px, transparent 161px),
-    radial-gradient(circle at 88% 82%, #A78BFA 0%, #A78BFA 180px, transparent 181px),
-    radial-gradient(circle at 92% 16%, #38BDF8 0%, #38BDF8 110px, transparent 111px),
-    radial-gradient(circle at 8% 85%, #4ADE80 0%, #4ADE80 120px, transparent 121px);
-  background-attachment: fixed;
+  background-color: #FFFDF8;
   color: #000000;
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
