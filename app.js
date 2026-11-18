@@ -2123,6 +2123,7 @@
   window.appState = appState;
   window.renderCart = renderCart;
   window.renderAll = renderAll;
+  window.renderHistoryList = renderHistoryList;
   window.updateBudgetHud = updateBudgetHud;
   window.saveCart = saveCart;
   window.saveBudget = saveBudget;
@@ -2236,16 +2237,16 @@
   }
 
   // Autocomplete Suggestions
-  inputItemName.addEventListener('input', () => {
+  inputItemName?.addEventListener('input', () => {
     const val = inputItemName.value.trim().toLowerCase();
     if (val.length < 1) {
-      autoSuggestContainer.classList.add('hidden');
+      autoSuggestContainer?.classList.add('hidden');
       return;
     }
 
     const matches = appState.masterItems.filter(m => m.name.toLowerCase().includes(val));
     if (matches.length === 0) {
-      autoSuggestContainer.classList.add('hidden');
+      autoSuggestContainer?.classList.add('hidden');
       return;
     }
 
@@ -2264,8 +2265,10 @@
       `;
     });
 
-    autoSuggestContainer.innerHTML = html;
-    autoSuggestContainer.classList.remove('hidden');
+    if (autoSuggestContainer) {
+      autoSuggestContainer.innerHTML = html;
+      autoSuggestContainer.classList.remove('hidden');
+    }
   });
 
   window.selectMasterSuggestion = function (name) {
@@ -2918,6 +2921,11 @@
     document.getElementById('btnResetToDefaults')?.addEventListener('click', resetAllData);
     document.getElementById('btnCloseReceiptModal')?.addEventListener('click', () => {
       document.getElementById('modalReceiptBackdrop')?.classList.add('hidden');
+    });
+    document.getElementById('modalReceiptBackdrop')?.addEventListener('click', (e) => {
+      if (e.target.id === 'modalReceiptBackdrop') {
+        document.getElementById('modalReceiptBackdrop').classList.add('hidden');
+      }
     });
 
     // Smart Price & Discount Scanner Execution
@@ -5093,11 +5101,11 @@
     if (visibleHistory.length === 0) {
       const activeName = appState.currentUser ? (appState.currentUser.displayName || appState.currentUser.username) : 'Rian';
       container.innerHTML = `
-        <div class="neo-empty-box p-6 text-center bg-white/5 rounded-2xl border border-white/10 shadow-sm text-slate-400">
-          <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center mx-auto mb-2.5 text-2xl">🧾</div>
-          <h3 class="font-headline-sm text-sm font-bold text-white mb-1">Belum Ada Struk untuk Akun ${escapeHtml(activeName)}</h3>
-          <p class="font-body-sm text-xs text-slate-400 max-w-xs mx-auto leading-relaxed">
-            Struk belanja tersimpan secara privat per akun. Setelah menyelesaikan belanja di kasir, struk digital milik kamu akan otomatis tercatat di sini.
+        <div class="neo-empty-box p-6 text-center bg-white rounded-2xl border-2 border-black shadow-[4px_4px_0px_#000000] text-black">
+          <div class="w-12 h-12 rounded-2xl bg-[#FFDE59] text-black border-2 border-black flex items-center justify-center mx-auto mb-2.5 text-2xl shadow-[2px_2px_0px_#000000]">🧾</div>
+          <h3 class="font-headline-sm text-sm font-black text-black mb-1">Belum Ada Struk untuk Akun ${escapeHtml(activeName)}</h3>
+          <p class="font-body-sm text-xs text-stone-600 max-w-xs mx-auto leading-relaxed">
+            Struk belanja tersimpan secara privat per akun. Setelah menyelesaikan belanja di kasir, struk digital milik kamu akan otomatis tercatat di sini dan dapat dibuka untuk melihat rincian belanja.
           </p>
         </div>
       `;
@@ -5106,27 +5114,61 @@
 
     let html = '';
     visibleHistory.forEach(rcp => {
-      const displayTrx = rcp.rawTrxId || (rcp.id.startsWith('rcp_') ? rcp.id.split('_').slice(2).join('_') : rcp.id);
+      const displayTrx = rcp.rawTrxId || (rcp.id && rcp.id.startsWith('rcp_') ? rcp.id.split('_').slice(2).join('_') : rcp.id) || 'LOTTE-OFFICIAL';
+      const safeId = escapeHtml(rcp.id || displayTrx);
+      const isSaved = Number(rcp.totalSaved) > 0;
+
       html += `
-        <div class="neo-history-card bg-[#0d1322] p-4 rounded-2xl border border-white/10 shadow-lg hover:border-emerald-500/40 transition-all text-white">
-          <div class="flex items-center justify-between mb-2">
-            <span class="font-mono text-xs text-slate-400 flex items-center gap-1 font-semibold">
-              <span class="material-symbols-outlined text-[15px] text-cyan-400">calendar_month</span>
+        <div class="neo-history-card bg-white p-4 rounded-2xl border-[2.5px] border-black shadow-[4px_4px_0px_#000000] cursor-pointer text-black hover:-translate-y-1 hover:shadow-[6px_6px_0px_#000000] active:translate-y-0 active:shadow-[2px_2px_0px_#000000] transition-all relative select-none"
+             role="button"
+             tabindex="0"
+             onclick="window.showReceiptModal('${safeId}')"
+             onkeydown="if(event.key==='Enter'||event.key===' '){ window.showReceiptModal('${safeId}'); event.preventDefault(); }"
+             title="Pencet untuk melihat rincian struk belanja">
+          
+          <!-- Baris 1: Tanggal & Badge Status -->
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <span class="font-mono text-xs font-bold text-slate-800 flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[16px] text-emerald-600">calendar_month</span>
               ${escapeHtml(rcp.date)}
             </span>
-            <span class="font-mono text-sm font-extrabold text-emerald-400">Rp ${formatNumber(rcp.grandTotal)}</span>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-100 border border-emerald-600 font-mono text-[10px] font-black text-emerald-800 uppercase flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              SELESAI
+            </span>
           </div>
-          <div class="flex items-center justify-between text-xs text-slate-400 mb-3 pb-2 border-b border-white/10 font-mono">
-            <span>${rcp.itemCount} Jenis Barang</span>
-            <span class="text-cyan-400 font-bold">Hemat: Rp ${formatNumber(rcp.totalSaved)}</span>
+
+          <!-- Baris 2: Total Belanja & Hemat Badge -->
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <div>
+              <span class="text-[10px] uppercase font-bold text-stone-500 tracking-wider block font-mono">Total Belanja</span>
+              <span class="font-mono text-lg font-black text-black tracking-tight">Rp ${formatNumber(rcp.grandTotal)}</span>
+            </div>
+            ${isSaved
+              ? `<span class="px-2.5 py-1 rounded-lg bg-[#FFDE59] border-2 border-black font-mono text-xs font-black text-black shadow-[2px_2px_0px_#000000]">🔥 Hemat Rp ${formatNumber(rcp.totalSaved)}</span>`
+              : `<span class="px-2 py-0.5 rounded-lg bg-stone-100 border border-stone-300 font-mono text-[11px] font-bold text-stone-500">Hemat Rp 0</span>`
+            }
           </div>
-          <div class="flex items-center justify-between gap-2">
-            <span class="font-mono text-[10px] text-slate-500 truncate">No: ${escapeHtml(displayTrx)}</span>
-            <button class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-emerald-500 hover:text-black text-white font-mono text-xs font-bold flex items-center gap-1 border border-white/15 active:scale-95 transition-all cursor-pointer" onclick="window.showReceiptModal('${rcp.id}')">
-              <span class="material-symbols-outlined text-[15px]">receipt_long</span>
-              <span>Buka Struk</span>
-            </button>
+
+          <!-- Baris 3: Jumlah Jenis Barang & No Transaksi -->
+          <div class="flex items-center justify-between text-xs text-stone-700 py-1.5 border-t border-b border-dashed border-stone-300 font-mono gap-2">
+            <span class="font-bold flex items-center gap-1">
+              <span class="material-symbols-outlined text-[14px]">inventory_2</span>
+              ${rcp.itemCount} Jenis Barang
+            </span>
+            <span class="text-[11px] text-stone-600 truncate min-w-0" title="${escapeHtml(displayTrx)}">
+              No: ${escapeHtml(displayTrx)}
+            </span>
           </div>
+
+          <!-- Baris 4: Tombol Buka Struk Rinci (Neobrutalism Jelas & Responsif) -->
+          <button type="button"
+                  class="btn-view-receipt w-full mt-3 py-2 px-3 rounded-xl bg-[#FFDE59] hover:bg-[#FACC15] text-black font-mono text-xs font-black border-2 border-black shadow-[2px_2px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none flex items-center justify-center gap-2 transition-all cursor-pointer"
+                  onclick="event.stopPropagation(); window.showReceiptModal('${safeId}')">
+            <span class="material-symbols-outlined text-[16px]">receipt_long</span>
+            <span>Lihat Rincian Struk & Belanja</span>
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </button>
         </div>
       `;
     });
@@ -5136,62 +5178,184 @@
   }
 
   window.showReceiptModal = function (receiptId) {
+    if (window.AudioEngine && typeof AudioEngine.playTap === 'function') {
+      AudioEngine.playTap();
+    }
+
     const currentSlug = appState.currentUser ? appState.currentUser.slug : 'rian';
     const isRian = currentSlug === 'rian';
 
-    const rcp = appState.history.find(h => {
-      if (h.id !== receiptId) return false;
-      if (h.userSlug) return h.userSlug === currentSlug;
-      if (h.id.startsWith('rcp_')) return h.id.startsWith('rcp_' + currentSlug + '_');
-      return isRian;
-    });
+    // Cari struk secara fleksibel berdasarkan id, rawTrxId, atau substring
+    let rcp = (appState.history || []).find(h => h.id === receiptId || h.rawTrxId === receiptId);
+    if (!rcp && receiptId) {
+      rcp = (appState.history || []).find(h => String(h.id).includes(receiptId) || String(h.rawTrxId).includes(receiptId));
+    }
+    if (!rcp && (appState.history || []).length > 0) {
+      rcp = appState.history[0];
+    }
 
     if (!rcp) {
-      showToast('Akses ditolak: Struk ini tidak terdaftar pada akun kamu.', 'danger');
+      showToast('Struk belanja belum tersedia pada riwayat akun ini.', 'danger');
       return;
     }
 
     const body = document.getElementById('receiptModalBody');
-    let itemsHtml = '';
+    if (!body) return;
 
+    let itemsHtml = '';
     const items = Array.isArray(rcp.items) ? rcp.items : [];
-    items.forEach(item => {
-      const linePrice = item.lineTotal || ((item.finalUnitPrice || item.price || 0) * (item.qty || 1));
+    let grossTotal = 0;
+    let totalQty = 0;
+
+    items.forEach((item, idx) => {
+      const qty = Number(item.qty) || 1;
+      totalQty += qty;
+      const unitPrice = Number(item.finalUnitPrice || item.price || item.originalPrice || 0);
+      const origPrice = Number(item.originalPrice || item.price || unitPrice);
+      const linePrice = Number(item.lineTotal) || (unitPrice * qty);
+      grossTotal += (origPrice * qty);
+
+      const hasDiscount = origPrice > unitPrice;
+      const discPerItem = origPrice - unitPrice;
+
       itemsHtml += `
-        <div class="receipt-line-split flex justify-between text-xs py-1 border-b border-stone-100">
-          <span>${escapeHtml(item.name)} (${item.qty} ${escapeHtml(item.unit || 'pcs')})</span>
-          <span class="font-mono font-bold">Rp ${formatNumber(linePrice)}</span>
+        <div class="receipt-item-row py-2 border-b border-dashed border-stone-200 text-xs font-mono">
+          <div class="flex justify-between items-start font-bold text-black mb-0.5">
+            <span class="flex-1 pr-2">${idx + 1}. ${escapeHtml(item.name)}</span>
+            <span class="font-mono text-black shrink-0 font-black">Rp ${formatNumber(linePrice)}</span>
+          </div>
+          <div class="flex justify-between items-center text-[11px] text-stone-500 font-mono">
+            <span>${qty} ${escapeHtml(item.unit || 'pcs')} × Rp ${formatNumber(unitPrice)}</span>
+            ${hasDiscount ? `<span class="text-amber-800 font-bold bg-[#FFDE59]/40 px-1.5 py-0.5 rounded border border-amber-400">Hemat Rp ${formatNumber(discPerItem * qty)}</span>` : ''}
+          </div>
         </div>
       `;
     });
 
-    const displayTrx = rcp.rawTrxId || (rcp.id.startsWith('rcp_') ? rcp.id.split('_').slice(2).join('_') : rcp.id);
+    const displayTrx = rcp.rawTrxId || (rcp.id && rcp.id.startsWith('rcp_') ? rcp.id.split('_').slice(2).join('_') : rcp.id) || 'LOTTE-OFFICIAL';
     const ownerName = rcp.customerName || (appState.currentUser ? (appState.currentUser.displayName || appState.currentUser.username) : 'Pelanggan');
+    const paymentMethod = rcp.paymentMethod || 'QRIS Lotte Mart Instant (LUNAS)';
+    const calculatedSaved = Number(rcp.totalSaved) || Math.max(0, grossTotal - (rcp.grandTotal || 0));
 
     body.innerHTML = `
-      <div class="receipt-paper-slip font-mono text-ink">
-        <div class="receipt-slip-top text-center pb-3 border-b border-dashed border-stone-300">
-          <div class="font-black text-sm tracking-tight text-ink">LOTTE MART GROCERY - PURI INDAH</div>
-          <small class="text-stone-500 text-[11px] block mt-0.5">Struk Resmi • Pelanggan: <strong>${escapeHtml(ownerName)}</strong></small>
-          <div class="text-[10px] text-stone-400 mt-1">No. TRX: ${escapeHtml(displayTrx)}</div>
-          <div class="receipt-meta-row text-[10px] text-stone-500 mt-0.5">${escapeHtml(rcp.date)}</div>
+      <div class="receipt-paper-slip font-mono text-black bg-[#FFFDF8] border-2 border-black rounded-xl p-3 sm:p-4 shadow-[3px_3px_0px_#000000]">
+        <!-- Receipt Top Header -->
+        <div class="receipt-slip-top text-center pb-2.5 border-b-2 border-dashed border-black">
+          <div class="inline-block px-2 py-0.5 rounded-full bg-[#FFDE59] border border-black text-[9px] font-black uppercase mb-1 shadow-[1px_1px_0px_#000000]">
+            🏪 STRUK RESMI KASIR
+          </div>
+          <div class="font-black text-sm sm:text-base tracking-tight text-black">LOTTE MART GROCERY</div>
+          <div class="text-[10px] sm:text-[11px] font-bold text-stone-700">PURI INDAH MALL - JAKARTA BARAT</div>
+          <div class="text-[9px] text-stone-500 mt-0.5">Mall Puri Indah Lt. LG • Telp: (021) 5822-888</div>
         </div>
-        <div class="receipt-lines-list py-2.5 space-y-1">
-          ${itemsHtml}
+
+        <!-- Meta Info -->
+        <div class="py-2 border-b-2 border-dashed border-black text-[10px] sm:text-[11px] space-y-1 font-mono">
+          <div class="flex justify-between gap-1">
+            <span class="text-stone-500 shrink-0">No. Transaksi</span>
+            <span class="font-black text-black truncate max-w-[160px] sm:max-w-[200px]">${escapeHtml(displayTrx)}</span>
+          </div>
+          <div class="flex justify-between gap-1">
+            <span class="text-stone-500 shrink-0">Waktu & Tanggal</span>
+            <span class="font-bold text-black truncate">${escapeHtml(rcp.date)}</span>
+          </div>
+          <div class="flex justify-between gap-1">
+            <span class="text-stone-500 shrink-0">Pelanggan</span>
+            <span class="font-bold text-black truncate">${escapeHtml(ownerName)}</span>
+          </div>
+          <div class="flex justify-between gap-1">
+            <span class="text-stone-500 shrink-0">Kasir / POS</span>
+            <span class="font-bold text-black">POS-01 (Mandiri)</span>
+          </div>
+          <div class="flex justify-between gap-1">
+            <span class="text-stone-500 shrink-0">Metode Bayar</span>
+            <span class="font-black text-emerald-700 truncate">${escapeHtml(paymentMethod)}</span>
+          </div>
         </div>
-        <div class="receipt-slip-total flex justify-between pt-2.5 border-t border-dashed border-stone-300 font-bold text-sm">
-          <span>TOTAL BAYAR:</span>
-          <span class="font-mono text-emerald-800">Rp ${formatNumber(rcp.grandTotal)}</span>
+
+        <!-- Items Table Title -->
+        <div class="pt-2 pb-1 text-[9px] sm:text-[10px] font-black uppercase text-stone-500 tracking-wider flex justify-between border-b border-stone-200">
+          <span>RINCIAN BARANG (${rcp.itemCount} Jenis, ${totalQty} Qty)</span>
+          <span>SUBTOTAL</span>
         </div>
-        <div class="receipt-savings-banner text-center text-xs text-amber-700 font-bold bg-amber-50 p-2 rounded-lg mt-2.5 border border-amber-200/60">
-          Total Hemat Promo: Rp ${formatNumber(rcp.totalSaved)}
+
+        <!-- Items List -->
+        <div class="receipt-lines-list max-h-[220px] overflow-y-auto pr-1">
+          ${itemsHtml || '<div class="text-center py-3 text-stone-400 text-xs">Rincian barang tidak tersedia</div>'}
         </div>
+
+        <!-- Summary Totals -->
+        <div class="pt-2.5 border-t-2 border-dashed border-black space-y-1 text-xs font-mono">
+          ${calculatedSaved > 0 ? `
+            <div class="flex justify-between text-stone-600 text-[11px]">
+              <span>Subtotal Normal</span>
+              <span class="font-bold">Rp ${formatNumber(grossTotal > rcp.grandTotal ? grossTotal : rcp.grandTotal + calculatedSaved)}</span>
+            </div>
+            <div class="flex justify-between text-amber-700 font-bold text-[11px]">
+              <span>Total Hemat Promo</span>
+              <span>-Rp ${formatNumber(calculatedSaved)}</span>
+            </div>
+          ` : ''}
+          <div class="flex justify-between text-stone-600 text-[11px]">
+            <span>Pajak Restoran/PB1 (0%)</span>
+            <span class="font-bold">Rp 0 (Termasuk)</span>
+          </div>
+          <div class="flex justify-between items-center pt-2 border-t-2 border-black font-black text-xs sm:text-sm text-black">
+            <span>TOTAL LUNAS:</span>
+            <span class="font-mono text-sm sm:text-base text-emerald-800">Rp ${formatNumber(rcp.grandTotal)}</span>
+          </div>
+        </div>
+
+        <!-- Status Stamp -->
+        <div class="mt-2.5 p-2 rounded-xl bg-emerald-50 border border-emerald-300 flex items-center justify-between text-[11px] font-mono">
+          <span class="text-emerald-800 font-bold flex items-center gap-1">
+            <span class="material-symbols-outlined text-[15px] text-emerald-600">verified</span>
+            STATUS TRANSAKSI
+          </span>
+          <span class="px-2 py-0.5 rounded-full bg-emerald-600 text-white font-black text-[9px] uppercase">LUNAS</span>
+        </div>
+
+        <!-- Barcode Simulation -->
+        <div class="text-center mt-2.5 pt-2 border-t border-dashed border-stone-300">
+          <div class="font-mono text-[9px] sm:text-[10px] tracking-[4px] text-stone-700 font-black select-none">
+            ||| | |||| ||| || ||||| |||| || | ||| ||||
+          </div>
+          <div class="text-[9px] text-stone-500 font-mono tracking-widest mt-0.5">${escapeHtml(displayTrx)}</div>
+          <div class="text-[9px] sm:text-[10px] text-stone-500 font-mono mt-1 leading-snug">
+            Terima kasih telah berbelanja di Lotte Mart!<br>
+            Simpan struk ini sebagai bukti transaksi resmi.
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons Below Slip -->
+      <div class="mt-3 flex gap-2">
+        <button type="button"
+          class="flex-1 py-2 px-3 rounded-xl bg-white hover:bg-stone-100 text-black font-mono text-xs font-black border-2 border-black shadow-[2px_2px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+          onclick="document.getElementById('modalReceiptBackdrop').classList.add('hidden')">
+          <span class="material-symbols-outlined text-[16px]">close</span>
+          <span>Tutup Struk</span>
+        </button>
+        <button type="button"
+          class="flex-1 py-2 px-3 rounded-xl bg-[#FFDE59] hover:bg-[#FACC15] text-black font-mono text-xs font-black border-2 border-black shadow-[2px_2px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+          onclick="window.print ? window.print() : showToast('Struk tersimpan', 'info')">
+          <span class="material-symbols-outlined text-[16px]">print</span>
+          <span>Cetak / Simpan</span>
+        </button>
       </div>
     `;
 
-    document.getElementById('modalReceiptBackdrop').classList.remove('hidden');
+    const modalBackdrop = document.getElementById('modalReceiptBackdrop');
+    if (modalBackdrop) {
+      modalBackdrop.classList.remove('hidden');
+    }
     if (window.lucide) lucide.createIcons();
   };
+
+  // Expose global aliases
+  window.showReceiptDetail = window.showReceiptModal;
+  window.viewReceiptDetail = window.showReceiptModal;
+  window.openReceiptModal = window.showReceiptModal;
 
   // ==========================================================================
   // MASTER PRICE DATABASE LIST

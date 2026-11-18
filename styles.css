@@ -827,9 +827,12 @@ nav.fixed.bottom-0 {
 .modal-backdrop > div {
   background: #FFFFFF !important;
   border: 3px solid #000000 !important;
-  box-shadow: 6px 6px 0px #000000 !important;
+  box-shadow: 5px 5px 0px #000000 !important;
   border-radius: 24px !important;
   color: #000000 !important;
+  max-width: 380px !important;
+  width: calc(100% - 24px) !important;
+  box-sizing: border-box !important;
 }
 
 .modal-backdrop h3,
@@ -1261,6 +1264,18 @@ nav.fixed.bottom-0 {
   margin-bottom: 0.75rem !important;
   box-shadow: 4px 4px 0px #000000 !important;
   color: #000000 !important;
+  cursor: pointer !important;
+  transition: transform 0.12s ease, box-shadow 0.12s ease !important;
+}
+
+.neo-history-card:hover {
+  transform: translate(-1.5px, -1.5px) !important;
+  box-shadow: 6px 6px 0px #000000 !important;
+}
+
+.neo-history-card:active {
+  transform: translate(1px, 1px) !important;
+  box-shadow: 2px 2px 0px #000000 !important;
 }
 
 .neo-history-card .h-price {
@@ -1268,13 +1283,29 @@ nav.fixed.bottom-0 {
   font-weight: 900 !important;
 }
 
-.neo-history-card .btn-neo-secondary {
+.neo-history-card .btn-neo-secondary,
+.neo-history-card .btn-view-receipt {
   border: 2px solid #000000 !important;
   background: #FFDE59 !important;
   color: #000000 !important;
   font-weight: 800 !important;
   box-shadow: 2px 2px 0px #000000 !important;
-  border-radius: 10px !important;
+  border-radius: 12px !important;
+  cursor: pointer !important;
+  transition: all 0.12s ease !important;
+}
+
+.neo-history-card .btn-neo-secondary:hover,
+.neo-history-card .btn-view-receipt:hover {
+  background: #FACC15 !important;
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 3.5px 3.5px 0px #000000 !important;
+}
+
+.neo-history-card .btn-neo-secondary:active,
+.neo-history-card .btn-view-receipt:active {
+  transform: translate(1px, 1px) !important;
+  box-shadow: 1px 1px 0px #000000 !important;
 }
 
 /* Tab Panes Common Neobrutalist Boxes */
