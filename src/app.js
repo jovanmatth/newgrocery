@@ -2237,38 +2237,142 @@
     if (window.lucide) lucide.createIcons();
   }
 
-  // Autocomplete Suggestions
-  inputItemName?.addEventListener('input', () => {
-    const val = inputItemName.value.trim().toLowerCase();
-    if (val.length < 1) {
-      autoSuggestContainer?.classList.add('hidden');
-      return;
-    }
+  // Autocomplete Suggestions with Keyboard Navigation & Clean Dismissal
+  let currentMatches = [];
+  let activeSuggestionIndex = -1;
 
-    const matches = appState.masterItems.filter(m => m.name.toLowerCase().includes(val));
-    if (matches.length === 0) {
-      autoSuggestContainer?.classList.add('hidden');
+  function renderAutoSuggestions(matches, activeIdx = -1) {
+    if (!autoSuggestContainer) return;
+    if (!matches || matches.length === 0) {
+      autoSuggestContainer.innerHTML = '';
+      autoSuggestContainer.classList.add('hidden');
       return;
     }
 
     let html = '';
-    matches.forEach(m => {
+    matches.forEach((m, idx) => {
+      const isActive = idx === activeIdx;
       html += `
-        <div class="auto-row-neo" onclick="window.selectMasterSuggestion('${escapeHtml(m.name)}')">
-          <div>
-            <strong>${escapeHtml(m.name)}</strong>
-            <small style="display:block; color:var(--text-muted); font-size:0.65rem;">${escapeHtml(m.category)} • ${escapeHtml(m.unit)}</small>
+        <div class="auto-row-neo ${isActive ? 'active-suggestion' : ''}"
+             data-index="${idx}"
+             onclick="window.selectMasterSuggestion('${escapeHtml(m.name)}')">
+          <div class="min-w-0 pr-2">
+            <strong class="text-xs sm:text-sm font-black text-black block truncate">${escapeHtml(m.name)}</strong>
+            <small class="block text-stone-500 font-bold text-[10px] uppercase tracking-wide truncate">${escapeHtml(m.category)} • ${escapeHtml(m.unit)}</small>
           </div>
-          <span style="font-family:var(--font-mono); color:var(--volt-main); font-size:0.72rem;">
+          <span class="font-mono text-xs font-black text-emerald-700 whitespace-nowrap">
             Lalu: Rp ${formatNumber(m.lastPrice)}
           </span>
         </div>
       `;
     });
 
-    if (autoSuggestContainer) {
-      autoSuggestContainer.innerHTML = html;
-      autoSuggestContainer.classList.remove('hidden');
+    autoSuggestContainer.innerHTML = html;
+    autoSuggestContainer.classList.remove('hidden');
+
+    if (activeIdx >= 0) {
+      const activeEl = autoSuggestContainer.querySelector(`.auto-row-neo[data-index="${activeIdx}"]`);
+      if (activeEl) {
+        activeEl.scrollIntoView({ block: 'nearest' });
+      }
+    }
+  }
+
+  inputItemName?.addEventListener('input', () => {
+    const val = inputItemName.value.trim().toLowerCase();
+    activeSuggestionIndex = -1;
+    if (val.length < 1) {
+      currentMatches = [];
+      renderAutoSuggestions([]);
+      return;
+    }
+
+    currentMatches = appState.masterItems.filter(m => m.name.toLowerCase().includes(val));
+    if (currentMatches.length === 0) {
+      renderAutoSuggestions([]);
+      return;
+    }
+
+    renderAutoSuggestions(currentMatches, -1);
+  });
+
+  inputItemName?.addEventListener('keydown', (e) => {
+    const isDropdownVisible = autoSuggestContainer && !autoSuggestContainer.classList.contains('hidden');
+
+    if (e.key === 'Escape') {
+      autoSuggestContainer?.classList.add('hidden');
+      currentMatches = [];
+      activeSuggestionIndex = -1;
+      return;
+    }
+
+    if (e.key === 'ArrowDown') {
+      if (isDropdownVisible && currentMatches.length > 0) {
+        e.preventDefault();
+        activeSuggestionIndex = (activeSuggestionIndex + 1) % currentMatches.length;
+        renderAutoSuggestions(currentMatches, activeSuggestionIndex);
+      }
+      return;
+    }
+
+    if (e.key === 'ArrowUp') {
+      if (isDropdownVisible && currentMatches.length > 0) {
+        e.preventDefault();
+        activeSuggestionIndex = (activeSuggestionIndex - 1 + currentMatches.length) % currentMatches.length;
+        renderAutoSuggestions(currentMatches, activeSuggestionIndex);
+      }
+      return;
+    }
+
+    if (e.key === 'Enter') {
+      e.preventDefault(); // Mencegah submit prematur saat sedang mengetik nama barang
+
+      if (isDropdownVisible && activeSuggestionIndex >= 0 && activeSuggestionIndex < currentMatches.length) {
+        // User memilih salah satu item via navigasi panah keyboard
+        window.selectMasterSuggestion(currentMatches[activeSuggestionIndex].name);
+      } else {
+        // User mengetik nama manual (contoh: "beras") lalu tekan Enter:
+        // Tutup dropdown seketika agar tidak menutupi form!
+        autoSuggestContainer?.classList.add('hidden');
+        currentMatches = [];
+        activeSuggestionIndex = -1;
+
+        const typedName = inputItemName.value.trim();
+        if (typedName) {
+          // Cari item master yang cocok untuk melengkapi kategori/harga acuan jika belum diisi
+          const matched = appState.masterItems.find(m => m.name.toLowerCase() === typedName.toLowerCase())
+            || appState.masterItems.find(m => m.name.toLowerCase().includes(typedName.toLowerCase()));
+          if (matched) {
+            if (!inputItemLastMonthPrice.value) inputItemLastMonthPrice.value = matched.lastPrice;
+            if (matched.category && selectItemCategory) selectItemCategory.value = matched.category;
+            if (matched.unit && selectItemUnit) selectItemUnit.value = matched.unit;
+            if (!inputItemPrice.value) inputItemPrice.value = matched.lastPrice;
+          }
+        }
+        updateModalLiveCalculations();
+      }
+
+      // Alihkan kursor langsung ke input harga satuan
+      if (inputItemPrice) {
+        inputItemPrice.focus();
+        inputItemPrice.select();
+      }
+    }
+  });
+
+  // Blur: tutup dropdown saran dengan sedikit delay agar event klik pada saran tetap berfungsi
+  inputItemName?.addEventListener('blur', () => {
+    setTimeout(() => {
+      autoSuggestContainer?.classList.add('hidden');
+    }, 200);
+  });
+
+  // Tutup dropdown jika user klik di luar inputItemName dan autoSuggestContainer
+  document.addEventListener('click', (e) => {
+    if (autoSuggestContainer && !autoSuggestContainer.classList.contains('hidden')) {
+      if (!autoSuggestContainer.contains(e.target) && e.target !== inputItemName) {
+        autoSuggestContainer.classList.add('hidden');
+      }
     }
   });
 
@@ -2284,13 +2388,21 @@
       inputItemPrice.value = item.lastPrice;
     }
     autoSuggestContainer.classList.add('hidden');
+    currentMatches = [];
+    activeSuggestionIndex = -1;
     updateModalLiveCalculations();
     AudioEngine.playTap();
+
+    if (inputItemPrice) {
+      inputItemPrice.focus();
+      inputItemPrice.select();
+    }
   };
 
   // Submit Modal
   formItemModal.addEventListener('submit', (e) => {
     e.preventDefault();
+    autoSuggestContainer?.classList.add('hidden');
 
     const name = inputItemName.value.trim();
     const category = selectItemCategory.value;

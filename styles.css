@@ -719,6 +719,45 @@ input[type="number"] {
   box-shadow: none !important;
 }
 
+/* ==========================================================================
+   AUTOCOMPLETE SUGGESTIONS DROPDOWN (NEOBRUTALISM)
+   ========================================================================== */
+.neo-autocomplete-dropdown {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  margin-top: 4px;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 14px;
+  box-shadow: 4px 4px 0px #000000;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 50;
+}
+
+.auto-row-neo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-bottom: 1.5px solid #000000;
+  cursor: pointer;
+  background: #FFFFFF;
+  transition: background-color 0.12s ease;
+  user-select: none;
+}
+
+.auto-row-neo:last-child {
+  border-bottom: none;
+}
+
+.auto-row-neo:hover,
+.auto-row-neo.active-suggestion {
+  background: #FEF08A !important; /* Neo Yellow Highlight */
+}
+
 .segment-meter-grid {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
