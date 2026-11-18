@@ -5410,8 +5410,8 @@
     const shelfContainer = document.getElementById('plannerPendingItemsList');
     const pill = document.getElementById('plannerProgressPill');
 
-    const pendingItems = appState.planner.filter(p => !p.isPurchased);
-    const purchasedInCartCount = appState.cart.filter(item => item.isPlanned).length;
+    const pendingItems = Array.isArray(appState.planner) ? appState.planner.filter(p => p && !p.isPurchased) : [];
+    const purchasedInCartCount = Array.isArray(appState.cart) ? appState.cart.filter(item => item && item.isPlanned).length : 0;
     const totalPlannedCount = purchasedInCartCount + pendingItems.length;
 
     if (pill) {
@@ -5436,40 +5436,42 @@
       if (pendingItems.length === 0) {
         if (purchasedInCartCount > 0) {
           shelfContainer.innerHTML = `
-            <div class="p-3 bg-secondary-fixed/20 rounded-2xl text-center text-secondary font-label-sm text-label-sm font-semibold flex items-center justify-center gap-2 border border-secondary/20">
+            <div class="p-3 bg-[#DCFCE7] rounded-xl text-center text-[#15803D] font-bold text-xs flex items-center justify-center gap-2 border-2 border-black shadow-[2px_2px_0_#000]">
               <span class="material-symbols-outlined text-[18px]">verified</span>
               <span>Semua kebutuhan terencana sudah dimasukkan ke troli! 🎉</span>
             </div>
           `;
         } else {
           shelfContainer.innerHTML = `
-            <div class="p-3 bg-surface-container-low rounded-2xl text-center text-on-surface-variant font-body-sm text-xs border border-outline-variant/30">
-              Belum ada rencana kebutuhan. Tekan <strong>+ Atur Daftar Kebutuhan</strong> di bawah untuk mencatat barang dari rumah.
+            <div class="p-3 bg-white rounded-xl text-center text-stone-500 font-semibold text-xs border-2 border-dashed border-stone-300">
+              Belum ada rencana kebutuhan. Tekan <strong class="text-black">+ Atur Daftar Kebutuhan</strong> di bawah untuk mencatat barang dari rumah.
             </div>
           `;
         }
       } else {
         let html = '';
         pendingItems.forEach(item => {
-          const master = appState.masterItems.find(m => m.name.toLowerCase() === item.name.toLowerCase());
+          const master = (appState.masterItems && Array.isArray(appState.masterItems))
+            ? appState.masterItems.find(m => m && m.name && m.name.toLowerCase() === (item.name || '').toLowerCase())
+            : null;
           const refPrice = master ? master.lastPrice : 0;
 
           html += `
-            <div class="p-3 bg-surface-container-low rounded-2xl flex items-center justify-between gap-2 border border-outline-variant/30">
+            <div class="p-3 bg-white rounded-xl flex items-center justify-between gap-2 border-2 border-black shadow-[2px_2px_0_#000]">
               <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-1.5 mb-0.5">
-                  <span class="text-[10px] font-bold uppercase px-2 py-0.2 rounded-full bg-surface-container text-secondary">
+                  <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-[#FEF08A] text-black border border-black shadow-[1px_1px_0_#000]">
                     ${escapeHtml(item.category)}
                   </span>
-                  ${refPrice > 0 ? `<span class="text-[10px] text-on-surface-variant font-mono">Acuan bulan lalu: Rp ${formatNumber(refPrice)}</span>` : ''}
+                  ${refPrice > 0 ? `<span class="text-[10px] text-stone-600 font-mono font-bold">Acuan bulan lalu: Rp ${formatNumber(refPrice)}</span>` : ''}
                 </div>
-                <h4 class="font-headline-sm text-[14px] text-primary font-bold truncate">${escapeHtml(item.name)}</h4>
-                <span class="font-body-sm text-[12px] text-on-surface-variant font-medium">Kebutuhan: <strong>${item.qty} ${escapeHtml(item.unit)}</strong></span>
+                <h4 class="font-headline-sm text-xs font-black text-black truncate">${escapeHtml(item.name)}</h4>
+                <span class="font-body-sm text-[11px] text-stone-600 font-bold">Kebutuhan: <strong class="text-black">${item.qty} ${escapeHtml(item.unit)}</strong></span>
               </div>
               <div class="flex items-center gap-1.5 shrink-0">
-                <button class="px-3 py-1.5 rounded-full bg-primary text-on-primary font-label-sm text-[12px] font-bold flex items-center gap-1 shadow-sm active:scale-95 cursor-pointer hover:bg-primary-container"
+                <button class="px-3 py-1.5 rounded-xl bg-[#FFDE59] hover:bg-[#FACC15] text-black font-black text-xs flex items-center gap-1 border-2 border-black shadow-[2px_2px_0_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer"
                   onclick="window.openShelfPriceModal('${item.id}')" title="Ketik harga saat menemukan di rak">
-                  <span class="material-symbols-outlined text-[15px]">price_change</span>
+                  <span class="material-symbols-outlined text-[15px] font-black">price_change</span>
                   <span>Input Harga Rak</span>
                 </button>
               </div>
@@ -5489,8 +5491,10 @@
 
     let totalEstCost = 0;
     pendingItems.forEach(p => {
-      const master = appState.masterItems.find(m => m.name.toLowerCase() === p.name.toLowerCase());
-      if (master) totalEstCost += master.lastPrice * p.qty;
+      const master = (appState.masterItems && Array.isArray(appState.masterItems))
+        ? appState.masterItems.find(m => m && m.name && m.name.toLowerCase() === (p.name || '').toLowerCase())
+        : null;
+      if (master && master.lastPrice) totalEstCost += master.lastPrice * (p.qty || 1);
     });
 
     if (estCostEl) {
@@ -5500,41 +5504,43 @@
     if (fullContainer) {
       if (pendingItems.length === 0) {
         fullContainer.innerHTML = `
-          <div class="p-4 bg-surface-container-low rounded-xl text-center text-on-surface-variant font-body-sm text-body-sm">
+          <div class="p-4 bg-white rounded-xl text-center text-stone-500 font-semibold text-xs border-2 border-dashed border-stone-300">
             Belum ada rencana kebutuhan. Gunakan form di atas untuk mencatat barang sebelum ke supermarket.
           </div>
         `;
       } else {
         let html = '';
         pendingItems.forEach(item => {
-          const master = appState.masterItems.find(m => m.name.toLowerCase() === item.name.toLowerCase());
+          const master = (appState.masterItems && Array.isArray(appState.masterItems))
+            ? appState.masterItems.find(m => m && m.name && m.name.toLowerCase() === (item.name || '').toLowerCase())
+            : null;
           const estPrice = master ? master.lastPrice : 0;
 
           html += `
-            <div class="p-3 bg-surface-container-low rounded-xl flex items-center justify-between gap-2 border border-outline-variant/30">
-              <div class="flex items-center gap-2 flex-1 min-w-0">
-                <span class="w-6 h-6 rounded-full bg-surface-container-highest text-secondary flex items-center justify-center text-[13px] font-bold">
-                  •
+            <div class="p-3 bg-white rounded-xl flex items-center justify-between gap-2 border-2 border-black shadow-[2px_2px_0_#000]">
+              <div class="flex items-center gap-2.5 flex-1 min-w-0">
+                <span class="w-7 h-7 rounded-lg bg-[#FEF08A] text-black border border-black shadow-[1px_1px_0_#000] flex items-center justify-center text-xs font-black shrink-0">
+                  📋
                 </span>
                 <div class="min-w-0">
-                  <h4 class="font-headline-sm text-[14px] text-primary font-bold truncate">${escapeHtml(item.name)}</h4>
-                  <div class="flex items-center gap-2 font-body-sm text-[11px] text-on-surface-variant">
+                  <h4 class="font-headline-sm text-xs font-black text-black truncate">${escapeHtml(item.name)}</h4>
+                  <div class="flex items-center gap-2 font-mono text-[10px] text-stone-600 font-bold mt-0.5">
                     <span>${item.qty} ${escapeHtml(item.unit)}</span>
                     <span>•</span>
-                    <span>${escapeHtml(item.category)}</span>
-                    ${estPrice > 0 ? `<span>• Est. Rp ${formatNumber(estPrice * item.qty)}</span>` : ''}
+                    <span class="text-amber-800">${escapeHtml(item.category)}</span>
+                    ${estPrice > 0 ? `<span class="text-black font-black">• Est. Rp ${formatNumber(estPrice * item.qty)}</span>` : ''}
                   </div>
                 </div>
               </div>
               <div class="flex items-center gap-1.5 shrink-0">
-                <button class="px-2.5 py-1 rounded-full bg-primary text-on-primary font-label-sm text-[11px] font-bold flex items-center gap-1 shadow-xs hover:bg-primary-container cursor-pointer"
+                <button type="button" class="px-2.5 py-1 rounded-lg bg-[#FFDE59] hover:bg-[#FACC15] text-black font-black text-xs flex items-center gap-1 border-2 border-black shadow-[1.5px_1.5px_0_#000] active:translate-x-0.5 active:translate-y-0.5 cursor-pointer"
                   onclick="window.openShelfPriceModal('${item.id}')" title="Input harga di rak & masukkan ke troli">
-                  <span class="material-symbols-outlined text-[14px]">price_change</span>
+                  <span class="material-symbols-outlined text-[14px] font-black">price_change</span>
                   <span>Beli</span>
                 </button>
-                <button class="w-7 h-7 rounded-full text-error hover:bg-red-50 flex items-center justify-center cursor-pointer"
+                <button type="button" class="w-7 h-7 rounded-lg bg-white hover:bg-rose-100 text-rose-600 border-2 border-black shadow-[1.5px_1.5px_0_#000] flex items-center justify-center cursor-pointer active:translate-x-0.5 active:translate-y-0.5"
                   onclick="window.deletePlannerItem('${item.id}')" title="Hapus dari Rencana">
-                  <span class="material-symbols-outlined text-[16px]">delete</span>
+                  <span class="material-symbols-outlined text-[15px] font-black">delete</span>
                 </button>
               </div>
             </div>
@@ -5670,18 +5676,31 @@
   }
 
   function addPlannerItemFromForm(e) {
-    if (e) e.preventDefault();
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     const nameInput = document.getElementById('inputPlannerName');
     const catSelect = document.getElementById('selectPlannerCategory');
     const unitSelect = document.getElementById('selectPlannerUnit');
     const qtyInput = document.getElementById('inputPlannerQty');
 
-    const name = nameInput.value.trim();
-    const category = catSelect.value;
-    const unit = unitSelect.value;
-    const qty = parseInt(qtyInput.value, 10) || 1;
+    if (!nameInput) return false;
 
-    if (!name) return;
+    const name = nameInput.value.trim();
+    const category = catSelect ? catSelect.value : 'Bahan Pokok';
+    const unit = unitSelect ? unitSelect.value : 'pack';
+    const qty = qtyInput ? (parseInt(qtyInput.value, 10) || 1) : 1;
+
+    if (!name) {
+      showToast('Ketik nama barang kebutuhan terlebih dahulu!', 'warning');
+      nameInput.focus();
+      return false;
+    }
+
+    if (!Array.isArray(appState.planner)) {
+      appState.planner = [];
+    }
 
     const newPlan = {
       id: 'plan-' + Date.now(),
@@ -5694,15 +5713,26 @@
     };
 
     appState.planner.unshift(newPlan);
-    savePlanner();
-    renderShoppingPlannerSection();
+    try {
+      savePlanner();
+    } catch (err) {
+      console.warn('savePlanner error:', err);
+    }
+    
+    try {
+      renderShoppingPlannerSection();
+    } catch (err) {
+      console.warn('renderShoppingPlannerSection error:', err);
+    }
 
     nameInput.value = '';
-    qtyInput.value = '1';
+    if (qtyInput) qtyInput.value = '1';
 
-    AudioEngine.playTap();
-    showToast(`"${name}" dicatat ke Rencana Belanja`, 'success');
+    AudioEngine.playSuccess();
+    showToast(`"${name}" berhasil disimpan ke Rencana Belanja`, 'success');
+    return false;
   }
+  window.addPlannerItemFromForm = addPlannerItemFromForm;
 
   window.deletePlannerItem = function (id) {
     const item = appState.planner.find(p => p.id === id);
