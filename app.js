@@ -2173,6 +2173,11 @@
 
     updateModalLiveCalculations();
     modalItemBackdrop.classList.remove('hidden');
+
+    // Sembunyikan bar ringkasan bawah agar tidak menutupi modal saat tambah/edit item
+    const summaryBottom = document.getElementById('cartSummaryBottom');
+    if (summaryBottom) summaryBottom.classList.add('hidden');
+
     inputItemName.focus();
     if (window.lucide) lucide.createIcons();
   }
@@ -2181,6 +2186,13 @@
     modalItemBackdrop.classList.add('hidden');
     autoSuggestContainer.classList.add('hidden');
     appState.editingItemId = null;
+
+    // Pulihkan bar ringkasan bawah jika tab troli aktif dan ada item di keranjang
+    const summaryBottom = document.getElementById('cartSummaryBottom');
+    const isCartTab = document.getElementById('tabCart')?.classList.contains('active');
+    if (summaryBottom && isCartTab && appState.cart && appState.cart.length > 0) {
+      summaryBottom.classList.remove('hidden');
+    }
   }
 
   window.editCartItem = function (id) {

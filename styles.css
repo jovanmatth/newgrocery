@@ -931,6 +931,7 @@ nav.fixed.bottom-0 {
    MODALS, OVERLAYS & FORMS
    ========================================================================== */
 .modal-backdrop {
+  z-index: 999 !important;
   background: rgba(0, 0, 0, 0.6) !important;
   backdrop-filter: blur(4px) !important;
 }
@@ -944,6 +945,13 @@ nav.fixed.bottom-0 {
   max-width: 380px !important;
   width: calc(100% - 24px) !important;
   box-sizing: border-box !important;
+  position: relative;
+  z-index: 1000 !important;
+}
+
+/* Sembunyikan bar bawah (dock summary troli) saat modal apa pun sedang terbuka */
+body:has(.modal-backdrop:not(.hidden)) #cartSummaryBottom {
+  display: none !important;
 }
 
 .modal-backdrop h3,
